@@ -187,11 +187,11 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
       ref={dialogRef}
       onClose={onClose}
       onClick={handleBackdropClick}
-      className="m-auto w-full max-w-md rounded-2xl border border-border bg-card p-0 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] backdrop-blur-none backdrop:bg-black/40 backdrop:backdrop-blur-md open:flex open:flex-col overflow-hidden"
+      className="m-auto w-full max-w-md max-h-[90svh] rounded-2xl border border-border bg-card p-0 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] backdrop-blur-none backdrop:bg-black/40 backdrop:backdrop-blur-md open:flex open:flex-col overflow-hidden"
     >
       <div className="flex flex-col w-full h-full bg-card border-none rounded-none !shadow-none">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-white/10 px-6 py-4 bg-white/5">
+        <div className="flex items-center justify-between border-b border-white/10 px-4 py-3 sm:px-6 sm:py-4 bg-white/5">
           <h2 className="text-base font-semibold">{isEdit ? 'Edit Transaksi' : 'Tambah Transaksi'}</h2>
         <button
           type="button"
@@ -204,13 +204,13 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
       </div>
 
       {/* Type tabs */}
-      <div className="flex gap-2 px-6 pt-5">
+      <div className="flex gap-2 px-4 pt-4 sm:px-6 sm:pt-5">
         {TYPE_TABS.map(tab => (
           <button
             key={tab.value}
             type="button"
             onClick={() => { setType(tab.value); setCategoryId('') }}
-            className={`flex flex-1 items-center justify-center gap-1.5 rounded-xl border py-2.5 text-xs font-bold transition-all duration-300 ${type === tab.value
+            className={`flex flex-1 items-center justify-center gap-1 rounded-xl border py-2 text-xs font-bold transition-all duration-300 ${type === tab.value
                 ? tab.color + ' shadow-sm ring-1 ring-inset ' + tab.color.split(' ')[1].replace('border-', 'ring-')
                 : 'border-white/5 bg-black/20 text-muted-foreground hover:bg-white/5 hover:text-foreground'
               }`}
@@ -222,7 +222,7 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
       </div>
 
       {/* Form */}
-      <form onSubmit={handleSubmit} className="flex flex-col gap-5 overflow-y-auto px-6 py-5 custom-scrollbar">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 overflow-y-auto px-4 py-4 sm:px-6 sm:py-5 custom-scrollbar">
         {/* Amount */}
         <div className="space-y-2">
           <Label htmlFor="amount" className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Jumlah (Rp)</Label>
@@ -236,11 +236,11 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
             onChange={e => setAmount(e.target.value)}
             required
             disabled={loading}
-            className="text-2xl font-bold h-14 bg-black/20 border-white/10 rounded-xl focus-visible:ring-1 focus-visible:ring-primary/50 shadow-inner"
+            className="text-xl sm:text-2xl font-bold h-11 sm:h-14 bg-black/20 border-white/10 rounded-xl focus-visible:ring-1 focus-visible:ring-primary/50 shadow-inner"
           />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Account (source) */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
@@ -324,7 +324,7 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
           )}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Date */}
           <div className="space-y-2">
             <Label htmlFor="date" className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Tanggal</Label>

@@ -99,7 +99,7 @@ export default function AddAccountModal({ open, onClose, onSuccess, initialData 
     >
       <div className="flex flex-col w-full h-full bg-card border-none rounded-none !shadow-none">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-border/40 px-6 py-5 bg-card/40">
+        <div className="flex items-center justify-between border-b border-border/40 px-4 py-3 sm:px-6 sm:py-5 bg-card/40">
           <div className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/20 text-primary border border-primary/30 shadow-inner">
               {isEdit ? <Landmark className="h-4 w-4" /> : <Wallet className="h-4 w-4" />}
@@ -120,7 +120,7 @@ export default function AddAccountModal({ open, onClose, onSuccess, initialData 
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="flex flex-col gap-5 px-6 py-6">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 px-4 py-4 sm:px-6 sm:py-6">
           <div className="space-y-2">
             <Label htmlFor="accountName" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground ml-1">Nama Akun</Label>
             <Input
@@ -131,7 +131,7 @@ export default function AddAccountModal({ open, onClose, onSuccess, initialData 
               onChange={(e) => setName(e.target.value)}
               disabled={loading}
               required
-              className="h-12 bg-black/20 border-border/50 focus:border-primary/50 transition-colors shadow-inner"
+              className="h-10 sm:h-12 bg-black/20 border-border/50 focus:border-primary/50 transition-colors shadow-inner"
             />
           </div>
 
@@ -142,7 +142,7 @@ export default function AddAccountModal({ open, onClose, onSuccess, initialData 
               value={type}
               onChange={(e) => setType(e.target.value)}
               disabled={loading}
-              className="h-12 w-full rounded-md border border-border/50 bg-black/20 px-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-colors shadow-inner"
+              className="h-10 sm:h-12 w-full rounded-md border border-border/50 bg-black/20 px-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-colors shadow-inner"
             >
               <option value="bank" className="bg-background">Bank</option>
               <option value="cash" className="bg-background">Kas</option>
@@ -161,10 +161,10 @@ export default function AddAccountModal({ open, onClose, onSuccess, initialData 
           {/* Actions */}
           <div className="flex flex-col gap-3 pt-2">
             <div className="flex gap-3">
-              <Button type="button" variant="outline" onClick={onClose} disabled={loading} className="flex-1 h-12 border-border/50 hover:bg-accent/50 transition-colors font-semibold">
+              <Button type="button" variant="outline" onClick={onClose} disabled={loading} className="flex-1 h-10 sm:h-12 border-border/50 hover:bg-accent/50 transition-colors font-semibold">
                 Batal
               </Button>
-              <Button type="submit" disabled={loading} className="flex-1 h-12 font-semibold">
+              <Button type="submit" disabled={loading} className="flex-1 h-10 sm:h-12 font-semibold">
                 {loading ? 'Menyimpan...' : isEdit ? 'Simpan Perubahan' : 'Simpan Akun'}
               </Button>
             </div>
@@ -175,7 +175,7 @@ export default function AddAccountModal({ open, onClose, onSuccess, initialData 
                 variant="ghost"
                 onClick={handleDelete}
                 disabled={loading}
-                className="text-rose-400 hover:bg-rose-500/10 hover:text-rose-400 transition-colors h-11 mt-1 font-medium group"
+                className="text-rose-400 hover:bg-rose-500/10 hover:text-rose-400 transition-colors h-9 sm:h-11 mt-1 font-medium group"
               >
                 <Trash2 className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform" /> Hapus Akun
               </Button>
