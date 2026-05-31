@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { getAccounts, type Account } from '@/lib/transactions'
 import AddAccountModal from '@/components/AddAccountModal'
-import { Coins, Smartphone, Landmark, Plus, Wallet } from 'lucide-react'
+import { Coins, Smartphone, Landmark, Wallet, Plus } from 'lucide-react'
 import { formatRp } from '@/lib/format'
 import { Skeleton } from '@/components/ui/skeleton'
 
@@ -42,9 +42,14 @@ export default function AccountsPage() {
   return (
     <>
       <header className="sticky top-0 z-10 flex shrink-0 h-16 items-center justify-between border-b border-border bg-background/80 px-6 backdrop-blur-md animate-fade-in">
-        <div>
-          <h1 className="font-playfair text-[19px] font-bold tracking-wide text-foreground">Akun</h1>
-        </div>
+        <h1 className="font-playfair text-[19px] font-bold tracking-wide text-foreground">Akun</h1>
+        <button
+          onClick={handleAddNew}
+          className="flex items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground transition-all hover:bg-primary/90 active:scale-95"
+        >
+          <Plus className="h-3.5 w-3.5" />
+          Tambah
+        </button>
       </header>
 
       <div className="p-4 sm:p-6 space-y-6 animate-fade-in">
@@ -185,16 +190,7 @@ export default function AccountsPage() {
         </div>
       </div>
 
-      {/* Floating Add Account Button */}
-      <button
-        onClick={handleAddNew}
-        className="fixed bottom-24 right-4 sm:bottom-8 sm:right-8 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-all duration-300 hover:scale-110 hover:bg-primary/90 active:scale-95 group"
-        title="Tambah Akun"
-      >
-        <Plus className="h-6 w-6 transition-transform duration-300 group-hover:rotate-90" />
-      </button>
-
-      <AddAccountModal
+<AddAccountModal
         open={modalOpen}
         onClose={() => {
           setModalOpen(false)
