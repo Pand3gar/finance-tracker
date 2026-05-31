@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { supabase } from '@/lib/supabase'
+import { registerUser, loginUser } from '@/lib/auth'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -8,10 +8,27 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [fullName, setFullName] = useState('')
   const [isSignUp, setIsSignUp] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [message, setMessage] = useState<string | null>(null)
+
+  const translateError = (err: string) => {
+    if (err.includes('User already registered')) {
+      return 'Email ini sudah terdaftar. Silakan login atau gunakan email lain.'
+    }
+    if (err.includes('Invalid login credentials')) {
+      return 'Email atau password salah. Silakan coba lagi.'
+    }
+    if (err.includes('Password should be at least 6 characters')) {
+      return 'Password minimal 6 karakter.'
+    }
+    if (err.includes('Unable to validate email address: invalid format')) {
+      return 'Format email tidak valid.'
+    }
+    return err
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -19,49 +36,80 @@ export default function LoginPage() {
     setError(null)
     setMessage(null)
 
-    if (isSignUp) {
-      const { error } = await supabase.auth.signUp({ email, password })
-      if (error) setError(error.message)
-      else setMessage('Check your email to confirm your account!')
-    } else {
-      const { error } = await supabase.auth.signInWithPassword({ email, password })
-      if (error) setError(error.message)
-    }
+    try {
+      if (isSignUp) {
+        // Basic validation
+        if (!fullName.trim()) {
+          setError('Nama lengkap tidak boleh kosong.')
+          setLoading(false)
+          return
+        }
 
-    setLoading(false)
+        await registerUser(email, password, fullName)
+        setMessage('Registrasi berhasil! Cek email kamu untuk konfirmasi.')
+      } else {
+        await loginUser(email, password)
+        // Login success will be handled by App.tsx (onAuthStateChange)
+      }
+    } catch (err: any) {
+      setError(translateError(err.message || 'Terjadi kesalahan sistem.'))
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      {/* Gradient background */}
-      <div className="pointer-events-none fixed inset-0 overflow-hidden">
-        <div className="absolute -top-40 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" />
-        <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-blue-500/10 blur-3xl" />
+    <div className="flex min-h-screen items-center justify-center bg-background px-4 relative overflow-hidden">
+      {/* Subtle dot pattern overlay */}
+      <div className="absolute inset-0 z-0 opacity-20 pointer-events-none" style={{ backgroundImage: 'radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
+      
+      {/* Animated floating background shapes */}
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+        <div className="absolute -top-20 left-[20%] h-96 w-96 rounded-full bg-primary/15 blur-[100px] animate-float" style={{ animationDuration: '8s' }} />
+        <div className="absolute bottom-[10%] right-[10%] h-80 w-80 rounded-full bg-indigo-500/15 blur-[100px] animate-float" style={{ animationDuration: '10s', animationDelay: '1s' }} />
+        <div className="absolute top-[30%] right-[20%] h-64 w-64 rounded-full bg-violet-500/10 blur-[80px] animate-float" style={{ animationDuration: '7s', animationDelay: '2s' }} />
+        <div className="absolute bottom-[20%] left-[10%] h-72 w-72 rounded-full bg-cyan-500/10 blur-[90px] animate-float" style={{ animationDuration: '9s', animationDelay: '0.5s' }} />
       </div>
 
-      <Card className="w-full max-w-md border-border/50 bg-card/80 backdrop-blur-sm">
-        <CardHeader className="space-y-1 text-center">
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-2xl">
-            🚀
+      <Card className="w-full max-w-md glass-card animate-slide-up relative z-10 overflow-hidden border-border/40">
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-indigo-500 to-violet-500" />
+        <CardHeader className="space-y-1 text-center pt-8">
+          <div className="mb-2">
+            <span className="font-playfair text-[22px] font-bold tracking-wide text-foreground">
+              Finance <span className="text-primary italic font-medium">Tracker</span>
+            </span>
           </div>
+
           <CardTitle className="text-2xl font-bold tracking-tight">
-            {isSignUp ? 'Create Account' : 'Welcome back'}
+            {isSignUp ? 'Buat Akun Baru' : 'Selamat Datang'}
           </CardTitle>
           <CardDescription className="text-muted-foreground">
-            {isSignUp
-              ? 'Sign up to get started with the dashboard'
-              : 'Sign in to access your dashboard'}
           </CardDescription>
         </CardHeader>
 
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
+            {isSignUp && (
+              <div className="space-y-2">
+                <Label htmlFor="fullName">Nama Lengkap</Label>
+                <Input
+                  id="fullName"
+                  type="text"
+                  placeholder="John Doe"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  required
+                  disabled={loading}
+                />
+              </div>
+            )}
+
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
                 type="email"
-                placeholder="you@example.com"
+                placeholder="anda@contoh.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -79,11 +127,12 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 disabled={loading}
+                minLength={6}
               />
             </div>
 
             {error && (
-              <p className="rounded-lg bg-destructive/10 px-4 py-3 text-sm text-red-400">
+              <p className="rounded-lg bg-destructive/10 px-4 py-3 text-sm text-rose-400">
                 {error}
               </p>
             )}
@@ -94,25 +143,25 @@ export default function LoginPage() {
               </p>
             )}
 
-            <Button type="submit" className="w-full" disabled={loading}>
+            <Button type="submit" className="w-full bg-gradient-to-r from-primary to-indigo-500 hover:from-primary/90 hover:to-indigo-500/90 shadow-[0_0_20px_rgba(99,102,241,0.2)] transition-all hover:shadow-[0_0_25px_rgba(99,102,241,0.4)]" disabled={loading}>
               {loading ? (
                 <span className="flex items-center gap-2">
-                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
-                  {isSignUp ? 'Creating account...' : 'Signing in...'}
+                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/80 border-t-transparent" />
+                  {isSignUp ? 'Mendaftarkan...' : 'Masuk...'}
                 </span>
               ) : (
-                isSignUp ? 'Create Account' : 'Sign In'
+                isSignUp ? 'Daftar Sekarang' : 'Masuk'
               )}
             </Button>
 
             <p className="text-center text-sm text-muted-foreground">
-              {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
+              {isSignUp ? 'Sudah punya akun?' : 'Belum punya akun?'}{' '}
               <button
                 type="button"
                 onClick={() => { setIsSignUp(!isSignUp); setError(null); setMessage(null) }}
                 className="font-medium text-primary hover:underline"
               >
-                {isSignUp ? 'Sign In' : 'Sign Up'}
+                {isSignUp ? 'Masuk' : 'Daftar'}
               </button>
             </p>
           </form>

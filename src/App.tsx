@@ -4,6 +4,10 @@ import type { Session } from '@supabase/supabase-js'
 import { supabase, isSupabaseConfigured } from '@/lib/supabase'
 import LoginPage from '@/pages/LoginPage'
 import DashboardPage from '@/pages/DashboardPage'
+import AccountsPage from '@/pages/AccountsPage'
+import ReportsPage from '@/pages/ReportsPage'
+import TransactionsPage from '@/pages/TransactionsPage'
+import Layout from '@/components/Layout'
 
 function App() {
   const [session, setSession] = useState<Session | null>(null)
@@ -61,11 +65,17 @@ function App() {
             path="/login"
             element={session ? <Navigate to="/dashboard" replace /> : <LoginPage />}
           />
-          <Route
-            path="/dashboard"
-            element={session ? <DashboardPage /> : <Navigate to="/login" replace />}
-          />
-          <Route path="*" element={<Navigate to={session ? '/dashboard' : '/login'} replace />} />
+          {session ? (
+            <Route element={<Layout />}>
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/transactions" element={<TransactionsPage />} />
+              <Route path="/accounts" element={<AccountsPage />} />
+              <Route path="/reports" element={<ReportsPage />} />
+              <Route path="*" element={<Navigate to="/dashboard" replace />} />
+            </Route>
+          ) : (
+            <Route path="*" element={<Navigate to="/login" replace />} />
+          )}
         </Routes>
       </BrowserRouter>
     </>
