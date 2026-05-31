@@ -1,20 +1,9 @@
 import { useEffect, useState, useCallback } from 'react'
 import { getAccounts, type Account } from '@/lib/transactions'
-
 import AddAccountModal from '@/components/AddAccountModal'
 import { Coins, Smartphone, Landmark, Plus, Wallet } from 'lucide-react'
-
-function formatRp(amount: number) {
-  return new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
-    minimumFractionDigits: 0,
-  }).format(amount)
-}
-
-function Skeleton({ className = '' }: { className?: string }) {
-  return <div className={`animate-shimmer rounded-md bg-muted/50 ${className}`} />
-}
+import { formatRp } from '@/lib/format'
+import { Skeleton } from '@/components/ui/skeleton'
 
 export default function AccountsPage() {
   const [accounts, setAccounts] = useState<Account[]>([])
@@ -58,7 +47,7 @@ export default function AccountsPage() {
         </div>
       </header>
 
-      <div className="p-6 space-y-6 animate-fade-in">
+      <div className="p-4 sm:p-6 space-y-6 animate-fade-in">
         {/* Total Balance Summary */}
         <div className="animate-slide-up py-4 px-2">
           <p className="text-sm font-medium text-muted-foreground mb-1">Total Saldo Semua Akun</p>
@@ -82,7 +71,7 @@ export default function AccountsPage() {
                     <Skeleton className="h-9 w-9 rounded-full" />
                   </div>
                   <div className="flex gap-4">
-                    {[0,1,2,3].map(j => <Skeleton key={j} className="h-2 w-8 rounded-full" />)}
+                    {[0, 1, 2, 3].map(j => <Skeleton key={j} className="h-2 w-8 rounded-full" />)}
                   </div>
                   <div className="flex items-end justify-between">
                     <div className="space-y-1.5">
@@ -160,16 +149,16 @@ export default function AccountsPage() {
                     {/* Card number dots */}
                     <div className="flex items-center gap-4 my-auto">
                       <div className="flex gap-1.5">
-                        {[0,1,2,3].map(i => <div key={i} className="h-1.5 w-1.5 rounded-full bg-white/40" />)}
+                        {[0, 1, 2, 3].map(i => <div key={i} className="h-1.5 w-1.5 rounded-full bg-white/40" />)}
                       </div>
                       <div className="flex gap-1.5">
-                        {[0,1,2,3].map(i => <div key={i} className="h-1.5 w-1.5 rounded-full bg-white/40" />)}
+                        {[0, 1, 2, 3].map(i => <div key={i} className="h-1.5 w-1.5 rounded-full bg-white/40" />)}
                       </div>
                       <div className="flex gap-1.5">
-                        {[0,1,2,3].map(i => <div key={i} className="h-1.5 w-1.5 rounded-full bg-white/40" />)}
+                        {[0, 1, 2, 3].map(i => <div key={i} className="h-1.5 w-1.5 rounded-full bg-white/40" />)}
                       </div>
                       <div className="flex gap-1.5">
-                        {[0,1,2,3].map(i => <div key={i} className="h-1.5 w-1.5 rounded-full bg-white/40" />)}
+                        {[0, 1, 2, 3].map(i => <div key={i} className="h-1.5 w-1.5 rounded-full bg-white/40" />)}
                       </div>
                     </div>
 
@@ -188,11 +177,7 @@ export default function AccountsPage() {
                       </div>
                     </div>
                   </div>
-
-                  {/* Hover edit indicator */}
-                  <div className="absolute top-3 right-14 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <span className="text-[10px] text-white/60 font-medium bg-white/10 backdrop-blur-sm px-2 py-1 rounded-full">EDIT</span>
-                  </div>
+                  {/* Hover edit indicator removed */}
                 </div>
               )
             })
@@ -203,7 +188,7 @@ export default function AccountsPage() {
       {/* Floating Add Account Button */}
       <button
         onClick={handleAddNew}
-        className="fixed bottom-8 right-8 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary/30 backdrop-blur-xl border border-primary/40 text-white shadow-[0_8px_32px_rgba(99,102,241,0.4)] transition-all duration-300 hover:scale-110 hover:bg-primary/40 active:scale-95 hover:shadow-[0_8px_40px_rgba(99,102,241,0.6)] animate-glow-pulse group"
+        className="fixed bottom-24 right-4 sm:bottom-8 sm:right-8 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-all duration-300 hover:scale-110 hover:bg-primary/90 active:scale-95 group"
         title="Tambah Akun"
       >
         <Plus className="h-6 w-6 transition-transform duration-300 group-hover:rotate-90" />

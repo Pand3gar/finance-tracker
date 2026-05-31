@@ -10,22 +10,18 @@ import {
   type BarChartDataPoint,
   type WealthRange,
 } from '@/lib/transactions'
+import { CategoryIcon } from '@/lib/categoryIcons'
+import { formatRp } from '@/lib/format'
+import { Skeleton } from '@/components/ui/skeleton'
+import { MONTH_NAMES } from '@/lib/constants'
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
-
-function formatRp(amount: number) {
-  return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(amount)
-}
 
 function formatRpShort(amount: number) {
   if (Math.abs(amount) >= 1_000_000_000) return `Rp ${(amount / 1_000_000_000).toFixed(1)}M`
   if (Math.abs(amount) >= 1_000_000) return `Rp ${(amount / 1_000_000).toFixed(1)}jt`
   if (Math.abs(amount) >= 1_000) return `Rp ${(amount / 1_000).toFixed(0)}rb`
   return `Rp ${amount}`
-}
-
-function Skeleton({ className = '' }: { className?: string }) {
-  return <div className={`animate-shimmer rounded-md bg-muted/50 ${className}`} />
 }
 
 const FALLBACK_COLORS = [
@@ -48,7 +44,8 @@ function PieTooltip({ active, payload }: { active?: boolean; payload?: PieToolti
   return (
     <div className="rounded-xl border border-border/60 bg-popover px-4 py-3 shadow-xl text-sm">
       <div className="flex items-center gap-2 font-semibold mb-1">
-        <span>{item.categoryIcon}</span><span>{item.categoryName}</span>
+        <CategoryIcon name={item.categoryIcon} className="h-4 w-4" style={{ color: item.categoryColor ?? undefined }} />
+        <span>{item.categoryName}</span>
       </div>
       <p className="text-muted-foreground">{formatRp(item.total)}</p>
       <p className="text-xs text-muted-foreground">{item.percentage}% dari total</p>
@@ -107,15 +104,15 @@ function CategoryLegend({ data, colors }: { data: CategoryBreakdownItem[]; color
       {data.map((item, i) => (
         <div key={item.categoryId} className="group relative overflow-hidden rounded-lg p-2 transition-colors hover:bg-accent/30">
           {/* Subtle background progress bar */}
-          <div 
+          <div
             className="absolute left-0 top-0 bottom-0 opacity-10 transition-all duration-500"
             style={{ width: `${item.percentage}%`, backgroundColor: colors[i] }}
           />
-          
+
           <div className="relative z-10 flex items-center justify-between gap-3">
             <div className="flex items-center gap-2 min-w-0">
-              <div className="h-2 w-2 flex-shrink-0 rounded-full" style={{ backgroundColor: colors[i] }} />
-              <span className="text-xs truncate text-foreground/90 font-medium group-hover:text-foreground transition-colors">{item.categoryIcon} {item.categoryName}</span>
+              <CategoryIcon name={item.categoryIcon} className="h-3 w-3 flex-shrink-0" style={{ color: colors[i] }} />
+              <span className="text-xs truncate text-foreground/90 font-medium group-hover:text-foreground transition-colors">{item.categoryName}</span>
             </div>
             <div className="flex items-center gap-2 flex-shrink-0">
               <span className="text-[10px] font-medium text-muted-foreground w-8 text-right">{item.percentage}%</span>
@@ -279,7 +276,7 @@ function IncomeExpenseChart() {
                 key={opt.value}
                 onClick={() => setRange(opt.value)}
                 className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-all duration-300 ${range === opt.value
-                  ? 'bg-gradient-to-r from-primary to-indigo-500 text-primary-foreground shadow-md'
+                  ? 'bg-primary text-primary-foreground shadow-md'
                   : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
                   }`}
               >
@@ -344,11 +341,6 @@ function IncomeExpenseChart() {
 }
 
 // ─── Month Picker ──────────────────────────────────────────────────────────────
-
-const MONTH_NAMES = [
-  'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-  'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember',
-]
 
 function MonthPicker({ year, month, onChange }: {
   year: number; month: number; onChange: (year: number, month: number) => void
@@ -430,7 +422,7 @@ export default function ReportsPage() {
         </div>
       </header>
 
-      <div className="p-6 space-y-6 animate-fade-in">
+      <div className="p-4 sm:p-6 space-y-6 animate-fade-in">
         {/* Income vs Expense bar chart — has its own range filter */}
         <div className="stagger">
           <IncomeExpenseChart />

@@ -95,96 +95,93 @@ export default function AddAccountModal({ open, onClose, onSuccess, initialData 
     <dialog
       ref={dialogRef}
       onClick={handleBackdropClick}
-      className="m-auto w-full max-w-sm rounded-2xl border border-white/10 bg-transparent p-0 shadow-[0_8px_32px_rgba(0,0,0,0.5)] backdrop-blur-none backdrop:bg-black/40 backdrop:backdrop-blur-md open:flex open:flex-col overflow-hidden ring-1 ring-white/5 animate-slide-up"
+      className="m-auto w-full max-w-sm rounded-2xl border border-border bg-card p-0 shadow-[0_8px_32px_rgba(0,0,0,0.3)] backdrop-blur-none backdrop:bg-black/40 backdrop:backdrop-blur-md open:flex open:flex-col overflow-hidden animate-slide-up"
     >
-      <div className="flex flex-col w-full h-full glass-card border-none rounded-none !shadow-none">
-      {/* Top Gradient Strip */}
-      <div className="h-1.5 w-full bg-gradient-to-r from-primary via-indigo-500 to-violet-500" />
-
-      {/* Header */}
-      <div className="flex items-center justify-between border-b border-border/40 px-6 py-5 bg-card/40">
-        <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/20 text-primary border border-primary/30 shadow-inner">
-            {isEdit ? <Landmark className="h-4 w-4" /> : <Wallet className="h-4 w-4" />}
+      <div className="flex flex-col w-full h-full bg-card border-none rounded-none !shadow-none">
+        {/* Header */}
+        <div className="flex items-center justify-between border-b border-border/40 px-6 py-5 bg-card/40">
+          <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/20 text-primary border border-primary/30 shadow-inner">
+              {isEdit ? <Landmark className="h-4 w-4" /> : <Wallet className="h-4 w-4" />}
+            </div>
+            <div>
+              <h2 className="text-base font-bold tracking-tight">{isEdit ? 'Edit Akun' : 'Tambah Akun Baru'}</h2>
+              <p className="text-[11px] text-muted-foreground mt-0.5">{isEdit ? 'Ubah informasi akun' : 'Buat dompet atau rekening baru'}</p>
+            </div>
           </div>
-          <div>
-            <h2 className="text-base font-bold tracking-tight">{isEdit ? 'Edit Akun' : 'Tambah Akun Baru'}</h2>
-            <p className="text-[11px] text-muted-foreground mt-0.5">{isEdit ? 'Ubah informasi akun' : 'Buat dompet atau rekening baru'}</p>
-          </div>
-        </div>
-        <button
-          type="button"
-          onClick={onClose}
-          className="flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground hover:bg-accent hover:text-foreground transition-colors hover:rotate-90"
-          aria-label="Tutup"
-        >
-          ✕
-        </button>
-      </div>
-
-      {/* Form */}
-      <form onSubmit={handleSubmit} className="flex flex-col gap-5 px-6 py-6">
-        <div className="space-y-2">
-          <Label htmlFor="accountName" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground ml-1">Nama Akun</Label>
-          <Input
-            id="accountName"
-            type="text"
-            placeholder="Misal: BCA, Mandiri, OVO"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            disabled={loading}
-            required
-            className="h-12 bg-black/20 border-border/50 focus:border-primary/50 transition-colors shadow-inner"
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="accountType" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground ml-1">Tipe Akun</Label>
-          <select
-            id="accountType"
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-            disabled={loading}
-            className="h-12 w-full rounded-md border border-border/50 bg-black/20 px-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-colors shadow-inner"
+          <button
+            type="button"
+            onClick={onClose}
+            className="flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground hover:bg-accent hover:text-foreground transition-colors hover:rotate-90"
+            aria-label="Tutup"
           >
-            <option value="bank" className="bg-background">Bank</option>
-            <option value="cash" className="bg-background">Kas</option>
-            <option value="e-wallet" className="bg-background">E-Wallet</option>
-            <option value="general" className="bg-background">Lainnya</option>
-          </select>
+            ✕
+          </button>
         </div>
 
-        {/* Error */}
-        {error && (
-          <p className="rounded-lg bg-rose-500/10 border border-rose-500/20 px-4 py-3 text-sm text-rose-400 font-medium animate-fade-in flex items-center gap-2">
-            <span className="flex-shrink-0">⚠️</span> {error}
-          </p>
-        )}
-
-        {/* Actions */}
-        <div className="flex flex-col gap-3 pt-2">
-          <div className="flex gap-3">
-            <Button type="button" variant="outline" onClick={onClose} disabled={loading} className="flex-1 h-12 border-border/50 hover:bg-accent/50 transition-colors font-semibold">
-              Batal
-            </Button>
-            <Button type="submit" disabled={loading} className="flex-1 h-12 bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-[0_0_15px_rgba(99,102,241,0.3)] transition-all font-semibold">
-              {loading ? 'Menyimpan...' : isEdit ? 'Simpan Perubahan' : 'Simpan Akun'}
-            </Button>
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5 px-6 py-6">
+          <div className="space-y-2">
+            <Label htmlFor="accountName" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground ml-1">Nama Akun</Label>
+            <Input
+              id="accountName"
+              type="text"
+              placeholder="Misal: BCA, Mandiri, OVO"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              disabled={loading}
+              required
+              className="h-12 bg-black/20 border-border/50 focus:border-primary/50 transition-colors shadow-inner"
+            />
           </div>
 
-          {isEdit && (
-            <Button
-              type="button"
-              variant="ghost"
-              onClick={handleDelete}
+          <div className="space-y-2">
+            <Label htmlFor="accountType" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground ml-1">Tipe Akun</Label>
+            <select
+              id="accountType"
+              value={type}
+              onChange={(e) => setType(e.target.value)}
               disabled={loading}
-              className="text-rose-400 hover:bg-rose-500/10 hover:text-rose-400 transition-colors h-11 mt-1 font-medium group"
+              className="h-12 w-full rounded-md border border-border/50 bg-black/20 px-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-colors shadow-inner"
             >
-              <Trash2 className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform" /> Hapus Akun
-            </Button>
+              <option value="bank" className="bg-background">Bank</option>
+              <option value="cash" className="bg-background">Kas</option>
+              <option value="e-wallet" className="bg-background">E-Wallet</option>
+              <option value="general" className="bg-background">Lainnya</option>
+            </select>
+          </div>
+
+          {/* Error */}
+          {error && (
+            <p className="rounded-lg bg-rose-500/10 border border-rose-500/20 px-4 py-3 text-sm text-rose-400 font-medium animate-fade-in flex items-center gap-2">
+              <span className="flex-shrink-0">⚠️</span> {error}
+            </p>
           )}
-        </div>
-      </form>
+
+          {/* Actions */}
+          <div className="flex flex-col gap-3 pt-2">
+            <div className="flex gap-3">
+              <Button type="button" variant="outline" onClick={onClose} disabled={loading} className="flex-1 h-12 border-border/50 hover:bg-accent/50 transition-colors font-semibold">
+                Batal
+              </Button>
+              <Button type="submit" disabled={loading} className="flex-1 h-12 font-semibold">
+                {loading ? 'Menyimpan...' : isEdit ? 'Simpan Perubahan' : 'Simpan Akun'}
+              </Button>
+            </div>
+
+            {isEdit && (
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={handleDelete}
+                disabled={loading}
+                className="text-rose-400 hover:bg-rose-500/10 hover:text-rose-400 transition-colors h-11 mt-1 font-medium group"
+              >
+                <Trash2 className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform" /> Hapus Akun
+              </Button>
+            )}
+          </div>
+        </form>
       </div>
     </dialog>
   )

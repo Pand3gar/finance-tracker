@@ -8,7 +8,6 @@ import {
   addTransaction,
   updateTransaction,
   deleteTransaction,
-  addAccount,
   type Account,
   type Category,
   type Transaction,
@@ -54,11 +53,7 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
   const [categories, setCategories] = useState<Category[]>([])
   const [fetching, setFetching] = useState(false)
 
-  // Add account inline
-  const [showAddAccount, setShowAddAccount] = useState(false)
-  const [newAccountName, setNewAccountName] = useState('')
-  const [newAccountType, setNewAccountType] = useState('bank')
-  const [addingAccount, setAddingAccount] = useState(false)
+
 
   const dialogRef = useRef<HTMLDialogElement>(null)
 
@@ -129,26 +124,9 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
   const resetForm = () => {
     setType('expense'); setAmount(''); setAccountId(''); setToAccountId('')
     setCategoryId(''); setDate(TODAY); setNote(''); setError(null)
-    setShowAddAccount(false); setNewAccountName(''); setNewAccountType('bank')
   }
 
-  const handleAddAccount = async () => {
-    if (!newAccountName.trim()) return setError('Nama akun tidak boleh kosong.')
-    setAddingAccount(true)
-    setError(null)
-    try {
-      const created = await addAccount(newAccountName.trim(), newAccountType)
-      const accs = await getAccounts()
-      setAccounts(accs)
-      setAccountId(created.id)
-      setShowAddAccount(false)
-      setNewAccountName('')
-    } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Gagal membuat akun.')
-    } finally {
-      setAddingAccount(false)
-    }
-  }
+
 
   const handleDelete = async () => {
     if (!initialData) return
@@ -209,9 +187,9 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
       ref={dialogRef}
       onClose={onClose}
       onClick={handleBackdropClick}
-      className="m-auto w-full max-w-md rounded-2xl border border-white/10 bg-transparent p-0 shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] backdrop-blur-none backdrop:bg-black/40 backdrop:backdrop-blur-md open:flex open:flex-col overflow-hidden"
+      className="m-auto w-full max-w-md rounded-2xl border border-border bg-card p-0 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] backdrop-blur-none backdrop:bg-black/40 backdrop:backdrop-blur-md open:flex open:flex-col overflow-hidden"
     >
-      <div className="flex flex-col w-full h-full glass-card border-none rounded-none !shadow-none">
+      <div className="flex flex-col w-full h-full bg-card border-none rounded-none !shadow-none">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-white/10 px-6 py-4 bg-white/5">
           <h2 className="text-base font-semibold">{isEdit ? 'Edit Transaksi' : 'Tambah Transaksi'}</h2>
@@ -269,50 +247,8 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
               <Label htmlFor="account" className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
                 {type === 'transfer' ? 'Dari Akun' : 'Akun'}
               </Label>
-              {!isEdit && (
-                <button
-                  type="button"
-                  onClick={() => setShowAddAccount(!showAddAccount)}
-                  className="text-[10px] text-primary hover:underline font-semibold"
-                >
-                  {showAddAccount ? 'Batal' : '+ Tambah'}
-                </button>
-              )}
             </div>
 
-            {/* Inline Add Account Form */}
-            {showAddAccount && !isEdit && (
-              <div className="flex gap-2 rounded-xl border border-white/10 bg-black/40 p-2 shadow-inner mb-2">
-                <Input
-                  type="text"
-                  placeholder="Nama akun"
-                  value={newAccountName}
-                  onChange={e => setNewAccountName(e.target.value)}
-                  disabled={addingAccount}
-                  className="flex-1 text-xs h-9 bg-white/5 border-white/10 rounded-lg"
-                />
-                <select
-                  value={newAccountType}
-                  onChange={e => setNewAccountType(e.target.value)}
-                  disabled={addingAccount}
-                  className="h-9 rounded-lg border border-white/10 bg-white/5 px-2 text-[10px] text-foreground focus:outline-none"
-                >
-                  <option value="bank">Bank</option>
-                  <option value="cash">Kas</option>
-                  <option value="e-wallet">E-Wallet</option>
-                  <option value="general">Lainnya</option>
-                </select>
-                <Button
-                  type="button"
-                  size="sm"
-                  onClick={handleAddAccount}
-                  disabled={addingAccount || !newAccountName.trim()}
-                  className="h-9 w-9 p-0 rounded-lg shrink-0"
-                >
-                  {addingAccount ? '...' : '✓'}
-                </Button>
-              </div>
-            )}
 
             {fetching ? (
               <div className="h-11 animate-pulse rounded-xl bg-muted/50" />
@@ -379,7 +315,7 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
                   <option value="" className="bg-background">-- Pilih Kategori --</option>
                   {categories.map(cat => (
                     <option key={cat.id} value={cat.id} className="bg-background">
-                      {cat.icon} {cat.name}
+                      {cat.name}
                     </option>
                   ))}
                 </select>
@@ -397,9 +333,16 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
               type="date"
               value={date}
               onChange={e => setDate(e.target.value)}
+              onClick={(e) => {
+                try {
+                  (e.target as HTMLInputElement).showPicker()
+                } catch {
+                  // Ignore on unsupported browsers
+                }
+              }}
               required
               disabled={loading}
-              className="h-11 bg-black/20 border-white/10 rounded-xl focus-visible:ring-1 focus-visible:ring-primary/50 shadow-inner text-sm"
+              className="h-11 bg-black/20 border-white/10 rounded-xl focus-visible:ring-1 focus-visible:ring-primary/50 shadow-inner text-sm block w-full"
             />
           </div>
 

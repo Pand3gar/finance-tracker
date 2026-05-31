@@ -1,24 +1,30 @@
 import { useEffect, useState, useCallback, useMemo } from 'react'
 import { getTransactions, type Transaction } from '@/lib/transactions'
-import { Card } from '@/components/ui/card'
 import AddTransactionModal from '@/components/AddTransactionModal'
-import { Wallet, ArrowRight } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Wallet, ArrowUpRight, ArrowDownLeft, ArrowLeftRight } from 'lucide-react'
+import { CategoryIcon } from '@/lib/categoryIcons'
+import { formatRp, formatDate } from '@/lib/format'
+import { Skeleton } from '@/components/ui/skeleton'
+import { TYPE_META } from '@/lib/constants'
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-
-function formatRp(amount: number) {
-  return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(amount)
-}
-
-function formatDate(dateStr: string) {
-  return new Date(dateStr + 'T00:00:00').toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
-}
-
-const TYPE_META = {
-  expense: { label: 'Pengeluaran', color: 'text-rose-400', bg: 'bg-rose-400/10', emoji: '📤', bar: 'bg-rose-500' },
-  income: { label: 'Pemasukan', color: 'text-emerald-400', bg: 'bg-emerald-400/10', emoji: '📥', bar: 'bg-emerald-500' },
-  transfer: { label: 'Transfer', color: 'text-blue-400', bg: 'bg-blue-400/10', emoji: '🔁', bar: 'bg-blue-500' },
+const AUTHOR_PHOTOS: Record<string, string> = {
+  "Warren Buffett": "/authors/warren_buffett.png",
+  "Chris Rock": "/authors/chris_rock.png",
+  "Will Rogers": "/authors/will_rogers.png",
+  "Benjamin Franklin": "/authors/benjamin_franklin.png",
+  "Robert Kiyosaki": "/authors/robert_kiyosaki.png",
+  "Ayn Rand": "/authors/ayn_rand.png",
+  "P.T. Barnum": "/authors/pt_barnum.png",
+  "Zig Ziglar": "/authors/zig_ziglar.png",
+  "John D. Rockefeller": "/authors/john_d_rockefeller.png",
+  "Jim Rohn": "/authors/jim_rohn.png",
+  "Henry David Thoreau": "/authors/henry_david_thoreau.png",
+  "Jonathan Swift": "/authors/jonathan_swift.png",
+  "Nathan W. Morris": "/authors/nathan_w_morris.png",
+  "Naval Ravikant": "/authors/naval_ravikant.png",
+  "C. Northcote Parkinson": "/authors/c_northcote_parkinson.png",
+  "Kin Hubbard": "/authors/kin_hubbard.png",
+  "Joe Biden": "/authors/joe_biden.png",
 }
 
 const FINANCIAL_QUOTES = [
@@ -28,13 +34,27 @@ const FINANCIAL_QUOTES = [
   { text: "Investasi dalam pengetahuan selalu memberikan bunga terbaik.", author: "Benjamin Franklin" },
   { text: "Kebebasan finansial tersedia bagi mereka yang mempelajarinya dan bekerja untuk itu.", author: "Robert Kiyosaki" },
   { text: "Uang hanyalah alat. Itu akan membawamu ke mana pun kamu mau, tetapi itu tidak akan menggantikanmu sebagai pengemudi.", author: "Ayn Rand" },
+  { text: "Aturan No. 1: Jangan pernah kehilangan uang. Aturan No. 2: Jangan pernah lupakan Aturan No. 1.", author: "Warren Buffett" },
+  { text: "Uang adalah tuan yang mengerikan, tetapi pelayan yang sangat baik.", author: "P.T. Barnum" },
+  { text: "Jika kamu tidak menemukan cara untuk menghasilkan uang saat kamu tidur, kamu akan bekerja sampai kamu mati.", author: "Warren Buffett" },
+  { text: "Orang kaya memiliki TV kecil dan perpustakaan besar, sedangkan orang miskin memiliki perpustakaan kecil dan TV besar.", author: "Zig Ziglar" },
+  { text: "Jangan takut untuk melepaskan yang baik untuk mengejar yang hebat.", author: "John D. Rockefeller" },
+  { text: "Seseorang duduk di tempat teduh hari ini karena seseorang menanam pohon di sana sudah lama sekali.", author: "Warren Buffett" },
+  { text: "Bukan seberapa banyak uang yang kamu hasilkan, tapi seberapa banyak uang yang kamu simpan.", author: "Robert Kiyosaki" },
+  { text: "Pendidikan formal akan membuatmu mencari nafkah; pendidikan mandiri akan membuatmu mendapatkan kekayaan.", author: "Jim Rohn" },
+  { text: "Jangan berinvestasi pada apa pun yang tidak Anda pahami.", author: "Warren Buffett" },
+  { text: "Kekayaan adalah kemampuan untuk sepenuhnya mengalami kehidupan.", author: "Henry David Thoreau" },
+  { text: "Lebih baik Anda membeli perusahaan yang luar biasa dengan harga yang pantas, daripada perusahaan yang pantas dengan harga yang luar biasa.", author: "Warren Buffett" },
+  { text: "Investasi sukses membutuhkan waktu, disiplin, dan kesabaran.", author: "Warren Buffett" },
+  { text: "Orang bijak harus menyimpan uang di kepalanya, bukan di hatinya.", author: "Jonathan Swift" },
+  { text: "Setiap kali Anda meminjam uang, Anda sedang merampok masa depan Anda sendiri.", author: "Nathan W. Morris" },
+  { text: "Kekayaan adalah memiliki aset yang menghasilkan uang saat Anda tidur.", author: "Naval Ravikant" },
+  { text: "Rahasia menuju kekayaan adalah menjadi takut ketika orang lain serakah, dan serakah ketika orang lain takut.", author: "Warren Buffett" },
+  { text: "Jangan bekerja untuk uang; biarkan uang bekerja untuk Anda.", author: "Robert Kiyosaki" },
+  { text: "Pengeluaran akan selalu naik untuk menyesuaikan dengan pendapatan Anda, kecuali jika Anda mencegahnya.", author: "C. Northcote Parkinson" },
+  { text: "Cara termudah untuk melipatgandakan uang Anda adalah dengan melipatnya menjadi dua dan memasukkannya kembali ke saku Anda.", author: "Kin Hubbard" },
+  { text: "Jangan beritahu saya apa yang Anda hargai, tunjukkan pada saya anggaran Anda, dan saya akan memberitahu Anda apa yang Anda hargai.", author: "Joe Biden" },
 ]
-
-// ─── Skeleton ─────────────────────────────────────────────────────────────────
-
-function Skeleton({ className = '' }: { className?: string }) {
-  return <div className={`animate-shimmer rounded-md bg-muted/50 ${className}`} />
-}
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 
@@ -50,11 +70,7 @@ export default function DashboardPage() {
     finally { setLoadingTx(false) }
   }, [])
 
-  const refresh = useCallback(() => {
-    fetchTransactions()
-  }, [fetchTransactions])
-
-  useEffect(() => { refresh() }, [refresh])
+  useEffect(() => { fetchTransactions() }, [fetchTransactions])
 
   const handleEditTransaction = (tx: Transaction) => {
     setEditingTransaction(tx)
@@ -64,10 +80,10 @@ export default function DashboardPage() {
   const randomQuote = useMemo(() => FINANCIAL_QUOTES[Math.floor(Math.random() * FINANCIAL_QUOTES.length)], [])
 
   useEffect(() => {
-    const handler = () => refresh()
+    const handler = () => fetchTransactions()
     window.addEventListener('transactionAdded', handler)
     return () => window.removeEventListener('transactionAdded', handler)
-  }, [refresh])
+  }, [fetchTransactions])
 
   return (
     <>
@@ -78,30 +94,64 @@ export default function DashboardPage() {
         </div>
       </header>
 
-      <div className="p-6 space-y-6 animate-fade-in">
-        
+      <div className="p-4 sm:p-6 space-y-6 animate-fade-in">
+
 
         {/* Quote Section */}
-        <Card className="glass-card animate-slide-up relative overflow-hidden flex flex-col justify-center p-6 min-h-[100px] border-l-4 border-l-primary/60">
-          <div className="absolute right-[-5%] top-[-20%] text-[120px] font-playfair font-black text-primary/5 pointer-events-none leading-none">
-            "
+        <div className="animate-slide-up px-2 pb-4 pt-2">
+          {/* Top line with opening quotes */}
+          <div className="flex items-center gap-4 mb-4">
+            <span className="text-[70px] font-black font-playfair text-primary leading-[0] translate-y-3">
+              “
+            </span>
+            <div className="border-t-[1px] border-primary flex-1 opacity-70" />
           </div>
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-transparent opacity-30 pointer-events-none" />
-          <div className="relative z-10 space-y-2">
-            <p className="font-playfair font-medium italic text-foreground/90 leading-relaxed text-base md:text-lg">
-              "{randomQuote.text}"
-            </p>
-            <p className="font-playfair text-sm font-semibold text-primary">— {randomQuote.author}</p>
+
+          {/* Quote Text */}
+          <p className="font-playfair font-medium text-foreground/90 leading-relaxed text-lg md:text-xl px-1">
+            {randomQuote.text}
+          </p>
+
+          {/* Bottom line with author and closing quotes */}
+          <div className="flex items-center gap-4 mt-8">
+            <div className="flex items-center gap-3 shrink-0">
+              <div className="h-12 w-12 rounded-full border border-primary/20 flex items-center justify-center shrink-0 overflow-hidden bg-primary/10">
+                {AUTHOR_PHOTOS[randomQuote.author] ? (
+                  <img
+                    src={AUTHOR_PHOTOS[randomQuote.author]}
+                    alt={randomQuote.author}
+                    className="h-full w-full object-cover object-top"
+                    onError={(e) => {
+                      const target = e.currentTarget
+                      target.style.display = 'none'
+                      const fallback = target.nextElementSibling as HTMLElement
+                      if (fallback) fallback.style.display = 'flex'
+                    }}
+                  />
+                ) : null}
+                <span
+                  className="font-playfair font-bold text-xl text-primary"
+                  style={{ display: AUTHOR_PHOTOS[randomQuote.author] ? 'none' : 'flex' }}
+                >
+                  {randomQuote.author.charAt(0)}
+                </span>
+              </div>
+              <div className="flex flex-col justify-center">
+                <p className="font-playfair text-base font-bold text-foreground">— {randomQuote.author}</p>
+                <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wider">Financial Wisdom</p>
+              </div>
+            </div>
+            <div className="border-t-[1px] border-primary flex-1 opacity-70" />
+            <span className="text-[70px] font-black font-playfair text-primary leading-[0] translate-y-3 shrink-0">
+              ”
+            </span>
           </div>
-        </Card>
+        </div>
 
         {/* Recent Transactions */}
         <div className="animate-slide-up mt-4">
           <div className="flex flex-row items-center justify-between pb-4 px-2">
             <h2 className="text-base font-semibold">Transaksi Terbaru</h2>
-            <Link to="/transactions" className="text-xs font-medium text-primary hover:text-primary/80 flex items-center gap-1 transition-colors">
-              Lihat Semua <ArrowRight className="h-3 w-3" />
-            </Link>
           </div>
           <div className="px-2">
             {loadingTx ? (
@@ -134,13 +184,17 @@ export default function DashboardPage() {
                     <div
                       key={tx.id}
                       onClick={() => handleEditTransaction(tx)}
-                      className="animate-slide-up group relative flex cursor-pointer items-center gap-4 py-3 px-3 -mx-3 rounded-xl transition-all duration-200 hover:bg-accent/40 hover:shadow-sm hover:scale-[1.005] overflow-hidden"
+                      className="animate-slide-up group relative flex cursor-pointer items-center gap-4 py-3 px-3 -mx-3 rounded-xl transition-all duration-200 overflow-hidden"
                     >
                       {/* Left color bar indicator removed as requested */}
-                      
+
                       {/* Icon */}
-                      <div className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-lg ${meta.bg}`}>
-                        {tx.category?.icon ?? meta.emoji}
+                      <div className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full ${meta.bg}`}>
+                        {tx.category?.icon
+                          ? <CategoryIcon name={tx.category.icon} className="h-5 w-5" style={{ color: tx.category.color ?? undefined }} />
+                          : tx.type === 'expense' ? <ArrowUpRight className="h-5 w-5 text-rose-400" />
+                            : tx.type === 'income' ? <ArrowDownLeft className="h-5 w-5 text-emerald-400" />
+                              : <ArrowLeftRight className="h-5 w-5 text-blue-400" />}
                       </div>
 
                       {/* Details */}
@@ -151,12 +205,12 @@ export default function DashboardPage() {
                               ? `${tx.account?.name ?? '?'} → ${tx.to_account?.name ?? '?'}`
                               : tx.category?.name ?? meta.label}
                           </p>
-                          <span className="opacity-0 group-hover:opacity-100 transition-opacity text-[10px] text-muted-foreground font-medium bg-background px-1.5 py-0.5 rounded shadow-sm border border-border/50">EDIT</span>
+                          <span className="hidden sm:inline sm:opacity-0 sm:group-hover:opacity-100 sm:transition-opacity text-[10px] text-muted-foreground font-medium bg-background px-1.5 py-0.5 rounded shadow-sm border border-border/50">EDIT</span>
                         </div>
                         <div className="flex items-center gap-2 mt-0.5">
                           <span className="text-xs text-muted-foreground">{tx.account?.name}</span>
                           <span className="text-muted-foreground/40">·</span>
-                          <span className="text-xs text-muted-foreground">{formatDate(tx.date)}</span>
+                          <span className="text-xs text-muted-foreground whitespace-nowrap">{formatDate(tx.date)}</span>
                           {tx.note && (
                             <>
                               <span className="text-muted-foreground/40">·</span>
@@ -186,7 +240,7 @@ export default function DashboardPage() {
           setModalOpen(false)
           setEditingTransaction(null)
         }}
-        onSuccess={refresh}
+        onSuccess={fetchTransactions}
         initialData={editingTransaction}
       />
     </>

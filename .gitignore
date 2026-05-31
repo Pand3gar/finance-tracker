@@ -21,3 +21,6 @@ bun-debug.log*
 # OS
 .DS_Store
 Thumbs.db
+
+# personal Claude preferences
+CLAUDE.local.md
