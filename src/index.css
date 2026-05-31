@@ -4,9 +4,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-html {
-  font-size: 80%;
-}
 
 :root {
   --background: #141414;

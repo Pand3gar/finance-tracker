@@ -195,12 +195,12 @@ export default function LoginPage() {
         </div>
 
         {/* Main form area — vertically centered */}
-        <div className="flex flex-1 items-center justify-center px-6 py-8 sm:px-8 sm:py-12">
-          <div className="w-full max-w-sm space-y-6 sm:space-y-8">
+        <div className="flex flex-1 items-center justify-center px-8 py-12">
+          <div className="w-full max-w-sm space-y-8">
 
             {/* Heading */}
             <div className="space-y-2">
-              <h2 className="text-2xl sm:text-3xl font-black font-playfair text-foreground leading-tight">
+              <h2 className="text-3xl font-black font-playfair text-foreground leading-tight">
                 {headings[mode]}
               </h2>
               {/* Subtitle / switch link */}
@@ -340,7 +340,7 @@ export default function LoginPage() {
               <Button
                 type="submit"
                 disabled={loading}
-                className="w-full h-10 sm:h-11 rounded-lg bg-primary text-primary-foreground hover:bg-primary/85 active:bg-primary/75 font-semibold text-sm tracking-wide transition-all shadow-sm font-sans"
+                className="w-full h-11 rounded-lg bg-primary text-primary-foreground hover:bg-primary/85 active:bg-primary/75 font-semibold text-sm tracking-wide transition-all shadow-sm font-sans"
               >
                 {loading ? (
                   <span className="flex items-center gap-2">
