@@ -187,14 +187,9 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
       ref={dialogRef}
       onClose={onClose}
       onClick={handleBackdropClick}
-      className="m-0 mt-auto w-full max-h-[92vh] rounded-t-2xl border-t border-border bg-card p-0 shadow-[0_-4px_32px_0_rgba(0,0,0,0.4)] backdrop:bg-black/50 backdrop:backdrop-blur-sm open:flex open:flex-col overflow-hidden sm:m-auto sm:mt-auto sm:max-w-md sm:rounded-2xl sm:border sm:max-h-[85vh] sm:shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]"
+      className="m-auto w-[calc(100%-2rem)] max-w-md max-h-[90vh] rounded-2xl border border-border bg-card p-0 shadow-[0_8px_32px_0_rgba(0,0,0,0.4)] backdrop:bg-black/50 backdrop:backdrop-blur-sm open:flex open:flex-col overflow-hidden"
     >
       <div className="flex flex-col w-full min-h-0 bg-card">
-        {/* Mobile drag handle */}
-        <div className="sm:hidden flex justify-center pt-2.5 pb-0 flex-shrink-0">
-          <div className="h-1 w-10 rounded-full bg-border/60" />
-        </div>
-
         {/* Header */}
         <div className="flex items-center justify-between border-b border-white/10 px-4 sm:px-6 py-3 sm:py-4 bg-white/5 flex-shrink-0">
           <h2 className="text-sm sm:text-base font-semibold">{isEdit ? 'Edit Transaksi' : 'Tambah Transaksi'}</h2>
