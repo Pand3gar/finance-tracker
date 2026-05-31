@@ -41,10 +41,10 @@ export default function Layout() {
   }
 
   const navItems = [
-    { icon: <LayoutDashboard className="h-5 w-5" />, label: 'Dashboard', path: '/dashboard' },
-    { icon: <History className="h-5 w-5" />, label: 'Transaksi', path: '/transactions' },
-    { icon: <Landmark className="h-5 w-5" />, label: 'Akun', path: '/accounts' },
-    { icon: <PieChart className="h-5 w-5" />, label: 'Laporan', path: '/reports' },
+    { icon: <LayoutDashboard className="h-[18px] w-[18px]" />, label: 'Dashboard', path: '/dashboard' },
+    { icon: <History className="h-[18px] w-[18px]" />, label: 'Transaksi', path: '/transactions' },
+    { icon: <Landmark className="h-[18px] w-[18px]" />, label: 'Akun', path: '/accounts' },
+    { icon: <PieChart className="h-[18px] w-[18px]" />, label: 'Laporan', path: '/reports' },
   ]
 
   const handleTransactionSuccess = () => {
@@ -149,7 +149,7 @@ export default function Layout() {
       </aside>
 
       {/* Main content area */}
-      <div className="flex flex-1 flex-col overflow-y-auto h-full relative z-10 pb-20 lg:pb-0">
+      <div className="flex flex-1 flex-col overflow-y-auto h-full relative z-10 pb-16 lg:pb-0">
         <Outlet />
         
         {/* Floating Add Transaction Button (Desktop only here, Mobile has it in bottom nav) */}
@@ -165,35 +165,35 @@ export default function Layout() {
       </div>
 
       {/* Mobile Bottom Navigation */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 glass-card border-t border-border/50 px-2 py-2 pb-safe flex justify-around items-center">
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 glass-card border-t border-border/50 px-2 py-1 pb-safe flex justify-around items-center">
         {navItems.slice(0, 2).map((item) => {
           const isActive = location.pathname.startsWith(item.path)
           return (
-            <Link key={item.label} to={item.path} className={`flex-1 flex flex-col items-center py-2 transition-colors ${isActive ? 'text-primary' : 'text-muted-foreground'}`}>
+            <Link key={item.label} to={item.path} className={`flex-1 flex flex-col items-center py-1.5 transition-colors ${isActive ? 'text-primary' : 'text-muted-foreground'}`}>
               {item.icon}
-              <span className="text-[10px] mt-1 font-medium">{item.label}</span>
-              {isActive && <div className="h-1 w-1 rounded-full bg-primary mt-0.5" />}
+              <span className="text-[9px] mt-0.5 font-medium">{item.label}</span>
+              {isActive && <div className="h-0.5 w-3 rounded-full bg-primary mt-0.5" />}
             </Link>
           )
         })}
 
         {/* Mobile FAB Center */}
-        <div className="relative -top-6 flex-shrink-0">
+        <div className="relative -top-4 flex-shrink-0">
           <button
             onClick={() => setModalOpen(true)}
-            className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-all duration-300 hover:bg-primary/90 active:scale-95 group"
+            className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-all duration-300 hover:bg-primary/90 active:scale-95 group"
           >
-            <Plus className="h-6 w-6 transition-transform duration-300 group-hover:rotate-90" />
+            <Plus className="h-5 w-5 transition-transform duration-300 group-hover:rotate-90" />
           </button>
         </div>
 
         {navItems.slice(2, 4).map((item) => {
           const isActive = location.pathname.startsWith(item.path)
           return (
-            <Link key={item.label} to={item.path} className={`flex-1 flex flex-col items-center py-2 transition-colors ${isActive ? 'text-primary' : 'text-muted-foreground'}`}>
+            <Link key={item.label} to={item.path} className={`flex-1 flex flex-col items-center py-1.5 transition-colors ${isActive ? 'text-primary' : 'text-muted-foreground'}`}>
               {item.icon}
-              <span className="text-[10px] mt-1 font-medium">{item.label}</span>
-              {isActive && <div className="h-1 w-1 rounded-full bg-primary mt-0.5" />}
+              <span className="text-[9px] mt-0.5 font-medium">{item.label}</span>
+              {isActive && <div className="h-0.5 w-3 rounded-full bg-primary mt-0.5" />}
             </Link>
           )
         })}

@@ -292,44 +292,39 @@ export default function TransactionsPage() {
                         setEditingTransaction(tx)
                         setModalOpen(true)
                       }}
-                      className="animate-slide-up group relative flex cursor-pointer items-center gap-4 py-3 px-3 -mx-3 rounded-xl transition-all duration-200 overflow-hidden"
+                      className="animate-slide-up group relative flex cursor-pointer items-center gap-3 py-2.5 px-3 -mx-3 rounded-xl transition-all duration-200 overflow-hidden hover:bg-accent/20"
                     >
-                      {/* Left color bar indicator removed for consistency */}
-
                       {/* Icon */}
-                      <div className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full ${meta.bg}`}>
+                      <div className={`flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full ${meta.bg}`}>
                         {tx.category?.icon
-                          ? <CategoryIcon name={tx.category.icon} className="h-5 w-5" style={{ color: tx.category.color ?? undefined }} />
-                          : tx.type === 'expense' ? <ArrowUpRight className="h-5 w-5 text-rose-400" />
-                          : tx.type === 'income'  ? <ArrowDownLeft className="h-5 w-5 text-emerald-400" />
-                          : <ArrowLeftRight className="h-5 w-5 text-blue-400" />}
+                          ? <CategoryIcon name={tx.category.icon} className="h-4 w-4" style={{ color: tx.category.color ?? undefined }} />
+                          : tx.type === 'expense' ? <ArrowUpRight className="h-4 w-4 text-rose-400" />
+                          : tx.type === 'income'  ? <ArrowDownLeft className="h-4 w-4 text-emerald-400" />
+                          : <ArrowLeftRight className="h-4 w-4 text-blue-400" />}
                       </div>
 
                       {/* Details */}
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2">
-                          <p className="truncate text-sm font-medium text-foreground/90 group-hover:text-foreground transition-colors">
-                            {tx.type === 'transfer'
-                              ? `${tx.account?.name ?? '?'} → ${tx.to_account?.name ?? '?'}`
-                              : tx.category?.name ?? meta.label}
-                          </p>
-                          <span className="hidden sm:inline sm:opacity-0 sm:group-hover:opacity-100 sm:transition-opacity text-[10px] text-muted-foreground font-medium bg-background px-1.5 py-0.5 rounded shadow-sm border border-border/50">EDIT</span>
-                        </div>
-                        <div className="flex items-center gap-2 mt-0.5">
-                          <span className="text-xs text-muted-foreground">{tx.account?.name}</span>
-                          <span className="text-muted-foreground/40">·</span>
-                          <span className="text-xs text-muted-foreground whitespace-nowrap">{formatDate(tx.date)}</span>
+                        <p className="truncate text-sm font-medium text-foreground/90 group-hover:text-foreground transition-colors leading-tight">
+                          {tx.type === 'transfer'
+                            ? `${tx.account?.name ?? '?'} → ${tx.to_account?.name ?? '?'}`
+                            : tx.category?.name ?? meta.label}
+                        </p>
+                        <div className="flex items-center gap-1.5 mt-0.5">
+                          <span className="text-[11px] text-muted-foreground">{tx.account?.name}</span>
+                          <span className="text-muted-foreground/40 text-[11px]">·</span>
+                          <span className="text-[11px] text-muted-foreground whitespace-nowrap">{formatDate(tx.date)}</span>
                           {tx.note && (
                             <>
-                              <span className="text-muted-foreground/40">·</span>
-                              <span className="truncate text-xs text-muted-foreground italic">{tx.note}</span>
+                              <span className="text-muted-foreground/40 text-[11px]">·</span>
+                              <span className="truncate text-[11px] text-muted-foreground italic">{tx.note}</span>
                             </>
                           )}
                         </div>
                       </div>
 
                       {/* Amount */}
-                      <p className={`flex-shrink-0 font-playfair text-sm font-bold ${meta.color}`}>
+                      <p className={`flex-shrink-0 font-playfair text-sm font-semibold ${meta.color}`}>
                         {isExpense ? '−' : tx.type === 'income' ? '+' : ''}{formatRp(tx.amount)}
                       </p>
                     </div>
