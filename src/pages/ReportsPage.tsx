@@ -144,7 +144,7 @@ function DonutSection({ title, emoji, data, total, loading, accentColor, year, m
           )}
           <span className="truncate">{title}</span>
         </h2>
-        <div className="w-full sm:w-auto sm:scale-90 sm:origin-right flex-shrink-0">
+        <div className="w-full sm:w-auto sm:scale-90 sm:origin-right flex-shrink-0 mt-2 sm:mt-0">
           <MonthPicker year={year} month={month} onChange={onChange} />
         </div>
       </div>
@@ -353,10 +353,14 @@ function MonthPicker({ year, month, onChange }: {
   const isCurrentMonth = year === now.getFullYear() && month === now.getMonth() + 1
   return (
     <div className="flex items-center gap-1.5 w-full sm:w-auto">
-      <button onClick={() => go(-1)} className="flex h-7 w-7 items-center justify-center rounded-lg border border-border bg-card/40 text-muted-foreground hover:bg-accent hover:text-foreground transition-all hover:scale-105 shadow-sm flex-shrink-0">‹</button>
+      <button onClick={() => go(-1)} className="flex h-7 w-7 items-center justify-center rounded-lg border border-border bg-card/40 text-muted-foreground hover:bg-accent hover:text-foreground transition-all hover:scale-105 shadow-sm flex-shrink-0">
+        <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" /></svg>
+      </button>
       <span className="flex-1 sm:flex-none sm:min-w-28 text-center text-sm font-semibold">{MONTH_NAMES[month - 1]} {year}</span>
       <button onClick={() => go(1)} disabled={isCurrentMonth}
-        className="flex h-7 w-7 items-center justify-center rounded-lg border border-border bg-card/40 text-muted-foreground hover:bg-accent hover:text-foreground transition-all hover:scale-105 shadow-sm disabled:pointer-events-none disabled:opacity-30 flex-shrink-0">›</button>
+        className="flex h-7 w-7 items-center justify-center rounded-lg border border-border bg-card/40 text-muted-foreground hover:bg-accent hover:text-foreground transition-all hover:scale-105 shadow-sm disabled:pointer-events-none disabled:opacity-30 flex-shrink-0">
+        <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
+      </button>
     </div>
   )
 }
