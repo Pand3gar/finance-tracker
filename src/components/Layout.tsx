@@ -60,7 +60,7 @@ export default function Layout() {
       {/* Desktop Sidebar */}
       <aside className="hidden w-44 flex-shrink-0 border-r border-border bg-sidebar-background/80 backdrop-blur-xl lg:flex lg:flex-col h-full overflow-y-auto relative z-20">
         <div className="flex shrink-0 h-10 items-center px-4 relative">
-          <span className="font-neuton text-[17px] font-bold tracking-wide text-foreground">
+          <span className="font-neuton text-xl font-bold tracking-wide text-foreground">
             Finance <span className="text-primary italic font-medium">Tracker</span>
           </span>
           <div className="absolute bottom-0 left-4 right-4 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
