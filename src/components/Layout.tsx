@@ -146,7 +146,7 @@ export default function Layout() {
       </aside>
 
       {/* Main content area */}
-      <div className="flex flex-1 flex-col overflow-y-auto h-full relative z-10 pb-16 lg:pb-0">
+      <div className="flex flex-1 flex-col overflow-y-auto overscroll-none h-full relative z-10 pb-16 lg:pb-0" style={{ WebkitOverflowScrolling: 'touch' }}>
         <Outlet />
         
         {/* Floating Add Transaction Button (Desktop only here, Mobile has it in bottom nav) */}
