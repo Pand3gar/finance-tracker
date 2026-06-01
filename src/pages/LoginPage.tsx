@@ -34,7 +34,7 @@ function DecorativeArcs() {
 /* ─── Left branding panel ─────────────────────────────────────── */
 function LeftPanel() {
   return (
-    <div className="relative hidden lg:flex lg:w-[38%] flex-col justify-between p-8 bg-primary text-primary-foreground overflow-hidden select-none">
+    <div className="relative hidden lg:flex lg:w-[60%] flex-col justify-between p-8 bg-primary text-primary-foreground overflow-hidden select-none">
       <DecorativeArcs />
 
       {/* App name branding */}
