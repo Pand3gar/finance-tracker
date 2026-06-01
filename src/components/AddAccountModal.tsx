@@ -36,9 +36,10 @@ export default function AddAccountModal({ open, onClose, onSuccess, initialData 
   useEffect(() => {
     const el = dialogRef.current
     if (!el) return
-    if (open) el.showModal()
-    else {
-      el.close()
+    if (open) {
+      if (!el.open) el.showModal()
+    } else {
+      if (el.open) el.close()
     }
   }, [open])
 
@@ -95,9 +96,9 @@ export default function AddAccountModal({ open, onClose, onSuccess, initialData 
     <dialog
       ref={dialogRef}
       onClick={handleBackdropClick}
-      className="m-auto w-[calc(100%-2rem)] max-w-sm rounded-2xl border border-border bg-card p-0 shadow-[0_8px_32px_rgba(0,0,0,0.3)] backdrop-blur-none backdrop:bg-black/40 backdrop:backdrop-blur-md open:flex open:flex-col overflow-hidden animate-slide-up"
+      className="m-auto w-[calc(100%-2rem)] max-w-sm max-h-[90vh] rounded-2xl border border-border bg-card p-0 shadow-[0_8px_32px_rgba(0,0,0,0.3)] backdrop:bg-black/50 backdrop:backdrop-blur-sm open:flex open:flex-col overflow-hidden"
     >
-      <div className="flex flex-col w-full h-full bg-card border-none rounded-none !shadow-none">
+      <div className="flex flex-col w-full min-h-0 bg-card">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-border/40 px-4 sm:px-6 py-4 sm:py-5 bg-card/40">
           <div className="flex items-center gap-2.5 sm:gap-3">

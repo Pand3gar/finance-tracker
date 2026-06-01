@@ -42,7 +42,7 @@ export default function AccountsPage() {
   return (
     <>
       <header className="sticky top-0 z-10 flex shrink-0 h-14 sm:h-16 items-center justify-between border-b border-border bg-background/80 px-4 sm:px-6 backdrop-blur-md animate-fade-in">
-        <h1 className="font-playfair text-base sm:text-[19px] font-bold tracking-wide text-foreground">Akun</h1>
+        <h1 className="font-playfair text-sm sm:text-[19px] font-bold tracking-wide text-foreground">Akun</h1>
         <button
           onClick={handleAddNew}
           className="flex items-center gap-1.5 rounded-lg bg-primary px-2.5 sm:px-3 py-1.5 text-xs font-semibold text-primary-foreground transition-all hover:bg-primary/90 active:scale-95"

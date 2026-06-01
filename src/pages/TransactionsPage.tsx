@@ -91,7 +91,7 @@ function CalendarGrid({ year, month, dayData, today, onDayClick, selectedDay }: 
             key={cell.iso + idx}
             onClick={() => cell.currentMonth && onDayClick(cell.iso)}
             className={`
-              relative min-h-[52px] sm:min-h-[85px] flex flex-col items-start gap-1 p-1.5 sm:p-2 text-left transition-all duration-200
+              relative min-h-[72px] sm:min-h-[85px] flex flex-col items-start gap-1 p-1.5 sm:p-2 text-left transition-all duration-200
               ${cell.currentMonth
                 ? `bg-card/30 hover:bg-accent/40 hover:shadow-md hover:scale-[1.02] hover:z-10 cursor-pointer`
                 : 'bg-background/20 opacity-50 cursor-default'}
@@ -197,7 +197,7 @@ export default function TransactionsPage() {
     <>
       {/* Header */}
       <header className="sticky top-0 z-30 flex shrink-0 h-14 sm:h-16 items-center justify-between border-b border-border bg-background/80 px-4 sm:px-6 backdrop-blur-md animate-fade-in">
-        <h1 className="font-playfair text-base sm:text-[19px] font-bold tracking-wide text-foreground">Transaksi</h1>
+        <h1 className="font-playfair text-sm sm:text-[19px] font-bold tracking-wide text-foreground">Transaksi</h1>
         {/* Month navigation */}
         <div className="flex items-center gap-1.5 sm:gap-3">
           <button
@@ -221,31 +221,31 @@ export default function TransactionsPage() {
 
       <div className="p-4 sm:p-6 space-y-4 sm:space-y-6 animate-fade-in">
         {/* Monthly Summary Bar */}
-        <div className="grid grid-cols-3 gap-2 sm:gap-6 stagger">
-          <div className="animate-slide-up py-2 sm:py-4 px-1 sm:px-2">
-            <p className="text-[11px] sm:text-sm font-medium text-muted-foreground mb-1 sm:mb-2">Pemasukan</p>
+        <div className="flex flex-col gap-1.5 sm:grid sm:grid-cols-3 sm:gap-6 stagger">
+          <div className="animate-slide-up flex items-baseline justify-between gap-3 sm:block sm:py-4 sm:px-2">
+            <p className="text-xs sm:text-sm font-medium text-muted-foreground sm:mb-2">Pemasukan</p>
             {loading ? (
-              <div className="h-6 sm:h-8 w-full sm:w-32 animate-shimmer rounded bg-muted/50" />
+              <div className="h-6 sm:h-8 w-28 sm:w-32 animate-shimmer rounded bg-muted/50" />
             ) : (
-              <p className="font-playfair text-base sm:text-3xl font-bold text-emerald-400 truncate">{formatRp(monthlyIncome)}</p>
+              <p className="font-playfair text-base sm:text-3xl font-bold text-emerald-400">{formatRp(monthlyIncome)}</p>
             )}
           </div>
 
-          <div className="animate-slide-up py-2 sm:py-4 px-1 sm:px-2">
-            <p className="text-[11px] sm:text-sm font-medium text-muted-foreground mb-1 sm:mb-2">Pengeluaran</p>
+          <div className="animate-slide-up flex items-baseline justify-between gap-3 sm:block sm:py-4 sm:px-2">
+            <p className="text-xs sm:text-sm font-medium text-muted-foreground sm:mb-2">Pengeluaran</p>
             {loading ? (
-              <div className="h-6 sm:h-8 w-full sm:w-32 animate-shimmer rounded bg-muted/50" />
+              <div className="h-6 sm:h-8 w-28 sm:w-32 animate-shimmer rounded bg-muted/50" />
             ) : (
-              <p className="font-playfair text-base sm:text-3xl font-bold text-rose-400 truncate">{formatRp(monthlyExpense)}</p>
+              <p className="font-playfair text-base sm:text-3xl font-bold text-rose-400">{formatRp(monthlyExpense)}</p>
             )}
           </div>
 
-          <div className="animate-slide-up py-2 sm:py-4 px-1 sm:px-2">
-            <p className="text-[11px] sm:text-sm font-medium text-muted-foreground mb-1 sm:mb-2">Selisih</p>
+          <div className="animate-slide-up flex items-baseline justify-between gap-3 sm:block sm:py-4 sm:px-2">
+            <p className="text-xs sm:text-sm font-medium text-muted-foreground sm:mb-2">Selisih</p>
             {loading ? (
-              <div className="h-6 sm:h-8 w-full sm:w-32 animate-shimmer rounded bg-muted/50" />
+              <div className="h-6 sm:h-8 w-28 sm:w-32 animate-shimmer rounded bg-muted/50" />
             ) : (
-              <p className={`font-playfair text-base sm:text-3xl font-bold truncate ${
+              <p className={`font-playfair text-base sm:text-3xl font-bold ${
                 monthlyIncome - monthlyExpense >= 0 ? 'text-blue-400' : 'text-orange-400'
               }`}>
                 {monthlyIncome - monthlyExpense >= 0 ? '+' : ''}{formatRp(monthlyIncome - monthlyExpense)}

@@ -354,13 +354,13 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
           {/* Actions */}
           <div className="flex flex-col gap-2 sm:gap-3 pt-1 sm:pt-3 pb-1">
             <div className="flex gap-2 sm:gap-3">
-              <Button type="button" variant="outline" onClick={onClose} disabled={loading} className="flex-1 rounded-xl h-10 sm:h-11 border-white/10 bg-white/5 hover:bg-white/10 text-foreground text-sm transition-colors">
+              <Button type="button" variant="outline" onClick={onClose} disabled={loading} className="flex-none px-5 rounded-xl h-10 sm:h-11 border-white/10 bg-white/5 hover:bg-white/10 text-foreground text-sm transition-colors">
                 Batal
               </Button>
               <Button
                 type="submit"
                 disabled={loading || fetching}
-                className={`flex-1 rounded-xl h-10 sm:h-11 text-white font-bold text-sm transition-all shadow-md ${type === 'expense' ? 'bg-rose-500 hover:bg-rose-600 shadow-rose-500/20' :
+                className={`flex-1 min-w-0 rounded-xl h-10 sm:h-11 text-white font-bold text-sm transition-all shadow-md ${type === 'expense' ? 'bg-rose-500 hover:bg-rose-600 shadow-rose-500/20' :
                     type === 'income' ? 'bg-emerald-500 hover:bg-emerald-600 shadow-emerald-500/20' :
                       'bg-blue-500 hover:bg-blue-600 shadow-blue-500/20'
                   }`}
@@ -370,8 +370,10 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
                     <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
                     Menyimpan...
                   </span>
+                ) : isEdit ? (
+                  'Simpan Perubahan'
                 ) : (
-                  isEdit ? 'Simpan Perubahan' : `Simpan ${activeTab.label}`
+                  <span className="truncate">Simpan<span className="hidden sm:inline"> {activeTab.label}</span></span>
                 )}
               </Button>
             </div>

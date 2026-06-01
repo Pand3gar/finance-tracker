@@ -41,10 +41,10 @@ export default function Layout() {
   }
 
   const navItems = [
-    { icon: <LayoutDashboard className="h-[18px] w-[18px]" />, label: 'Dashboard', path: '/dashboard' },
-    { icon: <History className="h-[18px] w-[18px]" />, label: 'Transaksi', path: '/transactions' },
-    { icon: <Landmark className="h-[18px] w-[18px]" />, label: 'Akun', path: '/accounts' },
-    { icon: <PieChart className="h-[18px] w-[18px]" />, label: 'Laporan', path: '/reports' },
+    { icon: <LayoutDashboard className="h-4 w-4" />, label: 'Dashboard', path: '/dashboard' },
+    { icon: <History className="h-4 w-4" />, label: 'Transaksi', path: '/transactions' },
+    { icon: <Landmark className="h-4 w-4" />, label: 'Akun', path: '/accounts' },
+    { icon: <PieChart className="h-4 w-4" />, label: 'Laporan', path: '/reports' },
   ]
 
   const handleTransactionSuccess = () => {
@@ -165,23 +165,23 @@ export default function Layout() {
       </div>
 
       {/* Mobile Bottom Navigation */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 glass-card border-t border-border/50 px-2 py-1 pb-safe flex justify-around items-center">
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 glass-card border-t border-border/50 px-2 py-0.5 pb-safe flex justify-around items-center">
         {navItems.slice(0, 2).map((item) => {
           const isActive = location.pathname.startsWith(item.path)
           return (
-            <Link key={item.label} to={item.path} className={`flex-1 flex flex-col items-center py-1.5 transition-colors ${isActive ? 'text-primary' : 'text-muted-foreground'}`}>
+            <Link key={item.label} to={item.path} className={`flex-1 flex flex-col items-center py-1 transition-colors ${isActive ? 'text-primary' : 'text-muted-foreground'}`}>
               {item.icon}
-              <span className="text-[9px] mt-0.5 font-medium">{item.label}</span>
-              {isActive && <div className="h-0.5 w-3 rounded-full bg-primary mt-0.5" />}
+              <span className="text-[9px] mt-0.5 font-medium leading-none">{item.label}</span>
+              {isActive && <div className="h-0.5 w-3 rounded-full bg-primary mt-1" />}
             </Link>
           )
         })}
 
         {/* Mobile FAB Center */}
-        <div className="relative -top-4 flex-shrink-0">
+        <div className="relative -top-3 flex-shrink-0">
           <button
             onClick={() => setModalOpen(true)}
-            className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-all duration-300 hover:bg-primary/90 active:scale-95 group"
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-all duration-300 hover:bg-primary/90 active:scale-95 group"
           >
             <Plus className="h-5 w-5 transition-transform duration-300 group-hover:rotate-90" />
           </button>
@@ -190,10 +190,10 @@ export default function Layout() {
         {navItems.slice(2, 4).map((item) => {
           const isActive = location.pathname.startsWith(item.path)
           return (
-            <Link key={item.label} to={item.path} className={`flex-1 flex flex-col items-center py-1.5 transition-colors ${isActive ? 'text-primary' : 'text-muted-foreground'}`}>
+            <Link key={item.label} to={item.path} className={`flex-1 flex flex-col items-center py-1 transition-colors ${isActive ? 'text-primary' : 'text-muted-foreground'}`}>
               {item.icon}
-              <span className="text-[9px] mt-0.5 font-medium">{item.label}</span>
-              {isActive && <div className="h-0.5 w-3 rounded-full bg-primary mt-0.5" />}
+              <span className="text-[9px] mt-0.5 font-medium leading-none">{item.label}</span>
+              {isActive && <div className="h-0.5 w-3 rounded-full bg-primary mt-1" />}
             </Link>
           )
         })}

@@ -89,7 +89,7 @@ export default function DashboardPage() {
     <>
       {/* Header */}
       <header className="sticky top-0 z-10 flex shrink-0 h-14 sm:h-16 items-center justify-between border-b border-border bg-background/80 px-4 sm:px-6 backdrop-blur-md animate-fade-in">
-        <h1 className="font-playfair text-base sm:text-[19px] font-bold tracking-wide text-foreground">Dashboard</h1>
+        <h1 className="font-playfair text-sm sm:text-[19px] font-bold tracking-wide text-foreground">Dashboard</h1>
       </header>
 
       <div className="p-4 sm:p-6 space-y-4 sm:space-y-6 animate-fade-in">

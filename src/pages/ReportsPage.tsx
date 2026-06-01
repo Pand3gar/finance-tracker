@@ -241,21 +241,21 @@ function IncomeExpenseChart() {
             {loading ? (
               <div className="grid grid-cols-3 gap-2 sm:flex sm:gap-4"><Skeleton className="h-10 w-full sm:w-32" /><Skeleton className="h-10 w-full sm:w-32" /><Skeleton className="h-10 w-full sm:w-32" /></div>
             ) : (
-              <div className="grid grid-cols-3 gap-2 sm:flex sm:items-center sm:gap-6">
-                <div>
-                  <p className="text-[11px] sm:text-xs text-muted-foreground mb-0.5 sm:mb-1">Pendapatan</p>
-                  <p className="font-playfair text-sm sm:text-xl font-bold text-emerald-400 truncate">{formatRp(totalIncome)}</p>
+              <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-6">
+                <div className="flex items-baseline justify-between gap-3 sm:block">
+                  <p className="text-xs sm:text-xs text-muted-foreground sm:mb-1">Pendapatan</p>
+                  <p className="font-playfair text-base sm:text-xl font-bold text-emerald-400">{formatRp(totalIncome)}</p>
                 </div>
                 <div className="hidden sm:block w-px h-10 bg-gradient-to-b from-transparent via-border to-transparent" />
-                <div>
-                  <p className="text-[11px] sm:text-xs text-muted-foreground mb-0.5 sm:mb-1">Pengeluaran</p>
-                  <p className="font-playfair text-sm sm:text-xl font-bold text-rose-400 truncate">{formatRp(totalExpense)}</p>
+                <div className="flex items-baseline justify-between gap-3 sm:block">
+                  <p className="text-xs sm:text-xs text-muted-foreground sm:mb-1">Pengeluaran</p>
+                  <p className="font-playfair text-base sm:text-xl font-bold text-rose-400">{formatRp(totalExpense)}</p>
                 </div>
                 <div className="hidden sm:block w-px h-10 bg-gradient-to-b from-transparent via-border to-transparent" />
-                <div>
-                  <p className="text-[11px] sm:text-xs text-muted-foreground mb-0.5 sm:mb-1">Selisih</p>
+                <div className="flex items-baseline justify-between gap-3 sm:block">
+                  <p className="text-xs sm:text-xs text-muted-foreground sm:mb-1">Selisih</p>
                   <div className="flex items-center gap-1.5">
-                    <p className={`font-playfair text-sm sm:text-xl font-bold truncate ${netBalance >= 0 ? 'text-blue-400' : 'text-orange-400'}`}>
+                    <p className={`font-playfair text-base sm:text-xl font-bold ${netBalance >= 0 ? 'text-blue-400' : 'text-orange-400'}`}>
                       {netBalance >= 0 ? '+' : ''}{formatRp(netBalance)}
                     </p>
                     {netBalance !== 0 && (
@@ -417,7 +417,7 @@ export default function ReportsPage() {
     <>
       {/* Header */}
       <header className="sticky top-0 z-20 flex shrink-0 h-14 sm:h-16 items-center justify-between border-b border-border bg-background/80 px-4 sm:px-6 backdrop-blur-md animate-fade-in">
-        <h1 className="font-playfair text-base sm:text-[19px] font-bold tracking-wide text-foreground">Laporan</h1>
+        <h1 className="font-playfair text-sm sm:text-[19px] font-bold tracking-wide text-foreground">Laporan</h1>
       </header>
 
       <div className="p-4 sm:p-6 space-y-6 animate-fade-in">
