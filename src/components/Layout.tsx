@@ -88,42 +88,42 @@ export default function Layout() {
         {/* User Profile Section */}
         <div className="border-t border-sidebar-border p-2 relative">
           {showLogoutMenu && (
-            <div className="absolute bottom-full left-0 mb-2 animate-in fade-in slide-in-from-bottom-2 duration-200 z-50 w-48">
-              <div className="bg-card border border-border rounded-xl shadow-lg p-1.5 flex flex-col">
+            <div className="absolute bottom-full left-3 right-3 mb-2 animate-in fade-in slide-in-from-bottom-2 duration-200 z-50">
+              <div className="bg-card border border-border rounded-lg shadow-lg p-1 flex flex-col">
                 {/* Theme toggle */}
-                <div className="flex items-center justify-between px-3 py-2.5 mb-0.5">
-                  <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-                    {isDark ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+                <div className="flex items-center justify-between px-2 py-1.5">
+                  <div className="flex items-center gap-1.5 text-xs font-medium text-foreground">
+                    {isDark ? <Moon className="h-3 w-3" /> : <Sun className="h-3 w-3" />}
                     {isDark ? 'Dark' : 'Light'}
                   </div>
                   <button
                     onClick={() => setIsDark(!isDark)}
-                    className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors duration-300 focus:outline-none ${
+                    className={`relative inline-flex h-4 w-7 items-center rounded-full transition-colors duration-300 focus:outline-none ${
                       isDark ? 'bg-primary/80' : 'bg-amber-400'
                     }`}
                   >
                     <span
-                      className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow-sm transition-transform duration-300 ${
-                        isDark ? 'translate-x-1' : 'translate-x-[18px]'
+                      className={`inline-block h-3 w-3 transform rounded-full bg-white shadow-sm transition-transform duration-300 ${
+                        isDark ? 'translate-x-0.5' : 'translate-x-[14px]'
                       }`}
                     />
                   </button>
                 </div>
-                <div className="h-px bg-border -mx-1.5 mb-1" />
+                <div className="h-px bg-border -mx-1 mb-0.5" />
                 <Link
                   to="/settings"
                   onClick={() => setShowLogoutMenu(false)}
-                  className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-full text-left mb-0.5"
+                  className="flex items-center gap-1.5 px-2 py-1.5 rounded-md text-xs font-medium text-foreground hover:bg-accent hover:text-accent-foreground transition-colors w-full text-left"
                 >
-                  <Settings className="h-4 w-4" />
+                  <Settings className="h-3 w-3" />
                   Pengaturan
                 </Link>
-                <div className="h-px bg-border my-1 -mx-1.5" />
+                <div className="h-px bg-border my-0.5 -mx-1" />
                 <button
                   onClick={handleSignOut}
-                  className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium text-rose-500 hover:bg-rose-500/10 transition-colors w-full text-left mt-0.5"
+                  className="flex items-center gap-1.5 px-2 py-1.5 rounded-md text-xs font-medium text-rose-500 hover:bg-rose-500/10 transition-colors w-full text-left"
                 >
-                  <LogOut className="h-4 w-4" />
+                  <LogOut className="h-3 w-3" />
                   Log out
                 </button>
               </div>
