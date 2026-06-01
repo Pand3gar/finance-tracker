@@ -135,7 +135,7 @@ function DonutSection({ title, emoji, data, total, loading, accentColor, year, m
   const colors = data.map(getColor)
   return (
     <div className="flex flex-col relative group">
-      <div className="pb-2 flex flex-row items-center justify-between gap-2 space-y-0 relative z-10">
+      <div className="pb-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-2 space-y-0 relative z-10">
         <h2 className="flex items-center gap-2 text-sm sm:text-base font-semibold text-foreground/90 group-hover:text-foreground transition-colors min-w-0">
           {emoji && (
             <span className="flex h-8 w-8 items-center justify-center rounded-lg text-lg bg-background/50 shadow-sm border border-border/40 flex-shrink-0">
@@ -144,7 +144,7 @@ function DonutSection({ title, emoji, data, total, loading, accentColor, year, m
           )}
           <span className="truncate">{title}</span>
         </h2>
-        <div className="scale-[0.8] sm:scale-90 origin-right flex-shrink-0">
+        <div className="scale-[0.8] sm:scale-90 origin-left sm:origin-right flex-shrink-0">
           <MonthPicker year={year} month={month} onChange={onChange} />
         </div>
       </div>
