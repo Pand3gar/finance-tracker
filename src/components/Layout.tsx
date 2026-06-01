@@ -51,7 +51,7 @@ export default function Layout() {
   const showFab = location.pathname.startsWith('/dashboard') || location.pathname.startsWith('/transactions')
 
   return (
-    <div className="flex h-screen overflow-hidden bg-background relative">
+    <div className="flex h-dvh overflow-hidden bg-background relative">
 
 
       {/* Desktop Sidebar */}
