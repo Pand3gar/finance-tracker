@@ -203,7 +203,7 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
         </div>
 
         {/* Type tabs */}
-        <div className="flex gap-2 px-4 sm:px-6 pt-3 sm:pt-5 flex-shrink-0">
+        <div className="flex gap-2 px-4 pt-3 pb-0 flex-shrink-0">
           {TYPE_TABS.map(tab => (
             <button
               key={tab.value}
@@ -221,7 +221,7 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:gap-5 overflow-y-auto px-4 sm:px-6 py-3 sm:py-5 custom-scrollbar min-h-0">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-3 overflow-y-auto px-4 py-3 custom-scrollbar min-h-0">
           {/* Amount */}
           <Input
             id="amount"
@@ -233,10 +233,10 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
             onChange={e => setAmount(e.target.value)}
             required
             disabled={loading}
-            className="text-xl sm:text-2xl font-bold h-11 sm:h-14 bg-black/20 border-white/10 rounded-xl focus-visible:ring-1 focus-visible:ring-primary/50 shadow-inner"
+            className="text-lg font-bold h-10 bg-black/20 border-white/10 rounded-xl focus-visible:ring-1 focus-visible:ring-primary/50 shadow-inner"
           />
 
-          <div className="grid grid-cols-2 gap-3 sm:gap-5">
+          <div className="grid grid-cols-2 gap-3">
             {/* Account (source) */}
             {fetching ? (
               <div className="h-10 animate-pulse rounded-xl bg-muted/50" />
@@ -294,7 +294,7 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
             )}
           </div>
 
-          <div className="grid grid-cols-2 gap-3 sm:gap-5">
+          <div className="grid grid-cols-2 gap-3">
             {/* Date */}
             <div className="relative h-10">
               <div className="h-10 w-full rounded-xl border border-white/10 bg-black/20 px-3 text-sm flex items-center gap-1.5 shadow-inner select-none pointer-events-none">
@@ -335,15 +335,15 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
           )}
 
           {/* Actions */}
-          <div className="flex flex-col gap-2 sm:gap-3 pt-1 sm:pt-3 pb-1">
+          <div className="flex flex-col gap-2">
             <div className="flex gap-2 sm:gap-3">
-              <Button type="button" variant="outline" onClick={onClose} disabled={loading} className="flex-none px-5 rounded-xl h-10 sm:h-11 border-white/10 bg-white/5 hover:bg-white/10 text-foreground text-sm transition-colors">
+              <Button type="button" variant="outline" onClick={onClose} disabled={loading} className="flex-none px-5 rounded-xl h-10 border-white/10 bg-white/5 hover:bg-white/10 text-foreground text-sm transition-colors">
                 Batal
               </Button>
               <Button
                 type="submit"
                 disabled={loading || fetching}
-                className={`flex-1 min-w-0 rounded-xl h-10 sm:h-11 text-white font-bold text-sm transition-all shadow-md ${type === 'expense' ? 'bg-rose-500 hover:bg-rose-600 shadow-rose-500/20' :
+                className={`flex-1 min-w-0 rounded-xl h-10 text-white font-bold text-sm transition-all shadow-md ${type === 'expense' ? 'bg-rose-500 hover:bg-rose-600 shadow-rose-500/20' :
                     type === 'income' ? 'bg-emerald-500 hover:bg-emerald-600 shadow-emerald-500/20' :
                       'bg-blue-500 hover:bg-blue-600 shadow-blue-500/20'
                   }`}
