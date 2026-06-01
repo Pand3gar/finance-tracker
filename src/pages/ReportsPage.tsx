@@ -135,16 +135,16 @@ function DonutSection({ title, emoji, data, total, loading, accentColor, year, m
   const colors = data.map(getColor)
   return (
     <div className="flex flex-col relative group">
-      <div className="pb-2 flex flex-row items-center justify-between space-y-0 relative z-10">
-        <h2 className="flex items-center gap-2 text-base font-semibold text-foreground/90 group-hover:text-foreground transition-colors">
+      <div className="pb-2 flex flex-row items-center justify-between gap-2 space-y-0 relative z-10">
+        <h2 className="flex items-center gap-2 text-sm sm:text-base font-semibold text-foreground/90 group-hover:text-foreground transition-colors min-w-0">
           {emoji && (
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg text-lg bg-background/50 shadow-sm border border-border/40">
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg text-lg bg-background/50 shadow-sm border border-border/40 flex-shrink-0">
               {emoji}
             </span>
           )}
-          {title}
+          <span className="truncate">{title}</span>
         </h2>
-        <div className="scale-90 origin-right">
+        <div className="scale-[0.8] sm:scale-90 origin-right flex-shrink-0">
           <MonthPicker year={year} month={month} onChange={onChange} />
         </div>
       </div>
@@ -161,7 +161,7 @@ function DonutSection({ title, emoji, data, total, loading, accentColor, year, m
           </div>
         ) : (
           <>
-            <div className="relative h-72 my-2">
+            <div className="relative h-60 sm:h-72 my-2">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie data={data} cx="50%" cy="50%" innerRadius="70%" outerRadius="95%"
@@ -230,36 +230,36 @@ function IncomeExpenseChart() {
   return (
     <div className="animate-slide-up relative group">
 
-      <div className="pb-4 relative z-10 space-y-6">
-        <h2 className="flex items-center gap-2 text-base font-semibold text-foreground/90 group-hover:text-foreground transition-colors">
+      <div className="pb-4 relative z-10 space-y-4 sm:space-y-6">
+        <h2 className="flex items-center gap-2 text-sm sm:text-base font-semibold text-foreground/90 group-hover:text-foreground transition-colors">
           Arus Kas
         </h2>
 
-        <div className="flex items-center justify-between gap-4 flex-wrap">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
           {/* Summary stats */}
           <div>
             {loading ? (
-              <div className="flex gap-4"><Skeleton className="h-10 w-32" /><Skeleton className="h-10 w-32" /><Skeleton className="h-10 w-32" /></div>
+              <div className="grid grid-cols-3 gap-2 sm:flex sm:gap-4"><Skeleton className="h-10 w-full sm:w-32" /><Skeleton className="h-10 w-full sm:w-32" /><Skeleton className="h-10 w-full sm:w-32" /></div>
             ) : (
-              <div className="flex items-center gap-6 flex-wrap">
+              <div className="grid grid-cols-3 gap-2 sm:flex sm:items-center sm:gap-6">
                 <div>
-                  <p className="text-xs text-muted-foreground mb-1">Total Pendapatan</p>
-                  <p className="font-playfair text-xl font-bold text-emerald-400">{formatRp(totalIncome)}</p>
+                  <p className="text-[11px] sm:text-xs text-muted-foreground mb-0.5 sm:mb-1">Pendapatan</p>
+                  <p className="font-playfair text-sm sm:text-xl font-bold text-emerald-400 truncate">{formatRp(totalIncome)}</p>
                 </div>
-                <div className="w-px h-10 bg-gradient-to-b from-transparent via-border to-transparent" />
+                <div className="hidden sm:block w-px h-10 bg-gradient-to-b from-transparent via-border to-transparent" />
                 <div>
-                  <p className="text-xs text-muted-foreground mb-1">Total Pengeluaran</p>
-                  <p className="font-playfair text-xl font-bold text-rose-400">{formatRp(totalExpense)}</p>
+                  <p className="text-[11px] sm:text-xs text-muted-foreground mb-0.5 sm:mb-1">Pengeluaran</p>
+                  <p className="font-playfair text-sm sm:text-xl font-bold text-rose-400 truncate">{formatRp(totalExpense)}</p>
                 </div>
-                <div className="w-px h-10 bg-gradient-to-b from-transparent via-border to-transparent" />
+                <div className="hidden sm:block w-px h-10 bg-gradient-to-b from-transparent via-border to-transparent" />
                 <div>
-                  <p className="text-xs text-muted-foreground mb-1">Selisih Bersih</p>
+                  <p className="text-[11px] sm:text-xs text-muted-foreground mb-0.5 sm:mb-1">Selisih</p>
                   <div className="flex items-center gap-1.5">
-                    <p className={`font-playfair text-xl font-bold ${netBalance >= 0 ? 'text-blue-400' : 'text-orange-400'}`}>
+                    <p className={`font-playfair text-sm sm:text-xl font-bold truncate ${netBalance >= 0 ? 'text-blue-400' : 'text-orange-400'}`}>
                       {netBalance >= 0 ? '+' : ''}{formatRp(netBalance)}
                     </p>
                     {netBalance !== 0 && (
-                      <span className={`text-[10px] ${netBalance > 0 ? 'text-blue-400' : 'text-orange-400'}`}>
+                      <span className={`hidden sm:inline text-[10px] ${netBalance > 0 ? 'text-blue-400' : 'text-orange-400'}`}>
                         {netBalance > 0 ? '▲' : '▼'}
                       </span>
                     )}
@@ -270,12 +270,12 @@ function IncomeExpenseChart() {
           </div>
 
           {/* Range filter pills */}
-          <div className="flex items-center gap-1 rounded-xl border border-border/40 bg-black/20 p-1 backdrop-blur-sm shadow-inner">
+          <div className="flex items-center gap-1 rounded-xl border border-border/40 bg-black/20 p-1 backdrop-blur-sm shadow-inner self-start sm:self-auto">
             {RANGE_OPTIONS.map(opt => (
               <button
                 key={opt.value}
                 onClick={() => setRange(opt.value)}
-                className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-all duration-300 ${range === opt.value
+                className={`flex-1 sm:flex-none rounded-lg px-3 py-1.5 text-xs font-medium transition-all duration-300 ${range === opt.value
                   ? 'bg-primary text-primary-foreground shadow-md'
                   : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
                   }`}
@@ -416,10 +416,8 @@ export default function ReportsPage() {
   return (
     <>
       {/* Header */}
-      <header className="sticky top-0 z-20 flex shrink-0 h-16 items-center justify-between border-b border-border bg-background/80 px-6 backdrop-blur-md animate-fade-in">
-        <div>
-          <h1 className="font-playfair text-[19px] font-bold tracking-wide text-foreground">Laporan</h1>
-        </div>
+      <header className="sticky top-0 z-20 flex shrink-0 h-14 sm:h-16 items-center justify-between border-b border-border bg-background/80 px-4 sm:px-6 backdrop-blur-md animate-fade-in">
+        <h1 className="font-playfair text-base sm:text-[19px] font-bold tracking-wide text-foreground">Laporan</h1>
       </header>
 
       <div className="p-4 sm:p-6 space-y-6 animate-fade-in">

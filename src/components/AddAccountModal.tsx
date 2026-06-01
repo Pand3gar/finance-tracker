@@ -95,24 +95,24 @@ export default function AddAccountModal({ open, onClose, onSuccess, initialData 
     <dialog
       ref={dialogRef}
       onClick={handleBackdropClick}
-      className="m-auto w-full max-w-sm rounded-2xl border border-border bg-card p-0 shadow-[0_8px_32px_rgba(0,0,0,0.3)] backdrop-blur-none backdrop:bg-black/40 backdrop:backdrop-blur-md open:flex open:flex-col overflow-hidden animate-slide-up"
+      className="m-auto w-[calc(100%-2rem)] max-w-sm rounded-2xl border border-border bg-card p-0 shadow-[0_8px_32px_rgba(0,0,0,0.3)] backdrop-blur-none backdrop:bg-black/40 backdrop:backdrop-blur-md open:flex open:flex-col overflow-hidden animate-slide-up"
     >
       <div className="flex flex-col w-full h-full bg-card border-none rounded-none !shadow-none">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-border/40 px-6 py-5 bg-card/40">
-          <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/20 text-primary border border-primary/30 shadow-inner">
+        <div className="flex items-center justify-between border-b border-border/40 px-4 sm:px-6 py-4 sm:py-5 bg-card/40">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/20 text-primary border border-primary/30 shadow-inner flex-shrink-0">
               {isEdit ? <Landmark className="h-4 w-4" /> : <Wallet className="h-4 w-4" />}
             </div>
             <div>
-              <h2 className="text-base font-bold tracking-tight">{isEdit ? 'Edit Akun' : 'Tambah Akun Baru'}</h2>
+              <h2 className="text-sm sm:text-base font-bold tracking-tight">{isEdit ? 'Edit Akun' : 'Tambah Akun Baru'}</h2>
               <p className="text-[11px] text-muted-foreground mt-0.5">{isEdit ? 'Ubah informasi akun' : 'Buat dompet atau rekening baru'}</p>
             </div>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground hover:bg-accent hover:text-foreground transition-colors hover:rotate-90"
+            className="flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground hover:bg-accent hover:text-foreground transition-colors hover:rotate-90 flex-shrink-0"
             aria-label="Tutup"
           >
             ✕
@@ -120,9 +120,9 @@ export default function AddAccountModal({ open, onClose, onSuccess, initialData 
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="flex flex-col gap-5 px-6 py-6">
-          <div className="space-y-2">
-            <Label htmlFor="accountName" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground ml-1">Nama Akun</Label>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 sm:gap-5 px-4 sm:px-6 py-4 sm:py-6">
+          <div className="space-y-1.5 sm:space-y-2">
+            <Label htmlFor="accountName" className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-muted-foreground ml-1">Nama Akun</Label>
             <Input
               id="accountName"
               type="text"
@@ -131,18 +131,18 @@ export default function AddAccountModal({ open, onClose, onSuccess, initialData 
               onChange={(e) => setName(e.target.value)}
               disabled={loading}
               required
-              className="h-12 bg-black/20 border-border/50 focus:border-primary/50 transition-colors shadow-inner"
+              className="h-10 sm:h-12 bg-black/20 border-border/50 focus:border-primary/50 transition-colors shadow-inner"
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="accountType" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground ml-1">Tipe Akun</Label>
+          <div className="space-y-1.5 sm:space-y-2">
+            <Label htmlFor="accountType" className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-muted-foreground ml-1">Tipe Akun</Label>
             <select
               id="accountType"
               value={type}
               onChange={(e) => setType(e.target.value)}
               disabled={loading}
-              className="h-12 w-full rounded-md border border-border/50 bg-black/20 px-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-colors shadow-inner"
+              className="h-10 sm:h-12 w-full rounded-md border border-border/50 bg-black/20 px-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-colors shadow-inner"
             >
               <option value="bank" className="bg-background">Bank</option>
               <option value="cash" className="bg-background">Kas</option>
@@ -153,18 +153,18 @@ export default function AddAccountModal({ open, onClose, onSuccess, initialData 
 
           {/* Error */}
           {error && (
-            <p className="rounded-lg bg-rose-500/10 border border-rose-500/20 px-4 py-3 text-sm text-rose-400 font-medium animate-fade-in flex items-center gap-2">
+            <p className="rounded-lg bg-rose-500/10 border border-rose-500/20 px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-rose-400 font-medium animate-fade-in flex items-center gap-2">
               <span className="flex-shrink-0">⚠️</span> {error}
             </p>
           )}
 
           {/* Actions */}
-          <div className="flex flex-col gap-3 pt-2">
-            <div className="flex gap-3">
-              <Button type="button" variant="outline" onClick={onClose} disabled={loading} className="flex-1 h-12 border-border/50 hover:bg-accent/50 transition-colors font-semibold">
+          <div className="flex flex-col gap-2.5 sm:gap-3 pt-1 sm:pt-2">
+            <div className="flex gap-2.5 sm:gap-3">
+              <Button type="button" variant="outline" onClick={onClose} disabled={loading} className="flex-1 h-10 sm:h-12 border-border/50 hover:bg-accent/50 transition-colors font-semibold">
                 Batal
               </Button>
-              <Button type="submit" disabled={loading} className="flex-1 h-12 font-semibold">
+              <Button type="submit" disabled={loading} className="flex-1 h-10 sm:h-12 font-semibold">
                 {loading ? 'Menyimpan...' : isEdit ? 'Simpan Perubahan' : 'Simpan Akun'}
               </Button>
             </div>
@@ -175,7 +175,7 @@ export default function AddAccountModal({ open, onClose, onSuccess, initialData 
                 variant="ghost"
                 onClick={handleDelete}
                 disabled={loading}
-                className="text-rose-400 hover:bg-rose-500/10 hover:text-rose-400 transition-colors h-11 mt-1 font-medium group"
+                className="text-rose-400 hover:bg-rose-500/10 hover:text-rose-400 transition-colors h-10 sm:h-11 font-medium group"
               >
                 <Trash2 className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform" /> Hapus Akun
               </Button>

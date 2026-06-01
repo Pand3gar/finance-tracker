@@ -41,32 +41,32 @@ export default function AccountsPage() {
 
   return (
     <>
-      <header className="sticky top-0 z-10 flex shrink-0 h-16 items-center justify-between border-b border-border bg-background/80 px-6 backdrop-blur-md animate-fade-in">
-        <h1 className="font-playfair text-[19px] font-bold tracking-wide text-foreground">Akun</h1>
+      <header className="sticky top-0 z-10 flex shrink-0 h-14 sm:h-16 items-center justify-between border-b border-border bg-background/80 px-4 sm:px-6 backdrop-blur-md animate-fade-in">
+        <h1 className="font-playfair text-base sm:text-[19px] font-bold tracking-wide text-foreground">Akun</h1>
         <button
           onClick={handleAddNew}
-          className="flex items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground transition-all hover:bg-primary/90 active:scale-95"
+          className="flex items-center gap-1.5 rounded-lg bg-primary px-2.5 sm:px-3 py-1.5 text-xs font-semibold text-primary-foreground transition-all hover:bg-primary/90 active:scale-95"
         >
           <Plus className="h-3.5 w-3.5" />
           Tambah
         </button>
       </header>
 
-      <div className="p-4 sm:p-6 space-y-6 animate-fade-in">
+      <div className="p-4 sm:p-6 space-y-4 sm:space-y-6 animate-fade-in">
         {/* Total Balance Summary */}
-        <div className="animate-slide-up py-4 px-2">
-          <p className="text-sm font-medium text-muted-foreground mb-1">Total Saldo Semua Akun</p>
+        <div className="animate-slide-up py-2 sm:py-4 px-2">
+          <p className="text-xs sm:text-sm font-medium text-muted-foreground mb-1">Total Saldo Semua Akun</p>
           {loading ? (
-            <Skeleton className="h-8 w-48" />
+            <Skeleton className="h-7 sm:h-8 w-40 sm:w-48" />
           ) : (
-            <p className="font-playfair text-3xl font-bold text-primary">
+            <p className="font-playfair text-2xl sm:text-3xl font-bold text-primary">
               {totalBalance >= 0 ? '' : '−'}{formatRp(Math.abs(totalBalance))}
             </p>
           )}
         </div>
 
         {/* Accounts List */}
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 stagger">
+        <div className="grid grid-cols-1 gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3 stagger">
           {loading ? (
             Array.from({ length: 4 }).map((_, i) => (
               <div key={i} className="animate-slide-up rounded-2xl bg-muted/20" style={{ aspectRatio: '1.586/1' }}>
@@ -133,7 +133,7 @@ export default function AccountsPage() {
                   {/* Top subtle shine */}
                   <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/10 to-transparent rounded-t-2xl" />
 
-                  <div className="relative z-10 flex flex-col justify-between h-full p-5">
+                  <div className="relative z-10 flex flex-col justify-between h-full p-4 sm:p-5">
                     {/* Top row: Chip + Type icon */}
                     <div className="flex items-start justify-between">
                       {/* Card Chip */}

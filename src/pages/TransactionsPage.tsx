@@ -196,58 +196,56 @@ export default function TransactionsPage() {
   return (
     <>
       {/* Header */}
-      <header className="sticky top-0 z-30 flex shrink-0 h-16 items-center justify-between border-b border-border bg-background/80 px-6 backdrop-blur-md animate-fade-in">
-        <div>
-          <h1 className="font-playfair text-[19px] font-bold tracking-wide text-foreground">Transaksi</h1>
-        </div>
+      <header className="sticky top-0 z-30 flex shrink-0 h-14 sm:h-16 items-center justify-between border-b border-border bg-background/80 px-4 sm:px-6 backdrop-blur-md animate-fade-in">
+        <h1 className="font-playfair text-base sm:text-[19px] font-bold tracking-wide text-foreground">Transaksi</h1>
         {/* Month navigation */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1.5 sm:gap-3">
           <button
             onClick={() => navigate(-1)}
-            className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-card/50 text-foreground hover:bg-accent hover:text-foreground transition-all hover:scale-105 active:scale-95 shadow-sm"
+            className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg border border-border bg-card/50 text-foreground hover:bg-accent hover:text-foreground transition-all hover:scale-105 active:scale-95 shadow-sm"
           >
             <ChevronLeft className="h-4 w-4" />
           </button>
-          <span className="min-w-32 text-center text-sm font-semibold transition-transform">
+          <span className="min-w-24 sm:min-w-32 text-center text-xs sm:text-sm font-semibold transition-transform">
             {MONTH_NAMES[month - 1]} {year}
           </span>
           <button
             onClick={() => navigate(1)}
             disabled={isCurrentMonth}
-            className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-card/50 text-foreground hover:bg-accent hover:text-foreground transition-all hover:scale-105 active:scale-95 shadow-sm disabled:pointer-events-none disabled:opacity-30"
+            className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg border border-border bg-card/50 text-foreground hover:bg-accent hover:text-foreground transition-all hover:scale-105 active:scale-95 shadow-sm disabled:pointer-events-none disabled:opacity-30"
           >
             <ChevronRight className="h-4 w-4" />
           </button>
         </div>
       </header>
 
-      <div className="p-4 sm:p-6 space-y-6 animate-fade-in">
+      <div className="p-4 sm:p-6 space-y-4 sm:space-y-6 animate-fade-in">
         {/* Monthly Summary Bar */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 stagger">
-          <div className="animate-slide-up py-4 px-2">
-            <p className="text-sm font-medium text-muted-foreground mb-2">Total Pemasukan</p>
+        <div className="grid grid-cols-3 gap-2 sm:gap-6 stagger">
+          <div className="animate-slide-up py-2 sm:py-4 px-1 sm:px-2">
+            <p className="text-[11px] sm:text-sm font-medium text-muted-foreground mb-1 sm:mb-2">Pemasukan</p>
             {loading ? (
-              <div className="h-8 w-32 animate-shimmer rounded bg-muted/50" />
+              <div className="h-6 sm:h-8 w-full sm:w-32 animate-shimmer rounded bg-muted/50" />
             ) : (
-              <p className="font-playfair text-3xl font-bold text-emerald-400">{formatRp(monthlyIncome)}</p>
+              <p className="font-playfair text-base sm:text-3xl font-bold text-emerald-400 truncate">{formatRp(monthlyIncome)}</p>
             )}
           </div>
 
-          <div className="animate-slide-up py-4 px-2">
-            <p className="text-sm font-medium text-muted-foreground mb-2">Total Pengeluaran</p>
+          <div className="animate-slide-up py-2 sm:py-4 px-1 sm:px-2">
+            <p className="text-[11px] sm:text-sm font-medium text-muted-foreground mb-1 sm:mb-2">Pengeluaran</p>
             {loading ? (
-              <div className="h-8 w-32 animate-shimmer rounded bg-muted/50" />
+              <div className="h-6 sm:h-8 w-full sm:w-32 animate-shimmer rounded bg-muted/50" />
             ) : (
-              <p className="font-playfair text-3xl font-bold text-rose-400">{formatRp(monthlyExpense)}</p>
+              <p className="font-playfair text-base sm:text-3xl font-bold text-rose-400 truncate">{formatRp(monthlyExpense)}</p>
             )}
           </div>
 
-          <div className="animate-slide-up py-4 px-2">
-            <p className="text-sm font-medium text-muted-foreground mb-2">Selisih</p>
+          <div className="animate-slide-up py-2 sm:py-4 px-1 sm:px-2">
+            <p className="text-[11px] sm:text-sm font-medium text-muted-foreground mb-1 sm:mb-2">Selisih</p>
             {loading ? (
-              <div className="h-8 w-32 animate-shimmer rounded bg-muted/50" />
+              <div className="h-6 sm:h-8 w-full sm:w-32 animate-shimmer rounded bg-muted/50" />
             ) : (
-              <p className={`font-playfair text-3xl font-bold ${
+              <p className={`font-playfair text-base sm:text-3xl font-bold truncate ${
                 monthlyIncome - monthlyExpense >= 0 ? 'text-blue-400' : 'text-orange-400'
               }`}>
                 {monthlyIncome - monthlyExpense >= 0 ? '+' : ''}{formatRp(monthlyIncome - monthlyExpense)}
