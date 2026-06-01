@@ -133,6 +133,9 @@ export default function Layout() {
             onClick={() => setShowLogoutMenu(!showLogoutMenu)}
             className={`w-full flex items-center gap-2 px-2 py-1 rounded-lg transition-colors text-left relative group ${showLogoutMenu ? 'bg-accent/50' : 'hover:bg-accent/30'}`}
           >
+            <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-primary/20 text-primary text-[10px] font-semibold uppercase">
+              {userEmail.charAt(0)}
+            </div>
             <div className="flex flex-col min-w-0 flex-1">
               <span className="text-xs font-medium text-foreground truncate">Logged in</span>
               <span className="text-[9px] text-muted-foreground truncate">{userEmail}</span>

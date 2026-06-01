@@ -185,18 +185,14 @@ export default function AccountsPage() {
           {!loading && (
             <button
               onClick={handleAddNew}
-              className="animate-slide-up group relative overflow-hidden rounded-2xl border border-dashed border-border/50 bg-card/20 cursor-pointer transition-all duration-300 hover:border-primary/40 hover:bg-card/40 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-1 hover:scale-[1.02] flex flex-col items-center justify-center gap-3"
+              className="animate-slide-up group relative overflow-hidden rounded-2xl border-2 border-dashed border-primary/30 bg-primary/5 cursor-pointer transition-all duration-300 hover:border-primary/60 hover:bg-primary/10 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-1 hover:scale-[1.02] flex flex-col items-center justify-center gap-3"
               style={{ aspectRatio: '1.586/1' }}
             >
-              <div className="absolute inset-0 opacity-[0.02]" style={{
-                backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
-                backgroundSize: '24px 24px'
-              }} />
               <div className="relative z-10 flex flex-col items-center justify-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full border border-dashed border-foreground/20 bg-white/5 group-hover:border-primary/50 transition-colors">
-                  <Plus className="h-6 w-6 text-foreground/40 group-hover:text-primary/70 transition-colors" />
+                <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-dashed border-primary/40 bg-primary/10 group-hover:border-primary/70 group-hover:bg-primary/20 transition-colors">
+                  <Plus className="h-6 w-6 text-primary/60 group-hover:text-primary transition-colors" />
                 </div>
-                <span className="text-[11px] font-semibold uppercase tracking-widest text-foreground/40 group-hover:text-foreground/70 transition-colors">Tambah Akun</span>
+                <span className="text-[11px] font-semibold uppercase tracking-widest text-foreground/60 group-hover:text-foreground transition-colors">Tambah Akun</span>
               </div>
             </button>
           )}
