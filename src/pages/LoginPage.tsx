@@ -34,7 +34,7 @@ function DecorativeArcs() {
 /* ─── Left branding panel ─────────────────────────────────────── */
 function LeftPanel() {
   return (
-    <div className="relative hidden lg:flex lg:w-[42%] flex-col justify-between p-12 xl:p-16 bg-primary text-primary-foreground overflow-hidden select-none">
+    <div className="relative hidden lg:flex lg:w-[38%] flex-col justify-between p-8 bg-primary text-primary-foreground overflow-hidden select-none">
       <DecorativeArcs />
 
       {/* App name branding */}
@@ -46,10 +46,10 @@ function LeftPanel() {
 
       {/* Headline + tagline */}
       <div className="relative z-10 space-y-5">
-        <h1 className="text-5xl xl:text-6xl font-black font-neuton leading-[1.1] tracking-tight">
+        <h1 className="text-3xl font-black font-neuton leading-[1.15] tracking-tight">
           Kelola<br />Keuangan<br />Kamu<br />dengan<br />Cerdas ✦
         </h1>
-        <p className="text-primary-foreground/60 text-sm xl:text-base leading-relaxed max-w-[260px] font-sans">
+        <p className="text-primary-foreground/60 text-xs leading-relaxed max-w-[220px] font-sans">
           Catat pemasukan &amp; pengeluaran, pantau kondisi keuangan secara real-time dalam satu platform yang elegan.
         </p>
       </div>
@@ -179,7 +179,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex h-screen overflow-hidden">
 
       {/* ── Left Panel ── */}
       <LeftPanel />
@@ -195,12 +195,12 @@ export default function LoginPage() {
         </div>
 
         {/* Main form area — vertically centered */}
-        <div className="flex flex-1 items-center justify-center px-8 py-12">
-          <div className="w-full max-w-sm space-y-8">
+        <div className="flex flex-1 items-center justify-center px-8 py-4">
+          <div className="w-full max-w-sm space-y-5">
 
             {/* Heading */}
-            <div className="space-y-2">
-              <h2 className="text-3xl font-black font-neuton text-foreground leading-tight">
+            <div className="space-y-1.5">
+              <h2 className="text-xl font-black font-neuton text-foreground leading-tight">
                 {headings[mode]}
               </h2>
               {/* Subtitle / switch link */}
@@ -237,7 +237,7 @@ export default function LoginPage() {
             </div>
 
             {/* Form */}
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-4">
 
               {/* Full name — register only */}
               {mode === 'register' && (
@@ -340,7 +340,7 @@ export default function LoginPage() {
               <Button
                 type="submit"
                 disabled={loading}
-                className="w-full h-11 rounded-lg bg-primary text-primary-foreground hover:bg-primary/85 active:bg-primary/75 font-semibold text-sm tracking-wide transition-all shadow-sm font-sans"
+                className="w-full h-9 rounded-lg bg-primary text-primary-foreground hover:bg-primary/85 active:bg-primary/75 font-semibold text-sm tracking-wide transition-all shadow-sm font-sans"
               >
                 {loading ? (
                   <span className="flex items-center gap-2">
