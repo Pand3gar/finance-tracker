@@ -88,7 +88,7 @@ export default function DashboardPage() {
   return (
     <>
       {/* Header */}
-      <header className="sticky top-0 z-10 flex shrink-0 h-10 sm:h-11 items-center justify-between border-b border-border bg-background/80 px-4 sm:px-6 backdrop-blur-md animate-fade-in">
+      <header className="sticky top-0 z-10 flex shrink-0 h-10 items-center justify-between border-b border-border bg-background/80 px-4 sm:px-6 backdrop-blur-md animate-fade-in">
         <h1 className="font-neuton text-sm sm:text-[19px] font-bold tracking-wide text-foreground">Dashboard</h1>
       </header>
 
