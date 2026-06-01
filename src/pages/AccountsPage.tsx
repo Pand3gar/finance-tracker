@@ -41,15 +41,8 @@ export default function AccountsPage() {
 
   return (
     <>
-      <header className="sticky top-0 z-10 flex shrink-0 h-14 sm:h-16 items-center justify-between border-b border-border bg-background/80 px-4 sm:px-6 backdrop-blur-md animate-fade-in">
+      <header className="sticky top-0 z-10 flex shrink-0 h-14 sm:h-16 items-center border-b border-border bg-background/80 px-4 sm:px-6 backdrop-blur-md animate-fade-in">
         <h1 className="font-neuton text-sm sm:text-[19px] font-bold tracking-wide text-foreground">Akun</h1>
-        <button
-          onClick={handleAddNew}
-          className="flex items-center gap-1.5 rounded-lg bg-primary px-2.5 sm:px-3 py-1.5 text-xs font-semibold text-primary-foreground transition-all hover:bg-primary/90 active:scale-95"
-        >
-          <Plus className="h-3.5 w-3.5" />
-          Tambah
-        </button>
       </header>
 
       <div className="p-4 sm:p-6 space-y-4 sm:space-y-6 animate-fade-in">
@@ -186,6 +179,26 @@ export default function AccountsPage() {
                 </div>
               )
             })
+          )}
+
+          {/* Add account card */}
+          {!loading && (
+            <button
+              onClick={handleAddNew}
+              className="animate-slide-up group relative overflow-hidden rounded-2xl border border-dashed border-border/50 bg-card/20 cursor-pointer transition-all duration-300 hover:border-primary/40 hover:bg-card/40 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-1 hover:scale-[1.02] flex flex-col items-center justify-center gap-3"
+              style={{ aspectRatio: '1.586/1' }}
+            >
+              <div className="absolute inset-0 opacity-[0.02]" style={{
+                backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+                backgroundSize: '24px 24px'
+              }} />
+              <div className="relative z-10 flex flex-col items-center justify-center gap-3">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full border border-dashed border-foreground/20 bg-white/5 group-hover:border-primary/50 transition-colors">
+                  <Plus className="h-6 w-6 text-foreground/40 group-hover:text-primary/70 transition-colors" />
+                </div>
+                <span className="text-[11px] font-semibold uppercase tracking-widest text-foreground/40 group-hover:text-foreground/70 transition-colors">Tambah Akun</span>
+              </div>
+            </button>
           )}
         </div>
       </div>
