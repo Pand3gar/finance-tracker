@@ -46,10 +46,10 @@ function LeftPanel() {
 
       {/* Headline + tagline */}
       <div className="relative z-10 space-y-5">
-        <h1 className="text-3xl font-black font-neuton leading-[1.15] tracking-tight">
+        <h1 className="text-5xl font-black font-neuton leading-[1.1] tracking-tight">
           Kelola<br />Keuangan<br />Kamu<br />dengan<br />Cerdas ✦
         </h1>
-        <p className="text-primary-foreground/60 text-xs leading-relaxed max-w-[220px] font-sans">
+        <p className="text-primary-foreground/60 text-sm leading-relaxed max-w-[320px] font-sans">
           Catat pemasukan &amp; pengeluaran, pantau kondisi keuangan secara real-time dalam satu platform yang elegan.
         </p>
       </div>
