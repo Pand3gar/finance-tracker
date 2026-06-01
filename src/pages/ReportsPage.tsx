@@ -421,11 +421,6 @@ export default function ReportsPage() {
       </header>
 
       <div className="p-4 sm:p-6 space-y-6 animate-fade-in">
-        {/* Income vs Expense bar chart — has its own range filter */}
-        <div className="stagger">
-          <IncomeExpenseChart />
-        </div>
-
         {/* Donut charts */}
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 stagger">
           <DonutSection
@@ -450,6 +445,11 @@ export default function ReportsPage() {
             month={incomeMonth}
             onChange={(y, m) => { setIncomeYear(y); setIncomeMonth(m) }}
           />
+        </div>
+
+        {/* Income vs Expense bar chart */}
+        <div className="stagger">
+          <IncomeExpenseChart />
         </div>
       </div>
     </>
