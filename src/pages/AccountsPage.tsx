@@ -1,23 +1,30 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { getAccounts, type Account } from '@/lib/transactions'
 import AddAccountModal from '@/components/AddAccountModal'
 import { Coins, Smartphone, Landmark, Wallet, Plus } from 'lucide-react'
 import { formatRp } from '@/lib/format'
 import { Skeleton } from '@/components/ui/skeleton'
-import { useCachedData } from '@/lib/useCachedData'
 
 export default function AccountsPage() {
+  const [accounts, setAccounts] = useState<Account[]>([])
+  const [loading, setLoading] = useState(true)
   const [modalOpen, setModalOpen] = useState(false)
   const [editingAccount, setEditingAccount] = useState<Account | null>(null)
 
-  const { data: accounts = [], loading, revalidate: fetchAccounts } =
-    useCachedData('accounts', getAccounts)
+  const fetchAccounts = useCallback(async () => {
+    setLoading(true)
+    try {
+      const data = await getAccounts()
+      setAccounts(data)
+    } catch {
+      // Handle error implicitly
+    } finally {
+      setLoading(false)
+    }
+  }, [])
 
-  // Account balances change when transactions are added anywhere in the app.
   useEffect(() => {
-    const handler = () => fetchAccounts()
-    window.addEventListener('transactionAdded', handler)
-    return () => window.removeEventListener('transactionAdded', handler)
+    fetchAccounts()
   }, [fetchAccounts])
 
   const handleEdit = (acc: Account) => {

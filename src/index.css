@@ -129,35 +129,16 @@ html {
 }
 
 body {
-  overscroll-behavior: none;
-  overflow-x: hidden;
-}
-
-body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: 'Neuton', serif;
   -webkit-font-smoothing: antialiased;
-  /* Remove the grey flash when tapping buttons/links on mobile. */
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* pb-safe — used by the mobile bottom nav for iPhone home-indicator clearance */
-.pb-safe {
-  padding-bottom: max(env(safe-area-inset-bottom), 0.125rem);
-}
-
-/* In standalone (Add to Home Screen) mode, push content below the status bar */
-@media (display-mode: standalone) {
-  body {
-    padding-top: env(safe-area-inset-top);
-  }
 }
 
 /* Native dialog styling */
 dialog {
   color: var(--foreground);
-  max-height: 90dvh;
+  max-height: 90vh;
   overflow: hidden;
 }
 

@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { getDailyCalendarData, type DayData, type Transaction } from '@/lib/transactions'
 import AddTransactionModal from '@/components/AddTransactionModal'
 import { Wallet, ChevronLeft, ChevronRight, ArrowUpRight, ArrowDownLeft, ArrowLeftRight } from 'lucide-react'
 import { CategoryIcon } from '@/lib/categoryIcons'
 import { formatRp, formatDate } from '@/lib/format'
 import { TYPE_META, MONTH_NAMES } from '@/lib/constants'
-import { useCachedData } from '@/lib/useCachedData'
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -91,7 +90,6 @@ function CalendarGrid({ year, month, dayData, today, onDayClick, selectedDay }: 
           <button
             key={cell.iso + idx}
             onClick={() => cell.currentMonth && onDayClick(cell.iso)}
-            style={{ touchAction: 'pan-y' }}
             className={`
               relative min-h-[72px] sm:min-h-[85px] flex flex-col items-start gap-1 p-1.5 sm:p-2 text-left transition-all duration-200
               ${cell.currentMonth
@@ -152,12 +150,25 @@ export default function TransactionsPage() {
   const [year,  setYear]  = useState(now.getFullYear())
   const [month, setMonth] = useState(now.getMonth() + 1)
 
+  const [dayData, setDayData]       = useState<Record<string, DayData>>({})
+  const [loading, setLoading]       = useState(true)
   const [selectedDay, setSelectedDay] = useState<string | null>(null)
   const [modalOpen, setModalOpen]   = useState(false)
   const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null)
 
-  const { data: dayData = {}, loading, revalidate: fetchData } =
-    useCachedData(`calendar:${year}-${month}`, () => getDailyCalendarData(year, month))
+  const fetchData = useCallback(async () => {
+    setLoading(true)
+    try {
+      const data = await getDailyCalendarData(year, month)
+      setDayData(data)
+    } catch {
+      // noop
+    } finally {
+      setLoading(false)
+    }
+  }, [year, month])
+
+  useEffect(() => { fetchData() }, [fetchData])
 
   // Refresh when a transaction is added from anywhere in the app (e.g., global FAB)
   useEffect(() => {

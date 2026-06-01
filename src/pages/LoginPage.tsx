@@ -179,7 +179,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex h-dvh overflow-hidden">
+    <div className="flex h-screen overflow-hidden">
 
       {/* ── Left Panel ── */}
       <LeftPanel />

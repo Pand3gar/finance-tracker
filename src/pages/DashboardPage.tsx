@@ -1,7 +1,6 @@
-﻿import { useEffect, useState, useMemo, useRef } from 'react'
+import { useEffect, useState, useCallback, useMemo, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { getTransactions, type Transaction } from '@/lib/transactions'
-import { useCachedData } from '@/lib/useCachedData'
 import AddTransactionModal from '@/components/AddTransactionModal'
 import { Wallet, ArrowUpRight, ArrowDownLeft, ArrowLeftRight, Moon, Sun, Settings, LogOut } from 'lucide-react'
 import { CategoryIcon } from '@/lib/categoryIcons'
@@ -64,13 +63,20 @@ const FINANCIAL_QUOTES = [
 export default function DashboardPage() {
   const [modalOpen, setModalOpen] = useState(false)
   const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null)
+  const [transactions, setTransactions] = useState<Transaction[]>([])
+  const [loadingTx, setLoadingTx] = useState(true)
   const [userEmail, setUserEmail] = useState('')
   const [showUserMenu, setShowUserMenu] = useState(false)
   const [isDark, setIsDark] = useState(() => (localStorage.getItem('theme') ?? 'dark') === 'dark')
   const menuRef = useRef<HTMLDivElement>(null)
 
-  const { data: transactions = [], loading: loadingTx, revalidate: fetchTransactions } =
-    useCachedData('transactions:15', () => getTransactions(15))
+  const fetchTransactions = useCallback(async () => {
+    setLoadingTx(true)
+    try { setTransactions(await getTransactions(15)) } catch { /* noop */ }
+    finally { setLoadingTx(false) }
+  }, [])
+
+  useEffect(() => { fetchTransactions() }, [fetchTransactions])
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
@@ -211,14 +217,14 @@ export default function DashboardPage() {
                   {randomQuote.author.charAt(0)}
                 </span>
               </div>
-              <div className="flex flex-col justify-center min-w-0">
-                <p className="font-neuton text-sm font-bold text-foreground truncate">— {randomQuote.author}</p>
+              <div className="flex flex-col justify-center">
+                <p className="font-neuton text-sm font-bold text-foreground">— {randomQuote.author}</p>
                 <p className="text-[10px] sm:text-[11px] text-muted-foreground font-medium uppercase tracking-wider">Financial Wisdom</p>
               </div>
             </div>
-            <div className="hidden sm:block border-t-[1px] border-primary flex-1 opacity-70" />
-            <span className="hidden sm:inline text-[70px] font-black font-neuton text-primary leading-[0] translate-y-3 shrink-0">
-              “
+            <div className="border-t-[1px] border-primary flex-1 opacity-70" />
+            <span className="text-[44px] sm:text-[70px] font-black font-neuton text-primary leading-[0] translate-y-2 sm:translate-y-3 shrink-0">
+              ”
             </span>
           </div>
         </div>

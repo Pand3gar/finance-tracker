@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import {
   PieChart, Pie, Cell, Tooltip, ResponsiveContainer,
   BarChart, Bar, XAxis, YAxis, CartesianGrid,
@@ -7,13 +7,13 @@ import {
   getCategoryBreakdown,
   getIncomeExpenseHistory,
   type CategoryBreakdownItem,
+  type BarChartDataPoint,
   type WealthRange,
 } from '@/lib/transactions'
 import { CategoryIcon } from '@/lib/categoryIcons'
 import { formatRp } from '@/lib/format'
 import { Skeleton } from '@/components/ui/skeleton'
 import { MONTH_NAMES } from '@/lib/constants'
-import { useCachedData } from '@/lib/useCachedData'
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -161,7 +161,7 @@ function DonutSection({ title, emoji, data, total, loading, accentColor, year, m
           </div>
         ) : (
           <>
-            <div className="relative h-60 sm:h-72 my-2" style={{ touchAction: 'pan-y' }}>
+            <div className="relative h-60 sm:h-72 my-2">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie data={data} cx="50%" cy="50%" innerRadius="70%" outerRadius="95%"
@@ -196,9 +196,22 @@ const RANGE_OPTIONS: { value: WealthRange; label: string }[] = [
 
 function IncomeExpenseChart() {
   const [range, setRange] = useState<WealthRange>('7D')
+  const [data, setData] = useState<BarChartDataPoint[]>([])
+  const [loading, setLoading] = useState(true)
 
-  const { data = [], loading, revalidate: fetchData } =
-    useCachedData(`history:${range}`, () => getIncomeExpenseHistory(range))
+  const fetchData = useCallback(async () => {
+    setLoading(true)
+    try {
+      const pts = await getIncomeExpenseHistory(range)
+      setData(pts)
+    } catch {
+      // noop
+    } finally {
+      setLoading(false)
+    }
+  }, [range])
+
+  useEffect(() => { fetchData() }, [fetchData])
 
   // Refresh when a transaction is added from anywhere in the app
   useEffect(() => {
@@ -283,7 +296,7 @@ function IncomeExpenseChart() {
             <p className="text-sm text-muted-foreground">Belum ada transaksi dalam periode ini</p>
           </div>
         ) : (
-          <div className="h-64" style={{ touchAction: 'pan-y' }}>
+          <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data} margin={{ top: 4, right: 4, left: 0, bottom: 0 }} barCategoryGap="30%">
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
@@ -362,10 +375,37 @@ export default function ReportsPage() {
   const [incomeYear, setIncomeYear] = useState(now.getFullYear())
   const [incomeMonth, setIncomeMonth] = useState(now.getMonth() + 1)
 
-  const { data: expenseData = [], loading: loadingExpense, revalidate: fetchExpense } =
-    useCachedData(`breakdown:expense:${expenseYear}-${expenseMonth}`, () => getCategoryBreakdown('expense', expenseYear, expenseMonth))
-  const { data: incomeData = [], loading: loadingIncome, revalidate: fetchIncome } =
-    useCachedData(`breakdown:income:${incomeYear}-${incomeMonth}`, () => getCategoryBreakdown('income', incomeYear, incomeMonth))
+  const [expenseData, setExpenseData] = useState<CategoryBreakdownItem[]>([])
+  const [incomeData, setIncomeData] = useState<CategoryBreakdownItem[]>([])
+  const [loadingExpense, setLoadingExpense] = useState(true)
+  const [loadingIncome, setLoadingIncome] = useState(true)
+
+  const fetchExpense = useCallback(async () => {
+    setLoadingExpense(true)
+    try {
+      const data = await getCategoryBreakdown('expense', expenseYear, expenseMonth)
+      setExpenseData(data)
+    } catch {
+      // noop
+    } finally {
+      setLoadingExpense(false)
+    }
+  }, [expenseYear, expenseMonth])
+
+  const fetchIncome = useCallback(async () => {
+    setLoadingIncome(true)
+    try {
+      const data = await getCategoryBreakdown('income', incomeYear, incomeMonth)
+      setIncomeData(data)
+    } catch {
+      // noop
+    } finally {
+      setLoadingIncome(false)
+    }
+  }, [incomeYear, incomeMonth])
+
+  useEffect(() => { fetchExpense() }, [fetchExpense])
+  useEffect(() => { fetchIncome() }, [fetchIncome])
 
   // Refresh when a transaction is added from anywhere in the app
   useEffect(() => {

@@ -51,10 +51,11 @@ export default function Layout() {
   const showFab = location.pathname.startsWith('/dashboard') || location.pathname.startsWith('/transactions')
 
   return (
-    <div className="flex min-h-dvh bg-background relative">
+    <div className="flex h-dvh overflow-hidden bg-background relative">
 
-      {/* Desktop Sidebar — fixed so document can scroll freely */}
-      <aside className="hidden w-36 border-r border-border bg-sidebar-background/80 backdrop-blur-xl lg:flex lg:flex-col fixed left-0 top-0 h-full overflow-y-auto z-20">
+
+      {/* Desktop Sidebar */}
+      <aside className="hidden w-36 flex-shrink-0 border-r border-border bg-sidebar-background/80 backdrop-blur-xl lg:flex lg:flex-col h-full overflow-y-auto relative z-20">
         <div className="flex shrink-0 h-10 items-center px-4 relative">
           <span className="font-neuton text-sm font-bold tracking-wide text-foreground">
             Finance <span className="text-primary italic font-medium">Tracker</span>
@@ -144,8 +145,8 @@ export default function Layout() {
         </div>
       </aside>
 
-      {/* Main content area — document scrolls, sidebar offset on desktop */}
-      <div className="flex flex-1 flex-col lg:ml-36 pb-16 lg:pb-0 min-h-[calc(100dvh+1px)] lg:min-h-dvh">
+      {/* Main content area */}
+      <div className="flex flex-1 flex-col overflow-y-auto overscroll-none h-full relative z-10 pb-16 lg:pb-0" style={{ WebkitOverflowScrolling: 'touch' }}>
         <Outlet />
         
         {/* Floating Add Transaction Button (Desktop only here, Mobile has it in bottom nav) */}

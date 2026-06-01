@@ -96,7 +96,7 @@ export default function AddAccountModal({ open, onClose, onSuccess, initialData 
     <dialog
       ref={dialogRef}
       onClick={handleBackdropClick}
-      className="m-auto w-[calc(100%-2rem)] max-w-sm max-h-[90dvh] rounded-2xl border border-border bg-card p-0 shadow-[0_8px_32px_rgba(0,0,0,0.3)] backdrop:bg-black/50 backdrop:backdrop-blur-sm open:flex open:flex-col overflow-hidden"
+      className="m-auto w-[calc(100%-2rem)] max-w-sm max-h-[90vh] rounded-2xl border border-border bg-card p-0 shadow-[0_8px_32px_rgba(0,0,0,0.3)] backdrop:bg-black/50 backdrop:backdrop-blur-sm open:flex open:flex-col overflow-hidden"
     >
       <div className="flex flex-col w-full min-h-0 bg-card">
         {/* Header */}
