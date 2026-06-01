@@ -122,12 +122,12 @@ function CalendarGrid({ year, month, dayData, today, onDayClick, selectedDay }: 
                 {/* Desktop: amounts */}
                 <div className="hidden sm:flex flex-col gap-[2px]">
                   {hasIncome && (
-                    <span className="font-playfair text-sm leading-none font-semibold text-emerald-400 truncate w-full text-right">
+                    <span className="font-neuton text-sm leading-none font-semibold text-emerald-400 truncate w-full text-right">
                       +{formatRpCompact(data!.income)}
                     </span>
                   )}
                   {hasExpense && (
-                    <span className="font-playfair text-sm leading-none font-semibold text-rose-400 truncate w-full text-right">
+                    <span className="font-neuton text-sm leading-none font-semibold text-rose-400 truncate w-full text-right">
                       -{formatRpCompact(data!.expense)}
                     </span>
                   )}
@@ -197,7 +197,7 @@ export default function TransactionsPage() {
     <>
       {/* Header */}
       <header className="sticky top-0 z-30 flex shrink-0 h-14 sm:h-16 items-center justify-between border-b border-border bg-background/80 px-4 sm:px-6 backdrop-blur-md animate-fade-in">
-        <h1 className="font-playfair text-sm sm:text-[19px] font-bold tracking-wide text-foreground">Transaksi</h1>
+        <h1 className="font-neuton text-sm sm:text-[19px] font-bold tracking-wide text-foreground">Transaksi</h1>
         {/* Month navigation */}
         <div className="flex items-center gap-1.5 sm:gap-3">
           <button
@@ -227,7 +227,7 @@ export default function TransactionsPage() {
             {loading ? (
               <div className="h-6 sm:h-8 w-28 sm:w-32 animate-shimmer rounded bg-muted/50" />
             ) : (
-              <p className="font-playfair text-base sm:text-3xl font-bold text-emerald-400">{formatRp(monthlyIncome)}</p>
+              <p className="font-neuton text-base sm:text-3xl font-bold text-emerald-400">{formatRp(monthlyIncome)}</p>
             )}
           </div>
 
@@ -236,7 +236,7 @@ export default function TransactionsPage() {
             {loading ? (
               <div className="h-6 sm:h-8 w-28 sm:w-32 animate-shimmer rounded bg-muted/50" />
             ) : (
-              <p className="font-playfair text-base sm:text-3xl font-bold text-rose-400">{formatRp(monthlyExpense)}</p>
+              <p className="font-neuton text-base sm:text-3xl font-bold text-rose-400">{formatRp(monthlyExpense)}</p>
             )}
           </div>
 
@@ -245,7 +245,7 @@ export default function TransactionsPage() {
             {loading ? (
               <div className="h-6 sm:h-8 w-28 sm:w-32 animate-shimmer rounded bg-muted/50" />
             ) : (
-              <p className={`font-playfair text-base sm:text-3xl font-bold ${
+              <p className={`font-neuton text-base sm:text-3xl font-bold ${
                 monthlyIncome - monthlyExpense >= 0 ? 'text-blue-400' : 'text-orange-400'
               }`}>
                 {monthlyIncome - monthlyExpense >= 0 ? '+' : ''}{formatRp(monthlyIncome - monthlyExpense)}
@@ -322,7 +322,7 @@ export default function TransactionsPage() {
                       </div>
 
                       {/* Amount */}
-                      <p className={`flex-shrink-0 font-playfair text-sm font-semibold ${meta.color}`}>
+                      <p className={`flex-shrink-0 font-neuton text-sm font-semibold ${meta.color}`}>
                         {isExpense ? '−' : tx.type === 'income' ? '+' : ''}{formatRp(tx.amount)}
                       </p>
                     </div>

@@ -116,7 +116,7 @@ function CategoryLegend({ data, colors }: { data: CategoryBreakdownItem[]; color
             </div>
             <div className="flex items-center gap-2 flex-shrink-0">
               <span className="text-[10px] font-medium text-muted-foreground w-8 text-right">{item.percentage}%</span>
-              <span className="text-xs font-semibold font-playfair">{formatRp(item.total)}</span>
+              <span className="text-xs font-semibold font-neuton">{formatRp(item.total)}</span>
             </div>
           </div>
         </div>
@@ -175,7 +175,7 @@ function DonutSection({ title, emoji, data, total, loading, accentColor, year, m
               </ResponsiveContainer>
               <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
                 <p className="text-xs text-muted-foreground">{data.length} kategori</p>
-                <p className="font-playfair text-sm font-bold" style={{ color: accentColor }}>{formatRp(total)}</p>
+                <p className="font-neuton text-sm font-bold" style={{ color: accentColor }}>{formatRp(total)}</p>
               </div>
             </div>
             <CategoryLegend data={data} colors={colors} />
@@ -244,18 +244,18 @@ function IncomeExpenseChart() {
               <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-6">
                 <div className="flex items-baseline justify-between gap-3 sm:block">
                   <p className="text-xs sm:text-xs text-muted-foreground sm:mb-1">Pendapatan</p>
-                  <p className="font-playfair text-base sm:text-xl font-bold text-emerald-400">{formatRp(totalIncome)}</p>
+                  <p className="font-neuton text-base sm:text-xl font-bold text-emerald-400">{formatRp(totalIncome)}</p>
                 </div>
                 <div className="hidden sm:block w-px h-10 bg-gradient-to-b from-transparent via-border to-transparent" />
                 <div className="flex items-baseline justify-between gap-3 sm:block">
                   <p className="text-xs sm:text-xs text-muted-foreground sm:mb-1">Pengeluaran</p>
-                  <p className="font-playfair text-base sm:text-xl font-bold text-rose-400">{formatRp(totalExpense)}</p>
+                  <p className="font-neuton text-base sm:text-xl font-bold text-rose-400">{formatRp(totalExpense)}</p>
                 </div>
                 <div className="hidden sm:block w-px h-10 bg-gradient-to-b from-transparent via-border to-transparent" />
                 <div className="flex items-baseline justify-between gap-3 sm:block">
                   <p className="text-xs sm:text-xs text-muted-foreground sm:mb-1">Selisih</p>
                   <div className="flex items-center gap-1.5">
-                    <p className={`font-playfair text-base sm:text-xl font-bold ${netBalance >= 0 ? 'text-blue-400' : 'text-orange-400'}`}>
+                    <p className={`font-neuton text-base sm:text-xl font-bold ${netBalance >= 0 ? 'text-blue-400' : 'text-orange-400'}`}>
                       {netBalance >= 0 ? '+' : ''}{formatRp(netBalance)}
                     </p>
                     {netBalance !== 0 && (
@@ -417,7 +417,7 @@ export default function ReportsPage() {
     <>
       {/* Header */}
       <header className="sticky top-0 z-20 flex shrink-0 h-14 sm:h-16 items-center justify-between border-b border-border bg-background/80 px-4 sm:px-6 backdrop-blur-md animate-fade-in">
-        <h1 className="font-playfair text-sm sm:text-[19px] font-bold tracking-wide text-foreground">Laporan</h1>
+        <h1 className="font-neuton text-sm sm:text-[19px] font-bold tracking-wide text-foreground">Laporan</h1>
       </header>
 
       <div className="p-4 sm:p-6 space-y-6 animate-fade-in">

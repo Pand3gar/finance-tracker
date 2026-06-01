@@ -42,7 +42,7 @@ export default function AccountsPage() {
   return (
     <>
       <header className="sticky top-0 z-10 flex shrink-0 h-14 sm:h-16 items-center justify-between border-b border-border bg-background/80 px-4 sm:px-6 backdrop-blur-md animate-fade-in">
-        <h1 className="font-playfair text-sm sm:text-[19px] font-bold tracking-wide text-foreground">Akun</h1>
+        <h1 className="font-neuton text-sm sm:text-[19px] font-bold tracking-wide text-foreground">Akun</h1>
         <button
           onClick={handleAddNew}
           className="flex items-center gap-1.5 rounded-lg bg-primary px-2.5 sm:px-3 py-1.5 text-xs font-semibold text-primary-foreground transition-all hover:bg-primary/90 active:scale-95"
@@ -59,7 +59,7 @@ export default function AccountsPage() {
           {loading ? (
             <Skeleton className="h-7 sm:h-8 w-40 sm:w-48" />
           ) : (
-            <p className="font-playfair text-2xl sm:text-3xl font-bold text-primary">
+            <p className="font-neuton text-2xl sm:text-3xl font-bold text-primary">
               {totalBalance >= 0 ? '' : '−'}{formatRp(Math.abs(totalBalance))}
             </p>
           )}
@@ -176,7 +176,7 @@ export default function AccountsPage() {
                       </div>
                       <div className="text-right">
                         <p className="text-[10px] uppercase tracking-widest text-white/40 mb-0.5">Saldo</p>
-                        <p className={`font-playfair text-lg font-bold ${isPositive ? 'text-emerald-300' : 'text-rose-300'}`}>
+                        <p className={`font-neuton text-lg font-bold ${isPositive ? 'text-emerald-300' : 'text-rose-300'}`}>
                           {isPositive ? '' : '−'}{formatRp(Math.abs(Number(acc.balance)))}
                         </p>
                       </div>

@@ -89,7 +89,7 @@ export default function DashboardPage() {
     <>
       {/* Header */}
       <header className="sticky top-0 z-10 flex shrink-0 h-14 sm:h-16 items-center justify-between border-b border-border bg-background/80 px-4 sm:px-6 backdrop-blur-md animate-fade-in">
-        <h1 className="font-poppins text-sm sm:text-[19px] font-bold tracking-wide text-foreground">Dashboard</h1>
+        <h1 className="font-neuton text-sm sm:text-[19px] font-bold tracking-wide text-foreground">Dashboard</h1>
       </header>
 
       <div className="p-4 sm:p-6 space-y-4 sm:space-y-6 animate-fade-in">
@@ -98,14 +98,14 @@ export default function DashboardPage() {
         <div className="animate-slide-up px-1 sm:px-2 pb-3 sm:pb-4 pt-2">
           {/* Top line with opening quotes */}
           <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-            <span className="text-[44px] sm:text-[70px] font-black font-playfair text-primary leading-[0] translate-y-2 sm:translate-y-3">
+            <span className="text-[44px] sm:text-[70px] font-black font-neuton text-primary leading-[0] translate-y-2 sm:translate-y-3">
               “
             </span>
             <div className="border-t-[1px] border-primary flex-1 opacity-70" />
           </div>
 
           {/* Quote Text */}
-          <p className="font-playfair font-medium text-foreground/90 leading-relaxed text-base sm:text-lg md:text-xl px-1">
+          <p className="font-neuton font-medium text-foreground/90 leading-relaxed text-base sm:text-lg md:text-xl px-1">
             {randomQuote.text}
           </p>
 
@@ -127,19 +127,19 @@ export default function DashboardPage() {
                   />
                 ) : null}
                 <span
-                  className="font-playfair font-bold text-lg sm:text-xl text-primary"
+                  className="font-neuton font-bold text-lg sm:text-xl text-primary"
                   style={{ display: AUTHOR_PHOTOS[randomQuote.author] ? 'none' : 'flex' }}
                 >
                   {randomQuote.author.charAt(0)}
                 </span>
               </div>
               <div className="flex flex-col justify-center">
-                <p className="font-playfair text-sm sm:text-base font-bold text-foreground">— {randomQuote.author}</p>
+                <p className="font-neuton text-sm sm:text-base font-bold text-foreground">— {randomQuote.author}</p>
                 <p className="text-[10px] sm:text-[11px] text-muted-foreground font-medium uppercase tracking-wider">Financial Wisdom</p>
               </div>
             </div>
             <div className="border-t-[1px] border-primary flex-1 opacity-70" />
-            <span className="text-[44px] sm:text-[70px] font-black font-playfair text-primary leading-[0] translate-y-2 sm:translate-y-3 shrink-0">
+            <span className="text-[44px] sm:text-[70px] font-black font-neuton text-primary leading-[0] translate-y-2 sm:translate-y-3 shrink-0">
               ”
             </span>
           </div>
@@ -148,7 +148,7 @@ export default function DashboardPage() {
         {/* Recent Transactions */}
         <div className="animate-slide-up mt-2 sm:mt-4">
           <div className="flex flex-row items-center justify-between pb-2 sm:pb-4 px-2">
-            <h2 className="font-poppins text-sm sm:text-base font-semibold">Transaksi Terbaru</h2>
+            <h2 className="font-neuton text-sm sm:text-base font-semibold">Transaksi Terbaru</h2>
           </div>
           <div className="px-2">
             {loadingTx ? (
@@ -194,7 +194,7 @@ export default function DashboardPage() {
 
                       {/* Details */}
                       <div className="flex-1 min-w-0">
-                        <p className="font-poppins truncate text-sm font-medium text-foreground/90 group-hover:text-foreground transition-colors leading-tight">
+                        <p className="font-neuton truncate text-sm font-medium text-foreground/90 group-hover:text-foreground transition-colors leading-tight">
                           {tx.type === 'transfer'
                             ? `${tx.account?.name ?? '?'} → ${tx.to_account?.name ?? '?'}`
                             : tx.category?.name ?? meta.label}
@@ -213,7 +213,7 @@ export default function DashboardPage() {
                       </div>
 
                       {/* Amount */}
-                      <p className={`font-poppins flex-shrink-0 text-sm font-semibold ${meta.color}`}>
+                      <p className={`font-neuton flex-shrink-0 text-sm font-semibold ${meta.color}`}>
                         {isExpense ? '−' : tx.type === 'income' ? '+' : ''}{formatRp(tx.amount)}
                       </p>
                     </div>

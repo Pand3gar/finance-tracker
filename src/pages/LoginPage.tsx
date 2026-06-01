@@ -39,14 +39,14 @@ function LeftPanel() {
 
       {/* App name branding */}
       <div className="relative z-10">
-        <span className="font-playfair text-lg font-bold text-primary-foreground tracking-wide">
+        <span className="font-neuton text-lg font-bold text-primary-foreground tracking-wide">
           Finance Tracker
         </span>
       </div>
 
       {/* Headline + tagline */}
       <div className="relative z-10 space-y-5">
-        <h1 className="text-5xl xl:text-6xl font-black font-playfair leading-[1.1] tracking-tight">
+        <h1 className="text-5xl xl:text-6xl font-black font-neuton leading-[1.1] tracking-tight">
           Kelola<br />Keuangan<br />Kamu<br />dengan<br />Cerdas ✦
         </h1>
         <p className="text-primary-foreground/60 text-sm xl:text-base leading-relaxed max-w-[260px] font-sans">
@@ -189,7 +189,7 @@ export default function LoginPage() {
 
         {/* Top bar: mobile branding only */}
         <div className="flex items-center px-8 pt-8 pb-0 shrink-0 lg:hidden">
-          <span className="font-playfair text-lg font-bold text-foreground">
+          <span className="font-neuton text-lg font-bold text-foreground">
             Finance <span className="italic font-medium text-primary/80">Tracker</span>
           </span>
         </div>
@@ -200,7 +200,7 @@ export default function LoginPage() {
 
             {/* Heading */}
             <div className="space-y-2">
-              <h2 className="text-3xl font-black font-playfair text-foreground leading-tight">
+              <h2 className="text-3xl font-black font-neuton text-foreground leading-tight">
                 {headings[mode]}
               </h2>
               {/* Subtitle / switch link */}
