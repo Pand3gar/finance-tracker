@@ -141,6 +141,18 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* pb-safe — used by the mobile bottom nav for iPhone home-indicator clearance */
+.pb-safe {
+  padding-bottom: max(env(safe-area-inset-bottom), 0.125rem);
+}
+
+/* In standalone (Add to Home Screen) mode, push content below the status bar */
+@media (display-mode: standalone) {
+  body {
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
 /* Native dialog styling */
 dialog {
   color: var(--foreground);
