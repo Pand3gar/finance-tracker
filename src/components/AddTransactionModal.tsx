@@ -315,18 +315,20 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
             {/* Date */}
             <div className="space-y-1.5">
               <Label htmlFor="date" className="text-[10px] sm:text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Tanggal</Label>
-              <Input
-                id="date"
-                type="date"
-                value={date}
-                onChange={e => setDate(e.target.value)}
-                onClick={(e) => {
-                  try { (e.target as HTMLInputElement).showPicker() } catch { }
-                }}
-                required
-                disabled={loading}
-                className="h-10 bg-black/20 border-white/10 rounded-xl focus-visible:ring-1 focus-visible:ring-primary/50 shadow-inner text-sm"
-              />
+              <div className="relative h-10">
+                <div className="h-10 w-full rounded-xl border border-white/10 bg-black/20 px-3 text-sm text-foreground flex items-center shadow-inner select-none pointer-events-none">
+                  {date ? new Date(date + 'T00:00:00').toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) : 'Pilih tanggal'}
+                </div>
+                <input
+                  id="date"
+                  type="date"
+                  value={date}
+                  onChange={e => setDate(e.target.value)}
+                  required
+                  disabled={loading}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
+                />
+              </div>
             </div>
 
             {/* Note */}
