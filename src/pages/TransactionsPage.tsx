@@ -198,8 +198,8 @@ export default function TransactionsPage() {
       {/* Header */}
       <header className="sticky top-0 z-30 flex shrink-0 h-14 sm:h-16 items-center justify-between border-b border-border bg-background/80 px-4 sm:px-6 backdrop-blur-md animate-fade-in">
         <h1 className="font-neuton text-sm sm:text-[19px] font-bold tracking-wide text-foreground">Transaksi</h1>
-        {/* Month navigation */}
-        <div className="flex items-center gap-1.5 sm:gap-3">
+        {/* Month navigation — desktop only */}
+        <div className="hidden sm:flex items-center gap-1.5 sm:gap-3">
           <button
             onClick={() => navigate(-1)}
             className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg border border-border bg-card/50 text-foreground hover:bg-accent hover:text-foreground transition-all hover:scale-105 active:scale-95 shadow-sm"
@@ -252,6 +252,26 @@ export default function TransactionsPage() {
               </p>
             )}
           </div>
+        </div>
+
+        {/* Month navigation — mobile only, below summary */}
+        <div className="flex items-center gap-1.5 sm:hidden">
+          <button
+            onClick={() => navigate(-1)}
+            className="flex h-7 w-7 items-center justify-center rounded-lg border border-border bg-card/50 text-foreground hover:bg-accent transition-all shadow-sm flex-shrink-0"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+          <span className="flex-1 text-center text-xs font-semibold">
+            {MONTH_NAMES[month - 1]} {year}
+          </span>
+          <button
+            onClick={() => navigate(1)}
+            disabled={isCurrentMonth}
+            className="flex h-7 w-7 items-center justify-center rounded-lg border border-border bg-card/50 text-foreground hover:bg-accent transition-all shadow-sm disabled:pointer-events-none disabled:opacity-30 flex-shrink-0"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
         </div>
 
         {/* Calendar */}
