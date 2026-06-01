@@ -216,7 +216,7 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
                 }`}
             >
               {tab.icon}
-              {tab.label}
+              <span className="hidden sm:inline">{tab.label}</span>
             </button>
           ))}
         </div>
@@ -325,7 +325,7 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
                 }}
                 required
                 disabled={loading}
-                className="h-10 bg-black/20 border-white/10 rounded-xl focus-visible:ring-1 focus-visible:ring-primary/50 shadow-inner text-sm block w-full"
+                className="h-10 bg-black/20 border-white/10 rounded-xl focus-visible:ring-1 focus-visible:ring-primary/50 shadow-inner text-sm"
               />
             </div>
 
