@@ -1,11 +1,13 @@
-import { useEffect, useState, useCallback, useMemo } from 'react'
+import { useEffect, useState, useCallback, useMemo, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { getTransactions, type Transaction } from '@/lib/transactions'
 import AddTransactionModal from '@/components/AddTransactionModal'
-import { Wallet, ArrowUpRight, ArrowDownLeft, ArrowLeftRight } from 'lucide-react'
+import { Wallet, ArrowUpRight, ArrowDownLeft, ArrowLeftRight, Moon, Sun, Settings, LogOut } from 'lucide-react'
 import { CategoryIcon } from '@/lib/categoryIcons'
 import { formatRp, formatDate } from '@/lib/format'
 import { Skeleton } from '@/components/ui/skeleton'
 import { TYPE_META } from '@/lib/constants'
+import { supabase } from '@/lib/supabase'
 
 const AUTHOR_PHOTOS: Record<string, string> = {
   "Warren Buffett": "/authors/warren_buffett.png",
@@ -63,6 +65,10 @@ export default function DashboardPage() {
   const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null)
   const [transactions, setTransactions] = useState<Transaction[]>([])
   const [loadingTx, setLoadingTx] = useState(true)
+  const [userEmail, setUserEmail] = useState('')
+  const [showUserMenu, setShowUserMenu] = useState(false)
+  const [isDark, setIsDark] = useState(() => (localStorage.getItem('theme') ?? 'dark') === 'dark')
+  const menuRef = useRef<HTMLDivElement>(null)
 
   const fetchTransactions = useCallback(async () => {
     setLoadingTx(true)
@@ -71,6 +77,30 @@ export default function DashboardPage() {
   }, [])
 
   useEffect(() => { fetchTransactions() }, [fetchTransactions])
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      if (data.user) setUserEmail(data.user.email || '')
+    })
+  }, [])
+
+  useEffect(() => {
+    const root = document.documentElement
+    isDark ? root.classList.remove('light') : root.classList.add('light')
+    localStorage.setItem('theme', isDark ? 'dark' : 'light')
+  }, [isDark])
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setShowUserMenu(false)
+      }
+    }
+    if (showUserMenu) document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [showUserMenu])
+
+  const handleSignOut = () => supabase.auth.signOut()
 
   const handleEditTransaction = (tx: Transaction) => {
     setEditingTransaction(tx)
@@ -98,11 +128,54 @@ export default function DashboardPage() {
 
       <div className="p-2 sm:p-6 space-y-4 sm:space-y-6 animate-fade-in">
 
-        {/* Mobile branding */}
-        <div className="lg:hidden px-1 pt-1">
+        {/* Mobile branding + user avatar */}
+        <div className="lg:hidden px-1 pt-1 flex items-center justify-between">
           <span className="font-neuton text-lg font-bold tracking-wide text-foreground">
             Finance <span className="italic font-medium text-primary">Tracker</span>
           </span>
+
+          <div className="relative" ref={menuRef}>
+            <button
+              onClick={() => setShowUserMenu(v => !v)}
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/20 text-primary text-sm font-semibold uppercase"
+            >
+              {userEmail.charAt(0)}
+            </button>
+
+            {showUserMenu && (
+              <div className="absolute right-0 top-full mt-2 w-48 bg-card border border-border rounded-xl shadow-xl p-1 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="flex items-center justify-between px-3 py-2">
+                  <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+                    {isDark ? <Moon className="h-3.5 w-3.5" /> : <Sun className="h-3.5 w-3.5" />}
+                    {isDark ? 'Dark' : 'Light'}
+                  </div>
+                  <button
+                    onClick={() => setIsDark(v => !v)}
+                    className={`relative inline-flex h-4 w-7 items-center rounded-full transition-colors duration-300 ${isDark ? 'bg-primary/80' : 'bg-amber-400'}`}
+                  >
+                    <span className={`inline-block h-3 w-3 transform rounded-full bg-white shadow-sm transition-transform duration-300 ${isDark ? 'translate-x-0.5' : 'translate-x-[14px]'}`} />
+                  </button>
+                </div>
+                <div className="h-px bg-border -mx-1 mb-0.5" />
+                <Link
+                  to="/settings"
+                  onClick={() => setShowUserMenu(false)}
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-foreground hover:bg-accent transition-colors"
+                >
+                  <Settings className="h-3.5 w-3.5" />
+                  Pengaturan
+                </Link>
+                <div className="h-px bg-border my-0.5 -mx-1" />
+                <button
+                  onClick={handleSignOut}
+                  className="flex w-full items-center gap-2 px-3 py-2 rounded-lg text-sm text-rose-500 hover:bg-rose-500/10 transition-colors"
+                >
+                  <LogOut className="h-3.5 w-3.5" />
+                  Log out
+                </button>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Quote Section */}
