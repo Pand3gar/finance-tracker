@@ -236,7 +236,7 @@ export default function TransactionsPage() {
         </div>
 
         {/* Month navigation — below summary */}
-        <div className="flex items-center gap-1.5">
+        <div className="animate-slide-up flex items-center gap-1.5">
           <button
             onClick={() => navigate(-1)}
             className="flex h-7 w-7 items-center justify-center rounded-lg border border-border bg-card/50 text-foreground hover:bg-accent transition-all shadow-sm flex-shrink-0"
