@@ -420,11 +420,11 @@ export default function ReportsPage() {
   return (
     <>
       {/* Header */}
-      <header className="sticky top-0 z-20 flex shrink-0 h-10 items-center justify-between border-b border-border bg-background/80 px-4 sm:px-6 backdrop-blur-md animate-fade-in">
+      <header className="sticky top-0 z-20 flex shrink-0 h-10 items-center justify-between border-b border-border bg-background/80 px-2 sm:px-6 backdrop-blur-md animate-fade-in">
         <h1 className="font-neuton text-sm font-bold tracking-wide text-foreground">Laporan</h1>
       </header>
 
-      <div className="p-4 sm:p-6 space-y-6 animate-fade-in">
+      <div className="p-2 sm:p-6 space-y-6 animate-fade-in">
         {/* Donut charts */}
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 stagger">
           <DonutSection

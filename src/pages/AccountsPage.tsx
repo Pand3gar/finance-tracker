@@ -41,11 +41,11 @@ export default function AccountsPage() {
 
   return (
     <>
-      <header className="sticky top-0 z-10 flex shrink-0 h-10 items-center border-b border-border bg-background/80 px-4 sm:px-6 backdrop-blur-md animate-fade-in">
+      <header className="sticky top-0 z-10 flex shrink-0 h-10 items-center border-b border-border bg-background/80 px-2 sm:px-6 backdrop-blur-md animate-fade-in">
         <h1 className="font-neuton text-sm font-bold tracking-wide text-foreground">Akun</h1>
       </header>
 
-      <div className="p-4 sm:p-6 space-y-4 sm:space-y-6 animate-fade-in">
+      <div className="p-2 sm:p-6 space-y-4 sm:space-y-6 animate-fade-in">
         {/* Total Balance Summary */}
         <div className="animate-slide-up py-2 sm:py-4 px-2">
           <p className="text-xs sm:text-sm font-medium text-muted-foreground mb-1">Total Saldo Semua Akun</p>

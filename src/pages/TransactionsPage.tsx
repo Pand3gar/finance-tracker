@@ -196,11 +196,11 @@ export default function TransactionsPage() {
   return (
     <>
       {/* Header */}
-      <header className="sticky top-0 z-30 flex shrink-0 h-10 items-center justify-between border-b border-border bg-background/80 px-4 sm:px-6 backdrop-blur-md animate-fade-in">
+      <header className="sticky top-0 z-30 flex shrink-0 h-10 items-center justify-between border-b border-border bg-background/80 px-2 sm:px-6 backdrop-blur-md animate-fade-in">
         <h1 className="font-neuton text-sm font-bold tracking-wide text-foreground">Transaksi</h1>
       </header>
 
-      <div className="p-4 sm:p-6 space-y-4 sm:space-y-6 animate-fade-in">
+      <div className="p-2 sm:p-6 space-y-4 sm:space-y-6 animate-fade-in">
         {/* Monthly Summary Bar */}
         <div className="flex flex-col gap-1.5 sm:grid sm:grid-cols-3 sm:gap-6 stagger">
           <div className="animate-slide-up flex items-baseline justify-between gap-3 sm:block sm:py-4 sm:px-2">
