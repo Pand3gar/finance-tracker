@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import {
   getAccounts,
   getCategories,
@@ -224,126 +223,108 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
         {/* Form */}
         <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:gap-5 overflow-y-auto px-4 sm:px-6 py-3 sm:py-5 custom-scrollbar min-h-0">
           {/* Amount */}
-          <div className="space-y-1.5">
-            <Label htmlFor="amount" className="text-[10px] sm:text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Jumlah (Rp)</Label>
-            <Input
-              id="amount"
-              type="number"
-              min="1"
-              step="1"
-              placeholder="0"
-              value={amount}
-              onChange={e => setAmount(e.target.value)}
-              required
-              disabled={loading}
-              className="text-xl sm:text-2xl font-bold h-11 sm:h-14 bg-black/20 border-white/10 rounded-xl focus-visible:ring-1 focus-visible:ring-primary/50 shadow-inner"
-            />
-          </div>
+          <Input
+            id="amount"
+            type="number"
+            min="1"
+            step="1"
+            placeholder="Jumlah (Rp)"
+            value={amount}
+            onChange={e => setAmount(e.target.value)}
+            required
+            disabled={loading}
+            className="text-xl sm:text-2xl font-bold h-11 sm:h-14 bg-black/20 border-white/10 rounded-xl focus-visible:ring-1 focus-visible:ring-primary/50 shadow-inner"
+          />
 
           <div className="grid grid-cols-2 gap-3 sm:gap-5">
             {/* Account (source) */}
-            <div className="space-y-1.5">
-              <Label htmlFor="account" className="text-[10px] sm:text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
-                {type === 'transfer' ? 'Dari Akun' : 'Akun'}
-              </Label>
-              {fetching ? (
-                <div className="h-10 animate-pulse rounded-xl bg-muted/50" />
-              ) : accounts.length === 0 ? (
-                <div className="rounded-xl border border-dashed border-border/50 bg-black/20 p-3 text-center">
-                  <p className="text-[10px] text-muted-foreground">Belum ada akun.</p>
-                </div>
-              ) : (
-                <select
-                  id="account"
-                  value={accountId}
-                  onChange={e => setAccountId(e.target.value)}
-                  required
-                  disabled={loading}
-                  className="h-10 w-full rounded-xl border border-white/10 bg-black/20 px-3 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 shadow-inner appearance-none custom-select-arrow transition-colors"
-                >
-                  <option value="" className="bg-background">-- Pilih --</option>
-                  {accounts.map(acc => (
-                    <option key={acc.id} value={acc.id} className="bg-background">{acc.name}</option>
-                  ))}
-                </select>
-              )}
-            </div>
+            {fetching ? (
+              <div className="h-10 animate-pulse rounded-xl bg-muted/50" />
+            ) : accounts.length === 0 ? (
+              <div className="rounded-xl border border-dashed border-border/50 bg-black/20 p-3 text-center">
+                <p className="text-[10px] text-muted-foreground">Belum ada akun.</p>
+              </div>
+            ) : (
+              <select
+                id="account"
+                value={accountId}
+                onChange={e => setAccountId(e.target.value)}
+                required
+                disabled={loading}
+                className="h-10 w-full rounded-xl border border-white/10 bg-black/20 px-3 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 shadow-inner appearance-none custom-select-arrow transition-colors"
+              >
+                <option value="" className="bg-background">{type === 'transfer' ? 'Dari Akun' : 'Akun'}</option>
+                {accounts.map(acc => (
+                  <option key={acc.id} value={acc.id} className="bg-background">{acc.name}</option>
+                ))}
+              </select>
+            )}
 
             {/* To Account (transfer) / Category */}
             {type === 'transfer' ? (
-              <div className="space-y-1.5">
-                <Label htmlFor="toAccount" className="text-[10px] sm:text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Ke Akun</Label>
-                <select
-                  id="toAccount"
-                  value={toAccountId}
-                  onChange={e => setToAccountId(e.target.value)}
-                  required
-                  disabled={loading}
-                  className="h-10 w-full rounded-xl border border-white/10 bg-black/20 px-3 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 shadow-inner appearance-none custom-select-arrow transition-colors"
-                >
-                  <option value="" className="bg-background">-- Pilih --</option>
-                  {accounts.filter(acc => acc.id !== accountId).map(acc => (
-                    <option key={acc.id} value={acc.id} className="bg-background">{acc.name}</option>
-                  ))}
-                </select>
-              </div>
+              <select
+                id="toAccount"
+                value={toAccountId}
+                onChange={e => setToAccountId(e.target.value)}
+                required
+                disabled={loading}
+                className="h-10 w-full rounded-xl border border-white/10 bg-black/20 px-3 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 shadow-inner appearance-none custom-select-arrow transition-colors"
+              >
+                <option value="" className="bg-background">Ke Akun</option>
+                {accounts.filter(acc => acc.id !== accountId).map(acc => (
+                  <option key={acc.id} value={acc.id} className="bg-background">{acc.name}</option>
+                ))}
+              </select>
+            ) : fetching ? (
+              <div className="h-10 animate-pulse rounded-xl bg-muted/50" />
             ) : (
-              <div className="space-y-1.5">
-                <Label htmlFor="category" className="text-[10px] sm:text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Kategori</Label>
-                {fetching ? (
-                  <div className="h-10 animate-pulse rounded-xl bg-muted/50" />
-                ) : (
-                  <select
-                    id="category"
-                    value={categoryId}
-                    onChange={e => setCategoryId(e.target.value)}
-                    required
-                    disabled={loading}
-                    className="h-10 w-full rounded-xl border border-white/10 bg-black/20 px-3 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 shadow-inner appearance-none custom-select-arrow transition-colors"
-                  >
-                    <option value="" className="bg-background">-- Pilih --</option>
-                    {categories.map(cat => (
-                      <option key={cat.id} value={cat.id} className="bg-background">{cat.name}</option>
-                    ))}
-                  </select>
-                )}
-              </div>
+              <select
+                id="category"
+                value={categoryId}
+                onChange={e => setCategoryId(e.target.value)}
+                required
+                disabled={loading}
+                className="h-10 w-full rounded-xl border border-white/10 bg-black/20 px-3 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 shadow-inner appearance-none custom-select-arrow transition-colors"
+              >
+                <option value="" className="bg-background">Kategori</option>
+                {categories.map(cat => (
+                  <option key={cat.id} value={cat.id} className="bg-background">{cat.name}</option>
+                ))}
+              </select>
             )}
           </div>
 
           <div className="grid grid-cols-2 gap-3 sm:gap-5">
             {/* Date */}
-            <div className="space-y-1.5">
-              <Label htmlFor="date" className="text-[10px] sm:text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Tanggal</Label>
-              <div className="relative h-10">
-                <div className="h-10 w-full rounded-xl border border-white/10 bg-black/20 px-3 text-sm text-foreground flex items-center shadow-inner select-none pointer-events-none">
-                  {date ? new Date(date + 'T00:00:00').toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) : 'Pilih tanggal'}
-                </div>
-                <input
-                  id="date"
-                  type="date"
-                  value={date}
-                  onChange={e => setDate(e.target.value)}
-                  required
-                  disabled={loading}
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
-                />
+            <div className="relative h-10">
+              <div className="h-10 w-full rounded-xl border border-white/10 bg-black/20 px-3 text-sm flex items-center gap-1.5 shadow-inner select-none pointer-events-none">
+                {date ? (
+                  <span className="text-foreground">{new Date(date + 'T00:00:00').toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                ) : (
+                  <span className="text-muted-foreground">Tanggal</span>
+                )}
               </div>
+              <input
+                id="date"
+                type="date"
+                value={date}
+                onChange={e => setDate(e.target.value)}
+                required
+                disabled={loading}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
+              />
             </div>
 
             {/* Note */}
-            <div className="space-y-1.5">
-              <Label htmlFor="note" className="text-[10px] sm:text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Catatan</Label>
-              <Input
-                id="note"
-                type="text"
-                placeholder="Opsional"
-                value={note}
-                onChange={e => setNote(e.target.value)}
-                disabled={loading}
-                className="h-10 bg-black/20 border-white/10 rounded-xl focus-visible:ring-1 focus-visible:ring-primary/50 shadow-inner text-sm"
-              />
-            </div>
+            <Input
+              id="note"
+              type="text"
+              placeholder="Catatan"
+              value={note}
+              onChange={e => setNote(e.target.value)}
+              disabled={loading}
+              className="h-10 bg-black/20 border-white/10 rounded-xl focus-visible:ring-1 focus-visible:ring-primary/50 shadow-inner text-sm"
+            />
           </div>
 
           {/* Error */}
