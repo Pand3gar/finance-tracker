@@ -188,14 +188,14 @@ export default function DashboardPage() {
           </p>
 
           {/* Bottom line with author and closing quotes */}
-          <div className="flex items-center gap-3 sm:gap-4 mt-5 sm:mt-8">
-            <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
-              <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full border border-primary/20 flex items-center justify-center shrink-0 overflow-hidden bg-primary/10">
+          <div className=”flex items-center gap-3 sm:gap-4 mt-5 sm:mt-8”>
+            <div className=”flex items-center gap-2.5 sm:gap-3 shrink-0”>
+              <div className=”h-10 w-10 sm:h-12 sm:w-12 rounded-full border border-primary/20 flex items-center justify-center shrink-0 overflow-hidden bg-primary/10”>
                 {AUTHOR_PHOTOS[randomQuote.author] ? (
                   <img
                     src={AUTHOR_PHOTOS[randomQuote.author]}
                     alt={randomQuote.author}
-                    className="h-full w-full object-cover object-top"
+                    className=”h-full w-full object-cover object-top”
                     onError={(e) => {
                       const target = e.currentTarget
                       target.style.display = 'none'
@@ -205,20 +205,20 @@ export default function DashboardPage() {
                   />
                 ) : null}
                 <span
-                  className="font-neuton font-bold text-lg sm:text-xl text-primary"
+                  className=”font-neuton font-bold text-lg sm:text-xl text-primary”
                   style={{ display: AUTHOR_PHOTOS[randomQuote.author] ? 'none' : 'flex' }}
                 >
                   {randomQuote.author.charAt(0)}
                 </span>
               </div>
-              <div className="flex flex-col justify-center">
-                <p className="font-neuton text-sm font-bold text-foreground">— {randomQuote.author}</p>
-                <p className="text-[10px] sm:text-[11px] text-muted-foreground font-medium uppercase tracking-wider">Financial Wisdom</p>
+              <div className=”flex flex-col justify-center min-w-0”>
+                <p className=”font-neuton text-sm font-bold text-foreground truncate”>— {randomQuote.author}</p>
+                <p className=”text-[10px] sm:text-[11px] text-muted-foreground font-medium uppercase tracking-wider”>Financial Wisdom</p>
               </div>
             </div>
-            <div className="border-t-[1px] border-primary flex-1 opacity-70" />
-            <span className="text-[44px] sm:text-[70px] font-black font-neuton text-primary leading-[0] translate-y-2 sm:translate-y-3 shrink-0">
-              ”
+            <div className=”hidden sm:block border-t-[1px] border-primary flex-1 opacity-70” />
+            <span className=”hidden sm:inline text-[70px] font-black font-neuton text-primary leading-[0] translate-y-3 shrink-0”>
+              “
             </span>
           </div>
         </div>
