@@ -41,7 +41,7 @@ export default function AccountsPage() {
 
   return (
     <>
-      <header className="sticky top-0 z-10 flex shrink-0 h-10 items-center border-b border-border bg-background/80 px-2 sm:px-6 backdrop-blur-md animate-fade-in">
+      <header className="sticky top-0 z-10 hidden lg:flex shrink-0 h-10 items-center border-b border-border bg-background/80 px-6 backdrop-blur-md animate-fade-in">
         <h1 className="font-neuton text-sm font-bold tracking-wide text-foreground hidden sm:block">Akun</h1>
       </header>
 

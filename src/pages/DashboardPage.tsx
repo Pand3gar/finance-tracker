@@ -88,7 +88,7 @@ export default function DashboardPage() {
   return (
     <>
       {/* Header */}
-      <header className="sticky top-0 z-10 flex shrink-0 h-10 items-center justify-between sm:border-b sm:border-border bg-background/80 px-2 sm:px-6 backdrop-blur-md animate-fade-in">
+      <header className="sticky top-0 z-10 hidden lg:flex shrink-0 h-10 items-center justify-between border-b border-border bg-background/80 px-6 backdrop-blur-md animate-fade-in">
         {/* Mobile: show branding; Desktop: show page title */}
         <span className="font-neuton text-sm font-bold tracking-wide text-foreground sm:hidden">
           Finance <span className="italic font-medium">Tracker</span>
