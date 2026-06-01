@@ -4,6 +4,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --font-poppins: 'Poppins', sans-serif;
+}
+
 /* Prevent iOS Safari from auto-inflating text on mobile */
 html {
   -webkit-text-size-adjust: 100%;

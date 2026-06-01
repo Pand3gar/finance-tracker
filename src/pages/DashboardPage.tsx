@@ -89,7 +89,7 @@ export default function DashboardPage() {
     <>
       {/* Header */}
       <header className="sticky top-0 z-10 flex shrink-0 h-14 sm:h-16 items-center justify-between border-b border-border bg-background/80 px-4 sm:px-6 backdrop-blur-md animate-fade-in">
-        <h1 className="font-playfair text-sm sm:text-[19px] font-bold tracking-wide text-foreground">Dashboard</h1>
+        <h1 className="font-poppins text-sm sm:text-[19px] font-bold tracking-wide text-foreground">Dashboard</h1>
       </header>
 
       <div className="p-4 sm:p-6 space-y-4 sm:space-y-6 animate-fade-in">
@@ -148,7 +148,7 @@ export default function DashboardPage() {
         {/* Recent Transactions */}
         <div className="animate-slide-up mt-2 sm:mt-4">
           <div className="flex flex-row items-center justify-between pb-2 sm:pb-4 px-2">
-            <h2 className="text-sm sm:text-base font-semibold">Transaksi Terbaru</h2>
+            <h2 className="font-poppins text-sm sm:text-base font-semibold">Transaksi Terbaru</h2>
           </div>
           <div className="px-2">
             {loadingTx ? (
@@ -194,7 +194,7 @@ export default function DashboardPage() {
 
                       {/* Details */}
                       <div className="flex-1 min-w-0">
-                        <p className="truncate text-sm font-medium text-foreground/90 group-hover:text-foreground transition-colors leading-tight">
+                        <p className="font-poppins truncate text-sm font-medium text-foreground/90 group-hover:text-foreground transition-colors leading-tight">
                           {tx.type === 'transfer'
                             ? `${tx.account?.name ?? '?'} → ${tx.to_account?.name ?? '?'}`
                             : tx.category?.name ?? meta.label}
@@ -213,7 +213,7 @@ export default function DashboardPage() {
                       </div>
 
                       {/* Amount */}
-                      <p className={`font-playfair flex-shrink-0 text-sm font-semibold ${meta.color}`}>
+                      <p className={`font-poppins flex-shrink-0 text-sm font-semibold ${meta.color}`}>
                         {isExpense ? '−' : tx.type === 'income' ? '+' : ''}{formatRp(tx.amount)}
                       </p>
                     </div>
