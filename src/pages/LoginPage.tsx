@@ -34,7 +34,7 @@ function DecorativeArcs() {
 /* ─── Left branding panel ─────────────────────────────────────── */
 function LeftPanel() {
   return (
-    <div className="relative hidden lg:flex lg:w-[60%] flex-col justify-between p-8 bg-primary text-primary-foreground overflow-hidden select-none">
+    <div className="relative hidden lg:flex lg:w-[60%] flex-col p-8 bg-primary text-primary-foreground overflow-hidden select-none">
       <DecorativeArcs />
 
       {/* App name branding */}
@@ -45,7 +45,7 @@ function LeftPanel() {
       </div>
 
       {/* Headline + tagline */}
-      <div className="relative z-10 space-y-5">
+      <div className="relative z-10 flex-1 flex flex-col justify-center space-y-5">
         <h1 className="text-5xl font-black font-neuton leading-[1.1] tracking-tight">
           Kelola<br />Keuangan<br />Kamu<br />dengan<br />Cerdas ✦
         </h1>
