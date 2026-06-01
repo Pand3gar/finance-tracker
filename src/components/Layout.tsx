@@ -134,13 +134,13 @@ export default function Layout() {
           )}
           <button
             onClick={() => setShowLogoutMenu(!showLogoutMenu)}
-            className={`w-full flex items-center gap-2 px-2 py-1.5 rounded-lg transition-colors text-left relative group ${showLogoutMenu ? 'bg-accent/50' : 'hover:bg-accent/30'}`}
+            className={`w-full flex items-center gap-2 px-2 py-1 rounded-lg transition-colors text-left relative group ${showLogoutMenu ? 'bg-accent/50' : 'hover:bg-accent/30'}`}
           >
             <div className="flex flex-col min-w-0 flex-1">
               <span className="text-xs font-medium text-foreground truncate">Logged in</span>
-              <span className="text-[10px] text-muted-foreground truncate">{userEmail}</span>
+              <span className="text-[9px] text-muted-foreground truncate">{userEmail}</span>
             </div>
-            <ChevronsUpDown className="h-3.5 w-3.5 text-muted-foreground ml-auto opacity-50 group-hover:opacity-100 transition-opacity flex-shrink-0" />
+            <ChevronsUpDown className="h-3 w-3 text-muted-foreground opacity-50 group-hover:opacity-100 transition-opacity flex-shrink-0" />
           </button>
         </div>
       </aside>
