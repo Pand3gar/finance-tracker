@@ -91,6 +91,7 @@ function CalendarGrid({ year, month, dayData, today, onDayClick, selectedDay }: 
           <button
             key={cell.iso + idx}
             onClick={() => cell.currentMonth && onDayClick(cell.iso)}
+            style={{ touchAction: 'pan-y' }}
             className={`
               relative min-h-[72px] sm:min-h-[85px] flex flex-col items-start gap-1 p-1.5 sm:p-2 text-left transition-all duration-200
               ${cell.currentMonth

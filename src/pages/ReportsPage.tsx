@@ -161,7 +161,7 @@ function DonutSection({ title, emoji, data, total, loading, accentColor, year, m
           </div>
         ) : (
           <>
-            <div className="relative h-60 sm:h-72 my-2">
+            <div className="relative h-60 sm:h-72 my-2" style={{ touchAction: 'pan-y' }}>
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie data={data} cx="50%" cy="50%" innerRadius="70%" outerRadius="95%"
@@ -283,7 +283,7 @@ function IncomeExpenseChart() {
             <p className="text-sm text-muted-foreground">Belum ada transaksi dalam periode ini</p>
           </div>
         ) : (
-          <div className="h-64">
+          <div className="h-64" style={{ touchAction: 'pan-y' }}>
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data} margin={{ top: 4, right: 4, left: 0, bottom: 0 }} barCategoryGap="30%">
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
