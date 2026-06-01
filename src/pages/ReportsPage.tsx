@@ -420,7 +420,7 @@ export default function ReportsPage() {
   return (
     <>
       {/* Header */}
-      <header className="sticky top-0 z-20 flex shrink-0 h-10 items-center justify-between border-b border-border bg-background/80 px-2 sm:px-6 backdrop-blur-md animate-fade-in">
+      <header className="flex shrink-0 items-center justify-between px-2 pt-2 sm:sticky sm:top-0 sm:z-20 sm:h-10 sm:border-b sm:border-border sm:bg-background/80 sm:px-6 sm:pt-0 sm:backdrop-blur-md animate-fade-in">
         <h1 className="font-neuton text-sm font-bold tracking-wide text-foreground">Laporan</h1>
       </header>
 
