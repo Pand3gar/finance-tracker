@@ -128,9 +128,7 @@ html {
   border-color: var(--border);
 }
 
-html, body {
-  /* App owns its own scroll container; stop the document from rubber-banding
-     / pull-to-refresh on mobile so scrolling feels app-like. */
+body {
   overscroll-behavior: none;
 }
 
