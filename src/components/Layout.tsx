@@ -88,7 +88,7 @@ export default function Layout() {
         {/* User Profile Section */}
         <div className="border-t border-sidebar-border p-2 relative">
           {showLogoutMenu && (
-            <div className="absolute bottom-full left-3 right-3 mb-2 animate-in fade-in slide-in-from-bottom-2 duration-200 z-50">
+            <div className="absolute bottom-full left-0 mb-2 animate-in fade-in slide-in-from-bottom-2 duration-200 z-50 w-48">
               <div className="bg-card border border-border rounded-xl shadow-lg p-1.5 flex flex-col">
                 {/* Theme toggle */}
                 <div className="flex items-center justify-between px-3 py-2.5 mb-0.5">
