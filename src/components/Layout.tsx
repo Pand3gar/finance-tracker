@@ -8,7 +8,6 @@ import { LayoutDashboard, History, Landmark, PieChart, Settings, LogOut, Plus, C
 export default function Layout() {
   const location = useLocation()
   const [modalOpen, setModalOpen] = useState(false)
-  const [userInitial, setUserInitial] = useState('U')
   const [userEmail, setUserEmail] = useState('User')
   const [showLogoutMenu, setShowLogoutMenu] = useState(false)
   const [isDark, setIsDark] = useState(() => {
@@ -29,9 +28,7 @@ export default function Layout() {
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
       if (data.user) {
-        const name = data.user.user_metadata?.full_name || data.user.email || 'User'
         setUserEmail(data.user.email || 'user@example.com')
-        setUserInitial(name.charAt(0).toUpperCase())
       }
     })
   }, [])
