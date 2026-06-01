@@ -66,14 +66,14 @@ export default function Layout() {
           <div className="absolute bottom-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
         </div>
 
-        <nav className="flex-1 space-y-1.5 px-3 py-6">
+        <nav className="flex-1 space-y-0.5 px-3 py-4">
           {navItems.map((item) => {
             const isActive = location.pathname.startsWith(item.path)
             return (
               <Link
                 key={item.label}
                 to={item.path}
-                className={`group relative flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-all duration-200 overflow-hidden ${
+                className={`group relative flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm transition-all duration-200 overflow-hidden ${
                   isActive
                     ? 'text-primary font-medium'
                     : 'text-sidebar-foreground/70 hover:bg-white/5 hover:backdrop-blur-sm hover:text-sidebar-foreground hover:translate-x-1'
