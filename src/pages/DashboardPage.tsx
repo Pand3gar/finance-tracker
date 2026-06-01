@@ -98,6 +98,13 @@ export default function DashboardPage() {
 
       <div className="p-2 sm:p-6 space-y-4 sm:space-y-6 animate-fade-in">
 
+        {/* Mobile branding */}
+        <div className="lg:hidden px-1 pt-1">
+          <span className="font-neuton text-lg font-bold tracking-wide text-foreground">
+            Finance <span className="italic font-medium text-primary">Tracker</span>
+          </span>
+        </div>
+
         {/* Quote Section */}
         <div className="animate-slide-up px-1 sm:px-2 pb-3 sm:pb-4 pt-2">
           {/* Top line with opening quotes */}
