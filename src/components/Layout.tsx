@@ -89,7 +89,7 @@ export default function Layout() {
         </nav>
 
         {/* User Profile Section */}
-        <div className="border-t border-sidebar-border p-3 relative">
+        <div className="border-t border-sidebar-border p-2 relative">
           {showLogoutMenu && (
             <div className="absolute bottom-full left-3 right-3 mb-2 animate-in fade-in slide-in-from-bottom-2 duration-200 z-50">
               <div className="bg-card border border-border rounded-xl shadow-lg p-1.5 flex flex-col">
@@ -134,16 +134,13 @@ export default function Layout() {
           )}
           <button
             onClick={() => setShowLogoutMenu(!showLogoutMenu)}
-            className={`w-full flex items-center gap-3 px-2 py-2 rounded-xl transition-colors text-left relative group ${showLogoutMenu ? 'bg-accent/50' : 'hover:bg-accent/30'}`}
+            className={`w-full flex items-center gap-2 px-2 py-1.5 rounded-lg transition-colors text-left relative group ${showLogoutMenu ? 'bg-accent/50' : 'hover:bg-accent/30'}`}
           >
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-muted text-sm font-bold text-foreground">
-              {userInitial}
-            </div>
             <div className="flex flex-col min-w-0 flex-1">
-              <span className="text-sm font-medium text-foreground truncate">Logged in</span>
+              <span className="text-xs font-medium text-foreground truncate">Logged in</span>
               <span className="text-[10px] text-muted-foreground truncate">{userEmail}</span>
             </div>
-            <ChevronsUpDown className="h-4 w-4 text-muted-foreground ml-auto opacity-50 group-hover:opacity-100 transition-opacity" />
+            <ChevronsUpDown className="h-3.5 w-3.5 text-muted-foreground ml-auto opacity-50 group-hover:opacity-100 transition-opacity flex-shrink-0" />
           </button>
         </div>
       </aside>
