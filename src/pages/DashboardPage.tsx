@@ -105,7 +105,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Quote Text */}
-          <p className="font-neuton font-medium text-foreground/90 leading-relaxed text-base sm:text-lg md:text-xl px-1">
+          <p className="font-neuton font-medium text-foreground/90 leading-relaxed text-sm px-1">
             {randomQuote.text}
           </p>
 
@@ -134,7 +134,7 @@ export default function DashboardPage() {
                 </span>
               </div>
               <div className="flex flex-col justify-center">
-                <p className="font-neuton text-sm sm:text-base font-bold text-foreground">— {randomQuote.author}</p>
+                <p className="font-neuton text-sm font-bold text-foreground">— {randomQuote.author}</p>
                 <p className="text-[10px] sm:text-[11px] text-muted-foreground font-medium uppercase tracking-wider">Financial Wisdom</p>
               </div>
             </div>
