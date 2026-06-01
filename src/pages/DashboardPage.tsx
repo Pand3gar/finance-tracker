@@ -88,17 +88,17 @@ export default function DashboardPage() {
   return (
     <>
       {/* Header */}
-      <header className="sticky top-0 z-10 flex shrink-0 h-14 sm:h-16 items-center justify-between border-b border-border bg-background/80 px-4 sm:px-6 backdrop-blur-md animate-fade-in">
+      <header className="sticky top-0 z-10 flex shrink-0 h-10 sm:h-11 items-center justify-between border-b border-border bg-background/80 px-4 sm:px-6 backdrop-blur-md animate-fade-in">
         <h1 className="font-neuton text-sm sm:text-[19px] font-bold tracking-wide text-foreground">Dashboard</h1>
       </header>
 
-      <div className="p-4 sm:p-6 space-y-3 sm:space-y-4 animate-fade-in">
+      <div className="p-4 sm:p-6 space-y-4 sm:space-y-6 animate-fade-in">
 
         {/* Quote Section */}
-        <div className="animate-slide-up px-1 sm:px-2 pb-2 sm:pb-3 pt-1">
+        <div className="animate-slide-up px-1 sm:px-2 pb-3 sm:pb-4 pt-2">
           {/* Top line with opening quotes */}
-          <div className="flex items-center gap-3 sm:gap-4 mb-2 sm:mb-3">
-            <span className="text-[44px] sm:text-[52px] font-black font-neuton text-primary leading-[0] translate-y-2 sm:translate-y-3">
+          <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+            <span className="text-[44px] sm:text-[70px] font-black font-neuton text-primary leading-[0] translate-y-2 sm:translate-y-3">
               “
             </span>
             <div className="border-t-[1px] border-primary flex-1 opacity-70" />
@@ -110,7 +110,7 @@ export default function DashboardPage() {
           </p>
 
           {/* Bottom line with author and closing quotes */}
-          <div className="flex items-center gap-3 sm:gap-4 mt-3 sm:mt-5">
+          <div className="flex items-center gap-3 sm:gap-4 mt-5 sm:mt-8">
             <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
               <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full border border-primary/20 flex items-center justify-center shrink-0 overflow-hidden bg-primary/10">
                 {AUTHOR_PHOTOS[randomQuote.author] ? (
@@ -139,7 +139,7 @@ export default function DashboardPage() {
               </div>
             </div>
             <div className="border-t-[1px] border-primary flex-1 opacity-70" />
-            <span className="text-[44px] sm:text-[52px] font-black font-neuton text-primary leading-[0] translate-y-2 sm:translate-y-3 shrink-0">
+            <span className="text-[44px] sm:text-[70px] font-black font-neuton text-primary leading-[0] translate-y-2 sm:translate-y-3 shrink-0">
               ”
             </span>
           </div>
