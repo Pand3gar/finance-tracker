@@ -145,7 +145,7 @@ export default function Layout() {
       </aside>
 
       {/* Main content area — document scrolls, sidebar offset on desktop */}
-      <div className="flex flex-1 flex-col lg:ml-36 pb-16 lg:pb-0 min-h-dvh">
+      <div className="flex flex-1 flex-col lg:ml-36 pb-16 lg:pb-0 min-h-[calc(100dvh+1px)] lg:min-h-dvh">
         <Outlet />
         
         {/* Floating Add Transaction Button (Desktop only here, Mobile has it in bottom nav) */}
