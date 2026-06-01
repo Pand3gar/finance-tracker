@@ -198,25 +198,6 @@ export default function TransactionsPage() {
       {/* Header */}
       <header className="sticky top-0 z-30 flex shrink-0 h-14 sm:h-16 items-center justify-between border-b border-border bg-background/80 px-4 sm:px-6 backdrop-blur-md animate-fade-in">
         <h1 className="font-neuton text-sm sm:text-[19px] font-bold tracking-wide text-foreground">Transaksi</h1>
-        {/* Month navigation — desktop only */}
-        <div className="hidden sm:flex items-center gap-1.5 sm:gap-3">
-          <button
-            onClick={() => navigate(-1)}
-            className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg border border-border bg-card/50 text-foreground hover:bg-accent hover:text-foreground transition-all hover:scale-105 active:scale-95 shadow-sm"
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </button>
-          <span className="min-w-24 sm:min-w-32 text-center text-xs sm:text-sm font-semibold transition-transform">
-            {MONTH_NAMES[month - 1]} {year}
-          </span>
-          <button
-            onClick={() => navigate(1)}
-            disabled={isCurrentMonth}
-            className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg border border-border bg-card/50 text-foreground hover:bg-accent hover:text-foreground transition-all hover:scale-105 active:scale-95 shadow-sm disabled:pointer-events-none disabled:opacity-30"
-          >
-            <ChevronRight className="h-4 w-4" />
-          </button>
-        </div>
       </header>
 
       <div className="p-4 sm:p-6 space-y-4 sm:space-y-6 animate-fade-in">
@@ -254,8 +235,8 @@ export default function TransactionsPage() {
           </div>
         </div>
 
-        {/* Month navigation — mobile only, below summary */}
-        <div className="flex items-center gap-1.5 sm:hidden">
+        {/* Month navigation — below summary */}
+        <div className="flex items-center gap-1.5">
           <button
             onClick={() => navigate(-1)}
             className="flex h-7 w-7 items-center justify-center rounded-lg border border-border bg-card/50 text-foreground hover:bg-accent transition-all shadow-sm flex-shrink-0"
