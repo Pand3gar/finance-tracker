@@ -1,6 +1,7 @@
-import { useEffect, useState, useCallback, useMemo, useRef } from 'react'
+import { useEffect, useState, useMemo, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { getTransactions, type Transaction } from '@/lib/transactions'
+import { useCachedData } from '@/lib/useCachedData'
 import AddTransactionModal from '@/components/AddTransactionModal'
 import { Wallet, ArrowUpRight, ArrowDownLeft, ArrowLeftRight, Moon, Sun, Settings, LogOut } from 'lucide-react'
 import { CategoryIcon } from '@/lib/categoryIcons'
@@ -63,20 +64,13 @@ const FINANCIAL_QUOTES = [
 export default function DashboardPage() {
   const [modalOpen, setModalOpen] = useState(false)
   const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null)
-  const [transactions, setTransactions] = useState<Transaction[]>([])
-  const [loadingTx, setLoadingTx] = useState(true)
   const [userEmail, setUserEmail] = useState('')
   const [showUserMenu, setShowUserMenu] = useState(false)
   const [isDark, setIsDark] = useState(() => (localStorage.getItem('theme') ?? 'dark') === 'dark')
   const menuRef = useRef<HTMLDivElement>(null)
 
-  const fetchTransactions = useCallback(async () => {
-    setLoadingTx(true)
-    try { setTransactions(await getTransactions(15)) } catch { /* noop */ }
-    finally { setLoadingTx(false) }
-  }, [])
-
-  useEffect(() => { fetchTransactions() }, [fetchTransactions])
+  const { data: transactions = [], loading: loadingTx, revalidate: fetchTransactions } =
+    useCachedData('transactions:15', () => getTransactions(15))
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {

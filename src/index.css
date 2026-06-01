@@ -128,17 +128,25 @@ html {
   border-color: var(--border);
 }
 
+html, body {
+  /* App owns its own scroll container; stop the document from rubber-banding
+     / pull-to-refresh on mobile so scrolling feels app-like. */
+  overscroll-behavior: none;
+}
+
 body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: 'Neuton', serif;
   -webkit-font-smoothing: antialiased;
+  /* Remove the grey flash when tapping buttons/links on mobile. */
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Native dialog styling */
 dialog {
   color: var(--foreground);
-  max-height: 90vh;
+  max-height: 90dvh;
   overflow: hidden;
 }
 

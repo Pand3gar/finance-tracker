@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import {
   PieChart, Pie, Cell, Tooltip, ResponsiveContainer,
   BarChart, Bar, XAxis, YAxis, CartesianGrid,
@@ -7,13 +7,13 @@ import {
   getCategoryBreakdown,
   getIncomeExpenseHistory,
   type CategoryBreakdownItem,
-  type BarChartDataPoint,
   type WealthRange,
 } from '@/lib/transactions'
 import { CategoryIcon } from '@/lib/categoryIcons'
 import { formatRp } from '@/lib/format'
 import { Skeleton } from '@/components/ui/skeleton'
 import { MONTH_NAMES } from '@/lib/constants'
+import { useCachedData } from '@/lib/useCachedData'
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -196,22 +196,9 @@ const RANGE_OPTIONS: { value: WealthRange; label: string }[] = [
 
 function IncomeExpenseChart() {
   const [range, setRange] = useState<WealthRange>('7D')
-  const [data, setData] = useState<BarChartDataPoint[]>([])
-  const [loading, setLoading] = useState(true)
 
-  const fetchData = useCallback(async () => {
-    setLoading(true)
-    try {
-      const pts = await getIncomeExpenseHistory(range)
-      setData(pts)
-    } catch {
-      // noop
-    } finally {
-      setLoading(false)
-    }
-  }, [range])
-
-  useEffect(() => { fetchData() }, [fetchData])
+  const { data = [], loading, revalidate: fetchData } =
+    useCachedData(`history:${range}`, () => getIncomeExpenseHistory(range))
 
   // Refresh when a transaction is added from anywhere in the app
   useEffect(() => {
@@ -375,37 +362,10 @@ export default function ReportsPage() {
   const [incomeYear, setIncomeYear] = useState(now.getFullYear())
   const [incomeMonth, setIncomeMonth] = useState(now.getMonth() + 1)
 
-  const [expenseData, setExpenseData] = useState<CategoryBreakdownItem[]>([])
-  const [incomeData, setIncomeData] = useState<CategoryBreakdownItem[]>([])
-  const [loadingExpense, setLoadingExpense] = useState(true)
-  const [loadingIncome, setLoadingIncome] = useState(true)
-
-  const fetchExpense = useCallback(async () => {
-    setLoadingExpense(true)
-    try {
-      const data = await getCategoryBreakdown('expense', expenseYear, expenseMonth)
-      setExpenseData(data)
-    } catch {
-      // noop
-    } finally {
-      setLoadingExpense(false)
-    }
-  }, [expenseYear, expenseMonth])
-
-  const fetchIncome = useCallback(async () => {
-    setLoadingIncome(true)
-    try {
-      const data = await getCategoryBreakdown('income', incomeYear, incomeMonth)
-      setIncomeData(data)
-    } catch {
-      // noop
-    } finally {
-      setLoadingIncome(false)
-    }
-  }, [incomeYear, incomeMonth])
-
-  useEffect(() => { fetchExpense() }, [fetchExpense])
-  useEffect(() => { fetchIncome() }, [fetchIncome])
+  const { data: expenseData = [], loading: loadingExpense, revalidate: fetchExpense } =
+    useCachedData(`breakdown:expense:${expenseYear}-${expenseMonth}`, () => getCategoryBreakdown('expense', expenseYear, expenseMonth))
+  const { data: incomeData = [], loading: loadingIncome, revalidate: fetchIncome } =
+    useCachedData(`breakdown:income:${incomeYear}-${incomeMonth}`, () => getCategoryBreakdown('income', incomeYear, incomeMonth))
 
   // Refresh when a transaction is added from anywhere in the app
   useEffect(() => {

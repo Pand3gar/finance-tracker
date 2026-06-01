@@ -1,13 +1,24 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, lazy, Suspense } from 'react'
 import type { Session } from '@supabase/supabase-js'
 import { supabase, isSupabaseConfigured } from '@/lib/supabase'
-import LoginPage from '@/pages/LoginPage'
-import DashboardPage from '@/pages/DashboardPage'
-import AccountsPage from '@/pages/AccountsPage'
-import ReportsPage from '@/pages/ReportsPage'
-import TransactionsPage from '@/pages/TransactionsPage'
 import Layout from '@/components/Layout'
+
+// Lazy-loaded routes — each page (and its deps, e.g. recharts on Reports)
+// ships as a separate chunk fetched on demand instead of in the initial bundle.
+const LoginPage = lazy(() => import('@/pages/LoginPage'))
+const DashboardPage = lazy(() => import('@/pages/DashboardPage'))
+const AccountsPage = lazy(() => import('@/pages/AccountsPage'))
+const ReportsPage = lazy(() => import('@/pages/ReportsPage'))
+const TransactionsPage = lazy(() => import('@/pages/TransactionsPage'))
+
+function PageFallback() {
+  return (
+    <div className="flex h-dvh items-center justify-center bg-background">
+      <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+    </div>
+  )
+}
 
 function App() {
   const [session, setSession] = useState<Session | null>(null)
@@ -45,7 +56,7 @@ function App() {
 
   if (loading) {
     return (
-      <div className="flex h-screen items-center justify-center bg-background">
+      <div className="flex h-dvh items-center justify-center bg-background">
         <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
       </div>
     )
@@ -60,23 +71,25 @@ function App() {
         </div>
       )}
       <BrowserRouter>
-        <Routes>
-          <Route
-            path="/login"
-            element={session ? <Navigate to="/dashboard" replace /> : <LoginPage />}
-          />
-          {session ? (
-            <Route element={<Layout />}>
-              <Route path="/dashboard" element={<DashboardPage />} />
-              <Route path="/transactions" element={<TransactionsPage />} />
-              <Route path="/accounts" element={<AccountsPage />} />
-              <Route path="/reports" element={<ReportsPage />} />
-              <Route path="*" element={<Navigate to="/dashboard" replace />} />
-            </Route>
-          ) : (
-            <Route path="*" element={<Navigate to="/login" replace />} />
-          )}
-        </Routes>
+        <Suspense fallback={<PageFallback />}>
+          <Routes>
+            <Route
+              path="/login"
+              element={session ? <Navigate to="/dashboard" replace /> : <LoginPage />}
+            />
+            {session ? (
+              <Route element={<Layout />}>
+                <Route path="/dashboard" element={<DashboardPage />} />
+                <Route path="/transactions" element={<TransactionsPage />} />
+                <Route path="/accounts" element={<AccountsPage />} />
+                <Route path="/reports" element={<ReportsPage />} />
+                <Route path="*" element={<Navigate to="/dashboard" replace />} />
+              </Route>
+            ) : (
+              <Route path="*" element={<Navigate to="/login" replace />} />
+            )}
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </>
   )

@@ -14,4 +14,17 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        // Split heavy/stable deps into their own chunks so browsers can
+        // cache them across deploys (they change far less often than app code).
+        manualChunks: {
+          react: ['react', 'react-dom', 'react-router-dom'],
+          supabase: ['@supabase/supabase-js'],
+          charts: ['recharts'],
+        },
+      },
+    },
+  },
 })
