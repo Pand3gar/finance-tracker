@@ -58,22 +58,22 @@ export default function Layout() {
 
 
       {/* Desktop Sidebar */}
-      <aside className="hidden w-56 flex-shrink-0 border-r border-border bg-sidebar-background/80 backdrop-blur-xl lg:flex lg:flex-col h-full overflow-y-auto relative z-20">
-        <div className="flex shrink-0 h-16 items-center px-6 relative">
-          <span className="font-neuton text-[19px] font-bold tracking-wide text-foreground">
+      <aside className="hidden w-44 flex-shrink-0 border-r border-border bg-sidebar-background/80 backdrop-blur-xl lg:flex lg:flex-col h-full overflow-y-auto relative z-20">
+        <div className="flex shrink-0 h-14 items-center px-4 relative">
+          <span className="font-neuton text-[17px] font-bold tracking-wide text-foreground">
             Finance <span className="text-primary italic font-medium">Tracker</span>
           </span>
-          <div className="absolute bottom-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+          <div className="absolute bottom-0 left-4 right-4 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
         </div>
 
-        <nav className="space-y-0.5 px-3 py-4">
+        <nav className="flex-1 space-y-0.5 px-2 py-4">
           {navItems.map((item) => {
             const isActive = location.pathname.startsWith(item.path)
             return (
               <Link
                 key={item.label}
                 to={item.path}
-                className={`group relative flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-all duration-200 overflow-hidden ${
+                className={`group relative flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-all duration-200 overflow-hidden ${
                   isActive
                     ? 'text-primary font-medium'
                     : 'text-sidebar-foreground/70 hover:bg-white/5 hover:backdrop-blur-sm hover:text-sidebar-foreground hover:translate-x-1'
@@ -89,9 +89,9 @@ export default function Layout() {
         </nav>
 
         {/* User Profile Section */}
-        <div className="border-t border-sidebar-border p-4 relative">
+        <div className="border-t border-sidebar-border p-3 relative">
           {showLogoutMenu && (
-            <div className="absolute bottom-full left-4 right-4 mb-2 animate-in fade-in slide-in-from-bottom-2 duration-200 z-50">
+            <div className="absolute bottom-full left-3 right-3 mb-2 animate-in fade-in slide-in-from-bottom-2 duration-200 z-50">
               <div className="bg-card border border-border rounded-xl shadow-lg p-1.5 flex flex-col">
                 {/* Theme toggle */}
                 <div className="flex items-center justify-between px-3 py-2.5 mb-0.5">
