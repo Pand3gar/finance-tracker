@@ -8,6 +8,7 @@ import AccountsPage from '@/pages/AccountsPage'
 import ReportsPage from '@/pages/ReportsPage'
 import TransactionsPage from '@/pages/TransactionsPage'
 import Layout from '@/components/Layout'
+import Toaster from '@/components/Toaster'
 
 function App() {
   const [session, setSession] = useState<Session | null>(null)
@@ -78,6 +79,7 @@ function App() {
           )}
         </Routes>
       </BrowserRouter>
+      <Toaster />
     </>
   )
 }

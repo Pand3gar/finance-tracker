@@ -174,8 +174,8 @@ function DonutSection({ title, emoji, data, total, loading, accentColor, year, m
                 </PieChart>
               </ResponsiveContainer>
               <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-                <p className="text-xs text-muted-foreground">{data.length} kategori</p>
-                <p className="font-neuton text-sm font-bold" style={{ color: accentColor }}>{formatRp(total)}</p>
+                <p className="text-[11px] uppercase tracking-wider text-muted-foreground">{data.length} kategori</p>
+                <p className="font-neuton text-lg sm:text-xl font-bold mt-0.5" style={{ color: accentColor }}>{formatRp(total)}</p>
               </div>
             </div>
             <CategoryLegend data={data} colors={colors} />
@@ -270,14 +270,14 @@ function IncomeExpenseChart() {
           </div>
 
           {/* Range filter pills */}
-          <div className="flex items-center gap-1 rounded-xl border border-border/40 bg-black/20 p-1 backdrop-blur-sm shadow-inner self-start sm:self-auto">
+          <div className="flex items-center gap-1 rounded-xl border border-border/40 bg-input p-1 backdrop-blur-sm shadow-inner self-start sm:self-auto">
             {RANGE_OPTIONS.map(opt => (
               <button
                 key={opt.value}
                 onClick={() => setRange(opt.value)}
                 className={`flex-1 sm:flex-none rounded-lg px-3 py-1.5 text-xs font-medium transition-all duration-300 ${range === opt.value
                   ? 'bg-primary text-primary-foreground shadow-md'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-accent/40'
                   }`}
               >
                 {opt.label}
@@ -299,17 +299,18 @@ function IncomeExpenseChart() {
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data} margin={{ top: 4, right: 4, left: 0, bottom: 0 }} barCategoryGap="30%">
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                {/* grid/tick colors come from .recharts-* rules in index.css so they follow the theme */}
+                <CartesianGrid strokeDasharray="3 3" vertical={false} />
                 <XAxis
                   dataKey="label"
-                  tick={{ fontSize: 11, fill: '#94a3b8' }}
+                  tick={{ fontSize: 11 }}
                   tickLine={false}
                   axisLine={false}
                   interval="preserveStartEnd"
                 />
                 <YAxis
                   tickFormatter={formatRpShort}
-                  tick={{ fontSize: 11, fill: '#94a3b8' }}
+                  tick={{ fontSize: 11 }}
                   tickLine={false}
                   axisLine={false}
                   width={72}

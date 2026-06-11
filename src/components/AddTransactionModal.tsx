@@ -13,6 +13,7 @@ import {
   type TransactionType,
 } from '@/lib/transactions'
 import { ArrowDownLeft, ArrowUpRight, ArrowLeftRight, Trash2 } from 'lucide-react'
+import { toast } from '@/components/Toaster'
 
 interface AddTransactionModalProps {
   open: boolean
@@ -134,6 +135,7 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
     setLoading(true)
     try {
       await deleteTransaction(initialData.id)
+      toast('Transaksi dihapus')
       onSuccess()
       onClose()
     } catch (err: unknown) {
@@ -167,8 +169,10 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
 
       if (isEdit && initialData) {
         await updateTransaction(initialData.id, payload)
+        toast('Perubahan tersimpan')
       } else {
         await addTransaction(payload)
+        toast('Transaksi tersimpan')
       }
       onSuccess()
       onClose()
@@ -190,7 +194,7 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
     >
       <div className="flex flex-col w-full min-h-0 bg-card">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-white/10 px-4 sm:px-6 py-3 sm:py-4 bg-white/5 flex-shrink-0">
+        <div className="flex items-center justify-between border-b border-border px-4 sm:px-6 py-3 sm:py-4 bg-accent/30 flex-shrink-0">
           <h2 className="text-sm sm:text-base font-semibold">{isEdit ? 'Edit Transaksi' : 'Tambah Transaksi'}</h2>
           <button
             type="button"
@@ -211,7 +215,7 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
               onClick={() => { setType(tab.value); setCategoryId('') }}
               className={`flex flex-1 items-center justify-center gap-1 sm:gap-1.5 rounded-xl border py-2 sm:py-2.5 text-[11px] sm:text-xs font-bold transition-all duration-300 ${type === tab.value
                   ? tab.color + ' shadow-sm ring-1 ring-inset ' + tab.color.split(' ')[1].replace('border-', 'ring-')
-                  : 'border-white/5 bg-black/20 text-muted-foreground hover:bg-white/5 hover:text-foreground'
+                  : 'border-border/50 bg-input text-muted-foreground hover:bg-accent/40 hover:text-foreground'
                 }`}
             >
               {tab.icon}
@@ -223,25 +227,30 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
         {/* Form */}
         <form onSubmit={handleSubmit} className="flex flex-col gap-3 overflow-y-auto px-4 py-3 custom-scrollbar min-h-0">
           {/* Amount */}
-          <Input
-            id="amount"
-            type="number"
-            min="1"
-            step="1"
-            placeholder="Jumlah (Rp)"
-            value={amount}
-            onChange={e => setAmount(e.target.value)}
-            required
-            disabled={loading}
-            className="text-lg font-bold h-10 bg-black/20 border-white/10 rounded-xl focus-visible:ring-1 focus-visible:ring-primary/50 shadow-inner"
-          />
+          <div className="relative">
+            <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm font-bold text-muted-foreground">
+              Rp
+            </span>
+            <Input
+              id="amount"
+              type="number"
+              min="1"
+              step="1"
+              placeholder="Jumlah"
+              value={amount}
+              onChange={e => setAmount(e.target.value)}
+              required
+              disabled={loading}
+              className="text-lg font-bold h-10 pl-9 bg-input border-border rounded-xl focus-visible:ring-1 focus-visible:ring-primary/50 shadow-inner"
+            />
+          </div>
 
           <div className="grid grid-cols-2 gap-3">
             {/* Account (source) */}
             {fetching ? (
               <div className="h-10 animate-pulse rounded-xl bg-muted/50" />
             ) : accounts.length === 0 ? (
-              <div className="rounded-xl border border-dashed border-border/50 bg-black/20 p-3 text-center">
+              <div className="rounded-xl border border-dashed border-border/50 bg-input p-3 text-center">
                 <p className="text-[10px] text-muted-foreground">Belum ada akun.</p>
               </div>
             ) : (
@@ -251,7 +260,7 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
                 onChange={e => setAccountId(e.target.value)}
                 required
                 disabled={loading}
-                className="h-10 w-full rounded-xl border border-white/10 bg-black/20 px-3 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 shadow-inner appearance-none custom-select-arrow transition-colors"
+                className="h-10 w-full rounded-xl border border-border bg-input px-3 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 shadow-inner appearance-none custom-select-arrow transition-colors"
               >
                 <option value="" className="bg-background">{type === 'transfer' ? 'Dari Akun' : 'Akun'}</option>
                 {accounts.map(acc => (
@@ -268,7 +277,7 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
                 onChange={e => setToAccountId(e.target.value)}
                 required
                 disabled={loading}
-                className="h-10 w-full rounded-xl border border-white/10 bg-black/20 px-3 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 shadow-inner appearance-none custom-select-arrow transition-colors"
+                className="h-10 w-full rounded-xl border border-border bg-input px-3 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 shadow-inner appearance-none custom-select-arrow transition-colors"
               >
                 <option value="" className="bg-background">Ke Akun</option>
                 {accounts.filter(acc => acc.id !== accountId).map(acc => (
@@ -284,7 +293,7 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
                 onChange={e => setCategoryId(e.target.value)}
                 required
                 disabled={loading}
-                className="h-10 w-full rounded-xl border border-white/10 bg-black/20 px-3 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 shadow-inner appearance-none custom-select-arrow transition-colors"
+                className="h-10 w-full rounded-xl border border-border bg-input px-3 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 shadow-inner appearance-none custom-select-arrow transition-colors"
               >
                 <option value="" className="bg-background">Kategori</option>
                 {categories.map(cat => (
@@ -297,7 +306,7 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
           <div className="grid grid-cols-2 gap-3">
             {/* Date */}
             <div className="relative h-10">
-              <div className="h-10 w-full rounded-xl border border-white/10 bg-black/20 px-3 text-sm flex items-center gap-1.5 shadow-inner select-none pointer-events-none">
+              <div className="h-10 w-full rounded-xl border border-border bg-input px-3 text-sm flex items-center gap-1.5 shadow-inner select-none pointer-events-none">
                 {date ? (
                   <span className="text-foreground">{new Date(date + 'T00:00:00').toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
                 ) : (
@@ -323,7 +332,7 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
               value={note}
               onChange={e => setNote(e.target.value)}
               disabled={loading}
-              className="h-10 bg-black/20 border-white/10 rounded-xl focus-visible:ring-1 focus-visible:ring-primary/50 shadow-inner text-sm"
+              className="h-10 bg-input border-border rounded-xl focus-visible:ring-1 focus-visible:ring-primary/50 shadow-inner text-sm"
             />
           </div>
 
@@ -337,7 +346,7 @@ export default function AddTransactionModal({ open, onClose, onSuccess, initialD
           {/* Actions */}
           <div className="flex flex-col gap-2">
             <div className="flex gap-2 sm:gap-3">
-              <Button type="button" variant="outline" onClick={onClose} disabled={loading} className="flex-none px-5 rounded-xl h-10 border-white/10 bg-white/5 hover:bg-white/10 text-foreground text-sm transition-colors">
+              <Button type="button" variant="outline" onClick={onClose} disabled={loading} className="flex-none px-5 rounded-xl h-10 border-border bg-accent/30 hover:bg-accent/60 text-foreground text-sm transition-colors">
                 Batal
               </Button>
               <Button

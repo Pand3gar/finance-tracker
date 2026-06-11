@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { addAccount, updateAccount, deleteAccount, type Account } from '@/lib/transactions'
 import { Trash2, Landmark, Wallet } from 'lucide-react'
+import { toast } from '@/components/Toaster'
 
 interface AddAccountModalProps {
   open: boolean
@@ -61,6 +62,7 @@ export default function AddAccountModal({ open, onClose, onSuccess, initialData 
     setLoading(true)
     try {
       await deleteAccount(initialData.id)
+      toast('Akun dihapus')
       onSuccess()
       onClose()
     } catch (err: unknown) {
@@ -80,8 +82,10 @@ export default function AddAccountModal({ open, onClose, onSuccess, initialData 
     try {
       if (isEdit && initialData) {
         await updateAccount(initialData.id, name.trim(), type)
+        toast('Perubahan tersimpan')
       } else {
         await addAccount(name.trim(), type)
+        toast('Akun ditambahkan')
       }
       onSuccess()
       onClose()
@@ -132,7 +136,7 @@ export default function AddAccountModal({ open, onClose, onSuccess, initialData 
               onChange={(e) => setName(e.target.value)}
               disabled={loading}
               required
-              className="h-10 sm:h-12 bg-black/20 border-border/50 focus:border-primary/50 transition-colors shadow-inner"
+              className="h-10 sm:h-12 bg-input border-border/50 focus:border-primary/50 transition-colors shadow-inner"
             />
           </div>
 
@@ -143,7 +147,7 @@ export default function AddAccountModal({ open, onClose, onSuccess, initialData 
               value={type}
               onChange={(e) => setType(e.target.value)}
               disabled={loading}
-              className="h-10 sm:h-12 w-full rounded-md border border-border/50 bg-black/20 px-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-colors shadow-inner"
+              className="h-10 sm:h-12 w-full rounded-md border border-border/50 bg-input px-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-colors shadow-inner appearance-none custom-select-arrow"
             >
               <option value="bank" className="bg-background">Bank</option>
               <option value="cash" className="bg-background">Kas</option>

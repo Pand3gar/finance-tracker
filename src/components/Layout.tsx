@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Outlet, Link, useLocation } from 'react-router-dom'
 import { supabase } from '@/lib/supabase'
 
@@ -10,6 +10,7 @@ export default function Layout() {
   const [modalOpen, setModalOpen] = useState(false)
   const [userEmail, setUserEmail] = useState('User')
   const [showLogoutMenu, setShowLogoutMenu] = useState(false)
+  const logoutMenuRef = useRef<HTMLDivElement>(null)
   const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem('theme')
     return saved ? saved === 'dark' : true
@@ -32,6 +33,25 @@ export default function Layout() {
       }
     })
   }, [])
+
+  // Close the user menu on outside click or Escape
+  useEffect(() => {
+    if (!showLogoutMenu) return
+    const onClick = (e: MouseEvent) => {
+      if (logoutMenuRef.current && !logoutMenuRef.current.contains(e.target as Node)) {
+        setShowLogoutMenu(false)
+      }
+    }
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setShowLogoutMenu(false)
+    }
+    document.addEventListener('mousedown', onClick)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('mousedown', onClick)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [showLogoutMenu])
 
   const handleSignOut = async () => {
     await supabase.auth.signOut()
@@ -70,12 +90,15 @@ export default function Layout() {
               <Link
                 key={item.label}
                 to={item.path}
-                className={`group relative flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-all duration-200 overflow-hidden ${
+                className={`group relative flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-all duration-200 ${
                   isActive
-                    ? 'text-primary font-medium'
-                    : 'text-sidebar-foreground/70 hover:bg-white/5 hover:backdrop-blur-sm hover:text-sidebar-foreground hover:translate-x-1'
+                    ? 'text-primary font-medium bg-accent/50'
+                    : 'text-sidebar-foreground/70 hover:bg-accent/30 hover:text-sidebar-foreground hover:translate-x-1'
                 }`}
               >
+                {isActive && (
+                  <span className="absolute left-0 top-1/2 -translate-y-1/2 h-4 w-0.5 rounded-full bg-primary" />
+                )}
                 <div className={`transition-opacity duration-200 ${isActive ? 'opacity-100' : 'opacity-60 group-hover:opacity-100'}`}>
                   {item.icon}
                 </div>
@@ -86,7 +109,7 @@ export default function Layout() {
         </nav>
 
         {/* User Profile Section */}
-        <div className="border-t border-sidebar-border p-2 relative">
+        <div className="border-t border-sidebar-border p-2 relative" ref={logoutMenuRef}>
           {showLogoutMenu && (
             <div className="absolute bottom-full left-3 right-3 mb-2 animate-in fade-in slide-in-from-bottom-2 duration-200 z-50">
               <div className="bg-card border border-border rounded-lg shadow-lg p-1 flex flex-col">
@@ -153,8 +176,9 @@ export default function Layout() {
         {showFab && (
           <button
             onClick={() => setModalOpen(true)}
-            className="hidden lg:flex fixed bottom-8 right-8 z-50 h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-all duration-300 hover:scale-110 hover:bg-primary/90 active:scale-95 group"
+            className="hidden lg:flex fixed bottom-8 right-8 z-50 h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg shadow-glow transition-all duration-300 hover:scale-110 hover:bg-primary/90 active:scale-95 group"
             title="Tambah Transaksi"
+            aria-label="Tambah Transaksi"
           >
             <Plus className="h-6 w-6 transition-transform duration-300 group-hover:rotate-90" />
           </button>
@@ -179,6 +203,7 @@ export default function Layout() {
           <button
             onClick={() => setModalOpen(true)}
             className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-all duration-300 hover:bg-primary/90 active:scale-95 group"
+            aria-label="Tambah Transaksi"
           >
             <Plus className="h-5 w-5 transition-transform duration-300 group-hover:rotate-90" />
           </button>

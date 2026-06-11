@@ -265,7 +265,7 @@ export default function TransactionsPage() {
               month={month}
               dayData={dayData}
               today={todayIso}
-              onDayClick={setSelectedDay}
+              onDayClick={(iso) => setSelectedDay(prev => (prev === iso ? null : iso))}
               selectedDay={selectedDay}
             />
           </div>

@@ -57,7 +57,7 @@ function LeftPanel() {
       {/* Copyright */}
       <div className="relative z-10">
         <p className="text-primary-foreground/30 text-xs font-sans">
-          © 2025 Finance Tracker. All rights reserved.
+          © {new Date().getFullYear()} Finance Tracker. All rights reserved.
         </p>
       </div>
     </div>

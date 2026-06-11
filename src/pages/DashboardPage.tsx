@@ -86,7 +86,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     const root = document.documentElement
-    isDark ? root.classList.remove('light') : root.classList.add('light')
+    root.classList.toggle('light', !isDark)
     localStorage.setItem('theme', isDark ? 'dark' : 'light')
   }, [isDark])
 
@@ -249,13 +249,17 @@ export default function DashboardPage() {
                 ))}
               </div>
             ) : transactions.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-12 text-center">
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary mb-4">
+              <button
+                type="button"
+                onClick={() => setModalOpen(true)}
+                className="group flex w-full flex-col items-center justify-center rounded-2xl border-2 border-dashed border-transparent py-12 text-center transition-colors hover:border-primary/20 hover:bg-accent/20"
+              >
+                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary mb-4 transition-transform group-hover:scale-105">
                   <Wallet className="h-8 w-8 opacity-80" />
                 </div>
                 <p className="text-sm font-medium text-foreground">Belum ada transaksi</p>
-                <p className="mt-1 text-xs text-muted-foreground">Klik tombol "+" untuk memulai pencatatan keuangan Anda</p>
-              </div>
+                <p className="mt-1 text-xs text-muted-foreground">Ketuk di sini untuk memulai pencatatan keuangan Anda</p>
+              </button>
             ) : (
               <div className="space-y-1 stagger">
                 {transactions.map((tx) => {
