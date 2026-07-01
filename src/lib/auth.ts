@@ -12,6 +12,7 @@ export async function registerUser(email: string, password: string, fullName: st
       data: {
         full_name: fullName,
       },
+      emailRedirectTo: `${window.location.origin}/`,
     },
   })
 
