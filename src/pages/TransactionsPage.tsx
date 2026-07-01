@@ -310,13 +310,13 @@ export default function TransactionsPage() {
                             : tx.category?.name ?? meta.label}
                         </p>
                         <div className="flex items-center gap-1.5 mt-0.5">
-                          <span className="text-[11px] text-muted-foreground">{tx.account?.name}</span>
-                          <span className="text-muted-foreground/40 text-[11px]">·</span>
-                          <span className="text-[11px] text-muted-foreground whitespace-nowrap">{formatDate(tx.date)}</span>
+                          <span className="text-[13px] text-muted-foreground">{tx.account?.name}</span>
+                          <span className="text-muted-foreground/40 text-[13px]">·</span>
+                          <span className="text-[13px] text-muted-foreground whitespace-nowrap">{formatDate(tx.date)}</span>
                           {tx.note && (
                             <>
-                              <span className="text-muted-foreground/40 text-[11px]">·</span>
-                              <span className="truncate text-[11px] text-muted-foreground italic">{tx.note}</span>
+                              <span className="text-muted-foreground/40 text-[13px]">·</span>
+                              <span className="truncate text-[13px] text-muted-foreground italic">{tx.note}</span>
                             </>
                           )}
                         </div>
